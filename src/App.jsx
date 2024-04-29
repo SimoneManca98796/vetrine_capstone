@@ -1,24 +1,26 @@
 import { useState } from "react";
-//import reactLogo from "./assets/react.svg";
-//import viteLogo from "/vite.svg";
 import "./App.css";
 import CustomNavbar from "./components/CustomNavbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CustomFooter from "./components/CustomFooter";
-//import NotFound from "./components/NotFound";
+import NotFound from "./components/NotFound";
+import HomePage from "./components/HomePage";
 
-function App() {
-  return (
-    <>
-      <BrowserRouter>
-        <div className="d-flex flex-column h-100">
-          <CustomNavbar />
-          <Routes>{/* <Route element={<NotFound />} path="*" /> */}</Routes>
+const App = () => (
+  <>
+    <BrowserRouter>
+      <div className="d-flex flex-column h-100">
+        <CustomNavbar />
+        <div className="flex-grow-1 d-flex align-items-center justify-content-center">
+          <Routes>
+            <Route element={<HomePage />} path="/" />
+            <Route element={<NotFound />} path="*" />
+          </Routes>
         </div>
         <CustomFooter />
-      </BrowserRouter>
-    </>
-  );
-}
+      </div>
+    </BrowserRouter>
+  </>
+);
 
 export default App;

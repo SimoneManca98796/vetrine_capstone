@@ -1,5 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import bidone from "/404 error.webp";
+import "../App.css";
 
 const NotFound = () => (
   <Container>

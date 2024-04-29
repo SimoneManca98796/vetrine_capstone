@@ -4,7 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 const CustomFooter = () => {
   return (
     <footer
-      className="text-light text-center py-4 foot fixed-bottom "
+      className="text-light text-center py-4 mt-4 foot"
       style={{ backgroundColor: "#0085B5" }}
     >
       <Container>

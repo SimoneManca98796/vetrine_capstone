@@ -19,7 +19,9 @@ const CustomNavbar = () => {
     <Navbar
       expand="lg"
       className="shadow-sm fixed-top"
-      style={{ backgroundColor: "#0085B5" }}
+      style={{
+        backgroundColor: "#0085B5",
+      }}
     >
       <Container>
         <Navbar.Brand href="/">
