@@ -19,9 +19,7 @@ const CustomNavbar = () => {
     <Navbar
       expand="lg"
       className="shadow-sm fixed-top"
-      style={{
-        backgroundColor: "#0085B5",
-      }}
+      style={{ backgroundColor: "#0085B5" }}
     >
       <Container>
         <Navbar.Brand href="/">
@@ -30,34 +28,36 @@ const CustomNavbar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+            {" "}
+            {/*  d-flex justify-content-between w-50 PER STACCARE UN PO LE ICONE */}
             <Nav.Item>
-              <Link to="/" className="nav-link text-white">
+              <Link to="/" className="nav-link text-white text-center">
                 <HouseDoorFill size={20} />
                 <div>Home</div>
               </Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#bacheca" className="text-white">
+              <Nav.Link href="#bacheca" className="text-white text-center">
                 <GraphUpArrow size={20} />
                 <div>Bacheca</div>
               </Nav.Link>
             </Nav.Item>
             <Link to="/prodotti" className="text-decoration-none">
               <Nav.Item>
-                <Nav.Link href="#prodotti" className="text-white">
+                <Nav.Link href="#prodotti" className="text-white text-center">
                   <Cash size={20} />
                   <div>Prodotti</div>
                 </Nav.Link>
               </Nav.Item>
             </Link>
             <Nav.Item>
-              <Nav.Link href="#notifiche" className="text-white">
+              <Nav.Link href="#notifiche" className="text-white text-center">
                 <BellFill size={20} />
                 <div>Notifiche</div>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#aziende" className="text-white">
+              <Nav.Link href="#aziende" className="text-white text-center">
                 <Grid3x3GapFill size={20} />
                 <div>Aziende</div>
               </Nav.Link>
