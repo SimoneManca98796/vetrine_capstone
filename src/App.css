@@ -5,6 +5,9 @@ html, body {
 
 body {
   padding-top: 550px;
+  background-image: url("/1.jpg");
+  background-size: cover; 
+  background-repeat: no-repeat; 
 }
 
 #root {
@@ -23,5 +26,16 @@ footer {
   .row {
     justify-content: center; 
   }
+}
+/* ////////////////// */ 
+/* CAROUSEL IMG */
+.carousel img {
+  object-fit: cover; /* Mantiene proporzioni coerenti, ritagliando l'immagine */
+  width: 100%; /* Si adatta alla larghezza del contenitore */
+  height: 300px; /* Imposta un'altezza fissa per impedire variazioni */
+}
+
+.carousel-item {
+  transition: transform 0.6s ease-in-out; /* Modifica la durata e la velocità della transizione */
 }
 /* ////////////////// */ 
