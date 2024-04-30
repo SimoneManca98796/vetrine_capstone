@@ -25,7 +25,7 @@ const CustomFooter = () => {
               <li>Licenze</li>
             </ul>
           </Col>
-          <Col>
+          <Col className="d-flex justify-content-center">
             <ul className="list-unstyled">
               <li>Media Social</li>
               <li>Relazioni</li>
@@ -42,12 +42,44 @@ const CustomFooter = () => {
           </Col>
           <Col>
             <ul className="list-unstyled">
-              <li>Contattaci</li>
-            </ul>
-          </Col>
-          <Col>
-            <ul className="list-unstyled">
-              <li>Contattaci</li>
+              <li>Contattaci:</li>
+              <li>
+                <img
+                  src="/logo facebook.png"
+                  alt="Facebook"
+                  className="social-icon me-3"
+                  width="24"
+                  height="24"
+                />
+                <img
+                  src="/logo insta.png"
+                  alt="Instangram"
+                  className="social-icon me-3"
+                  width="24"
+                  height="24"
+                />
+                <img
+                  src="/logo X.png"
+                  alt="X"
+                  className="social-icon"
+                  width="24"
+                  height="24"
+                />
+                <img
+                  src="/logo whats.png"
+                  alt="Whatsapp"
+                  className="social-icon me-3"
+                  width="24"
+                  height="24"
+                />
+                <img
+                  src="/logo linkedin.png"
+                  alt="Linkedin"
+                  className="social-icon me-3"
+                  width="24"
+                  height="24"
+                />
+              </li>
             </ul>
           </Col>
         </Row>
