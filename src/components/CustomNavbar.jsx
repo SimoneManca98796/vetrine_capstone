@@ -18,7 +18,7 @@ const CustomNavbar = () => {
   return (
     <Navbar
       expand="lg"
-      className="shadow-sm fixed-top"
+      className="shadow-sm fixed-top pb-0"
       style={{ backgroundColor: "#0085B5" }}
     >
       <Container>
@@ -37,7 +37,7 @@ const CustomNavbar = () => {
               </Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#bacheca" className="text-white text-center">
+              <Nav.Link href="/mercati" className="text-white text-center">
                 <GraphUpArrow size={20} />
                 <div>Bacheca</div>
               </Nav.Link>

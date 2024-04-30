@@ -10,21 +10,20 @@ import {
 import { format } from "date-fns";
 import itLocale from "date-fns/locale/it";
 
-const PrezziLatte = () => {
+const PrezziBovini = () => {
   const [loading, setLoading] = useState(true);
   const [prezzi, setPrezzi] = useState({});
   const [language, setLanguage] = useState("Italia");
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  // Funzione simulata per caricare i dati delle API
   const caricaDati = () => {
     setTimeout(() => {
       setPrezzi({
-        pecorino: "14 €/kg",
-        latte: "1,40 €/L",
+        vitello: "15 €/kg",
+        mucca: "12 €/kg",
       });
       setLoading(false);
-    }, 2000); // Simuliamo un ritardo di 2 secondi
+    }, 2000); // Ritardo di 2 secondi
   };
 
   useEffect(() => {
@@ -34,18 +33,16 @@ const PrezziLatte = () => {
       setCurrentDate(new Date());
     }, 1000); // Aggiorna la data ogni secondo
 
-    return () => clearInterval(dateInterval); // Pulisce l'intervallo al termine
+    return () => clearInterval(dateInterval);
   }, []);
 
-  const handleLanguageChange = (lang) => {
-    setLanguage(lang);
-  };
+  const handleLanguageChange = (lang) => setLanguage(lang);
 
   return (
     <Container>
-      <Row className="mb-4 mt-5">
+      <Row className="mb-4">
         <Col>
-          <h2>PREZZI DEL LATTE</h2>
+          <h2>PREZZI DEI SUINI</h2>
         </Col>
         <Col className="d-flex justify-content-end align-items-center">
           <span className="me-3">
@@ -75,8 +72,8 @@ const PrezziLatte = () => {
             </div>
           ) : (
             <ListGroup className="gap-2">
-              <ListGroup.Item>Pecorino: {prezzi.pecorino}</ListGroup.Item>
-              <ListGroup.Item>Latte: {prezzi.latte}</ListGroup.Item>
+              <ListGroup.Item>Vitello: {prezzi.vitello}</ListGroup.Item>
+              <ListGroup.Item>Mucca: {prezzi.mucca}</ListGroup.Item>
             </ListGroup>
           )}
         </Col>
@@ -85,4 +82,4 @@ const PrezziLatte = () => {
   );
 };
 
-export default PrezziLatte;
+export default PrezziBovini;

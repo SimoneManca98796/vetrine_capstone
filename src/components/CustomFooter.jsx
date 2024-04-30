@@ -19,31 +19,35 @@ const CustomFooter = () => {
         <Row>
           <Col>
             <ul className="list-unstyled">
-              <li>Audio and Subtitles</li>
-              <li>Audio Description</li>
-              <li>Help Center</li>
-              <li>Gift Cards</li>
+              <li>Carousel Home</li>
+              <li>Descrizione Pagina</li>
+              <li>Info</li>
+              <li>Licenze</li>
             </ul>
           </Col>
           <Col>
             <ul className="list-unstyled">
-              <li>Media Center</li>
-              <li>Investor Relations</li>
-              <li>Jobs</li>
-              <li>Terms of Use</li>
+              <li>Media Social</li>
+              <li>Relazioni</li>
+              <li>Terze Parti</li>
+              <li>Termini</li>
             </ul>
           </Col>
           <Col>
             <ul className="list-unstyled">
               <li>Privacy</li>
-              <li>Legal Notices</li>
+              <li>Legalità Pagina</li>
               <li>Cookie Preferences</li>
-              <li>Corporate Information</li>
             </ul>
           </Col>
           <Col>
             <ul className="list-unstyled">
-              <li>Contact Us</li>
+              <li>Contattaci</li>
+            </ul>
+          </Col>
+          <Col>
+            <ul className="list-unstyled">
+              <li>Contattaci</li>
             </ul>
           </Col>
         </Row>
@@ -51,7 +55,7 @@ const CustomFooter = () => {
         <Row>
           <Col>
             <p className="mb-2">Servizi agricoli</p>
-            <p>&copy; 2024 Vetrine Agricole</p>
+            <p>&copy; 2024 Simone Manca | Vetrine Agricole</p>
           </Col>
         </Row>
       </Container>
