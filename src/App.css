@@ -1,11 +1,12 @@
 html, body {
   height: 100%;
   margin: 0;
+  background-image: url("/1.jpg");
 }
 
 body {
-  padding-top: 550px;
-  background-image: url("/1.jpg");
+  padding-top: 350px;
+  
   background-size: cover; 
   background-repeat: no-repeat; 
 }
@@ -26,16 +27,5 @@ footer {
   .row {
     justify-content: center; 
   }
-}
-/* ////////////////// */ 
-/* CAROUSEL IMG */
-.carousel img {
-  object-fit: cover; /* Mantiene proporzioni coerenti, ritagliando l'immagine */
-  width: 100%; /* Si adatta alla larghezza del contenitore */
-  height: 300px; /* Imposta un'altezza fissa per impedire variazioni */
-}
-
-.carousel-item {
-  transition: transform 0.6s ease-in-out; /* Modifica la durata e la velocità della transizione */
 }
 /* ////////////////// */ 

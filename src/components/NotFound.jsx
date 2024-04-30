@@ -6,7 +6,12 @@ const NotFound = () => (
   <Container>
     <Row>
       <Col xs={12} md={6}>
-        <img className="w-100" src={bidone} alt="not-found" />
+        <img
+          className="w-100"
+          src={bidone}
+          alt="not-found"
+          style={{ marginTop: "300px" }}
+        />
         <h2 className="mt-2 text-center">404 - Qualcosa è andato storto</h2>
       </Col>
     </Row>
