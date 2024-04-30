@@ -16,8 +16,8 @@ const PrezziLatte = () => {
   const caricaDati = () => {
     setTimeout(() => {
       setPrezzi({
-        pecorino: "10 €/kg",
-        latte: "1 €/L",
+        pecorino: "14 €/kg",
+        latte: "1,40 €/L",
       });
       setLoading(false);
     }, 2000); // Simuliamo un ritardo di 2 secondi
@@ -35,10 +35,9 @@ const PrezziLatte = () => {
           <Dropdown>
             <Dropdown.Toggle variant="primary">Italiano</Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item>Italiano</Dropdown.Item>
-              <Dropdown.Item>Français</Dropdown.Item>
-              <Dropdown.Item>Español</Dropdown.Item>
-              {/* Aggiungi altre lingue se necessario */}
+              <Dropdown.Item>Italia</Dropdown.Item>
+              <Dropdown.Item>Francia</Dropdown.Item>
+              <Dropdown.Item>Spagna</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>

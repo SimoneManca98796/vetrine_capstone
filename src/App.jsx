@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CustomFooter from "./components/CustomFooter";
 import NotFound from "./components/NotFound";
 import HomePage from "./components/HomePage";
+import Bacheca from "./components/Bacheca";
 
 const App = () => (
   <>
@@ -14,6 +15,7 @@ const App = () => (
         <div className="flex-grow-1 d-flex align-items-center justify-content-center">
           <Routes>
             <Route element={<HomePage />} path="/" />
+            <Route element={<Bacheca />} path="/mercati" />
             <Route element={<NotFound />} path="*" />
           </Routes>
         </div>

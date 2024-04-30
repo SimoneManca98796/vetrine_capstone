@@ -1,4 +1,4 @@
-import PrezziLatte from "./ComponentBacheca/PrezziLatte";
+import PrezziLatte from "./ComponentsBacheca/PrezziLatte";
 
 const Bacheca = () => {
   return (
