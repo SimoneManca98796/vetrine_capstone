@@ -118,3 +118,48 @@ export default CustomNavbar;
 //////////////////////////////
 //////////////////////////////
 //////////////////////////////
+/*import React, { useState, useEffect } from "react";
+import axios from "axios";
+//import PrezziBovini from './ComponentsBacheca/PrezziBovini';
+import PrezziLatte from "./ComponentsBacheca/PrezziLatte";
+import PrezziOvini from "./ComponentsBacheca/PrezziOvini";
+import PrezziSuini from "./ComponentsBacheca/PrezziSuini";
+
+const Bacheca = () => {
+  const [ipiData, setIpiData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://sdmx.istat.it/SDMXWS/rest/data/IT1,115_333,1.2?startPeriod=2018&endPeriod=2018&format=jsondata"
+        );
+        setIpiData(response.data);
+      } catch (error) {
+        console.error("Error fetching IPI data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div className="mt-5">
+      <h2>Indice della Produzione Industriale</h2>
+      <ul>
+        {ipiData.map((item, index) => (
+          <li key={index}>
+            {/* Renderizza qui i dati dell'Indice della Produzione Industriale */}
+            {JSON.stringify(item)}
+          </li>
+        ))}
+      </ul>
+      <PrezziLatte />
+      <PrezziOvini />
+      <PrezziSuini />
+      {/*  <PrezziBovini /> */}
+    </div>
+  );
+};
+
+export default Bacheca;*/
