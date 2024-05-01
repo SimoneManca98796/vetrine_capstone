@@ -6,6 +6,7 @@ import CustomFooter from "./components/CustomFooter";
 import NotFound from "./components/NotFound";
 import HomePage from "./components/HomePage";
 import Bacheca from "./components/Bacheca";
+import PrezziLatte from "./components/ComponentsBacheca/PrezziLatte";
 
 const App = () => (
   <>
@@ -16,6 +17,7 @@ const App = () => (
           <Routes>
             <Route element={<HomePage />} path="/" />
             <Route element={<Bacheca />} path="/mercati" />
+            <Route element={<PrezziLatte />} path="/PrezziLatte" />
             <Route element={<NotFound />} path="*" />
           </Routes>
         </div>

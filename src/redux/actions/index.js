@@ -1,6 +1,7 @@
 // KEY USDA : OmfmTW7muPfBACbK4U5PeMVFViEblYHua4g6a6Li
 export const ADD_PRICE = "ADD_PRICE";
 export const FETCH_PRICES_SUCCESS = "FETCH_PRICES_SUCCESS";
+export const FILTER_PRICES = "FILTER_PRICES";
 
 // Aggiunge un nuovo prezzo
 export const addPrice = (priceData) => ({
@@ -41,3 +42,9 @@ export const fetchPrices = () => {
     });
   };
 };
+
+// Azione per filtrare i prezzi
+export const filterPrices = (criteria) => ({
+  type: FILTER_PRICES,
+  payload: criteria,
+});

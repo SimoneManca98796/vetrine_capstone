@@ -1,60 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Dropdown, Spinner, Table } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPrices, filterPrices } from "../../redux/actions/index";
+import {
+  Container,
+  Row,
+  Col,
+  Dropdown,
+  Table,
+  Spinner,
+  Form,
+} from "react-bootstrap";
 import { format } from "date-fns";
 import itLocale from "date-fns/locale/it";
 
 const PrezziLatte = () => {
+  const dispatch = useDispatch();
+  const { filteredList, prezzilist } = useSelector(
+    (state) => state.prezziLatte
+  );
   const [loading, setLoading] = useState(true);
-  const [prezzi, setPrezzi] = useState([]);
-  const [language, setLanguage] = useState("Sardegna");
-  const [currentDate, setCurrentDate] = useState(new Date());
-
-  const caricaDati = () => {
-    setTimeout(() => {
-      setPrezzi([
-        {
-          prodotto: "Pecorino",
-          prezzo: "14 €/kg",
-          varPerc: "0%",
-          data: "01/05/24",
-          luogo: "Siena",
-        },
-        {
-          prodotto: "Latte",
-          prezzo: "1,40 €/L",
-          varPerc: "0%",
-          data: "01/05/24",
-          luogo: "Siena",
-        },
-        {
-          prodotto: "Caciotta",
-          prezzo: "10 €/kg",
-          varPerc: "0%",
-          data: "26/04/24",
-          luogo: "Firenze",
-        },
-      ]);
-      setLoading(false);
-    }, 2000);
-  };
 
   useEffect(() => {
-    caricaDati();
+    dispatch(fetchPrices());
+    setTimeout(() => setLoading(false), 2000);
+  }, [dispatch]);
 
-    const dateInterval = setInterval(() => {
-      setCurrentDate(new Date());
-    }, 1000);
-
-    return () => clearInterval(dateInterval);
-  }, []);
-
-  const handleLanguageChange = (lang) => {
-    setLanguage(lang);
+  const handleFilterChange = (criteria) => {
+    dispatch(filterPrices(criteria));
   };
 
   return (
     <Container>
-      <Row className="mb-4 mt-5">
+      <Row className="mb-4 mt-0">
         <Col xs={12} sm={6}>
           <h2>PREZZI DEL LATTE</h2>
         </Col>
@@ -63,26 +40,16 @@ const PrezziLatte = () => {
           sm={6}
           className="d-flex justify-content-end align-items-center"
         >
-          <span className="me-3">
-            {format(currentDate, "dd/MM/yyyy HH:mm", { locale: itLocale })}
-          </span>
-          <Dropdown>
-            <Dropdown.Toggle variant="primary">{language}</Dropdown.Toggle>
+          <Dropdown onSelect={(value) => handleFilterChange({ luogo: value })}>
+            <Dropdown.Toggle variant="primary">
+              Filtro per Luogo
+            </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => handleLanguageChange("Sardegna")}>
-                Sardegna
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => handleLanguageChange("Italia")}>
-                Italia
-              </Dropdown.Item>
-              <Dropdown.Item
-                onClick={() => handleLanguageChange("Stati Uniti")}
-              >
-                Stati Uniti
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => handleLanguageChange("Francia")}>
-                Francia
-              </Dropdown.Item>
+              {prezzilist.map((item, idx) => (
+                <Dropdown.Item key={idx} eventKey={item.luogo}>
+                  {item.luogo}
+                </Dropdown.Item>
+              ))}
             </Dropdown.Menu>
           </Dropdown>
         </Col>
@@ -106,8 +73,8 @@ const PrezziLatte = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {prezzi.map((item, index) => (
-                    <tr key={index}>
+                  {filteredList.map((item, idx) => (
+                    <tr key={idx}>
                       <td>{item.data}</td>
                       <td>{item.luogo}</td>
                       <td>{item.prodotto}</td>
