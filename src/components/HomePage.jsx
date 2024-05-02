@@ -72,6 +72,62 @@ const HomePage = () => {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
+      {/* Distanza per i due caroselli */}
+      <div style={{ marginBottom: "120px" }}></div>
+      {/* Distanza per i due caroselli */}
+      {/* INIZIO NUOVO CAROUSEL: */}
+      <h4 className="text-center mb-4" style={{ color: "#0085B5" }}>
+        METTI IN VENDITA E/O COMPRA I PRODOTTI DELLA TUA TERRA:
+      </h4>
+      <Carousel>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="/caserecci.png"
+            alt="Vendita di prodotti caserecci"
+            width="300px"
+            height="300px"
+          />
+          <Carousel.Caption>
+            <h3 style={{ color: "#0085B5" }}>Vendita di prodotti caserecci</h3>
+            <p style={{ color: "#0085B5" }}>
+              Trova e vendi prodotti fatti in casa direttamente dalla tua terra
+            </p>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="/piantine.png"
+            alt="Vendita di piantine"
+            width="300px"
+            height="300px"
+          />
+          <Carousel.Caption>
+            <h3 style={{ color: "#0085B5" }}>Vendita di piantine</h3>
+            <p style={{ color: "#0085B5" }}>
+              Scopri una vasta selezione di piantine per il tuo giardino o orto
+            </p>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="/venditeAnimali.png"
+            alt="Vendita di animali"
+            width="300px"
+            height="300px"
+          />
+          <Carousel.Caption>
+            <h3 style={{ color: "#0085B5" }}>Vendita di animali</h3>
+            <p style={{ color: "#0085B5" }}>
+              Trova il tuo nuovo compagno nella nostra selezione di animali
+            </p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
     </div>
   );
 };
