@@ -51,7 +51,10 @@ const CustomNavbar = () => {
               </Nav.Item>
             </Link>
             <Nav.Item>
-              <Nav.Link href="#notifiche" className="text-white text-center">
+              <Nav.Link
+                href="/FormIscrizione"
+                className="text-white text-center"
+              >
                 <BellFill size={20} />
                 <div>Notifiche</div>
               </Nav.Link>

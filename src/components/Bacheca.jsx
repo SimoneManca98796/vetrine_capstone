@@ -6,8 +6,8 @@ const Bacheca = () => {
   return (
     <div className="mt-0">
       {/* Sezione introduttiva */}
-      {/*  <div
-        className="intro-section"
+      <div
+        className="intro-section px-1"
         style={{
           display: "flex",
           flexDirection: "row",
@@ -26,12 +26,12 @@ const Bacheca = () => {
         </div>
         <div style={{ flex: 1 }}>
           <img
-            src="/immagineBachecaCentrale.png"
+            src="/pastoreBacheca.webp"
             alt="Bacheca Introduzione"
-            style={{ width: "100%", height: "auto", borderRadius: "10px" }}
+            style={{ width: "200px", height: "auto", borderRadius: "10px" }}
           />
         </div>
-      </div> */}
+      </div>
       <div
         className="table-container"
         style={{
@@ -40,7 +40,12 @@ const Bacheca = () => {
           borderRadius: "10px",
         }}
       >
-        <table style={{ width: "100%", borderSpacing: "0 20px" }}>
+        <table
+          style={{
+            width: "100%",
+            borderSpacing: "0 20px",
+          }}
+        >
           <tbody>
             <tr>
               <td style={{ textAlign: "center" }}>

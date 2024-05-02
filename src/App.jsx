@@ -7,6 +7,7 @@ import NotFound from "./components/NotFound";
 import HomePage from "./components/HomePage";
 import Bacheca from "./components/Bacheca";
 import PrezziLatte from "./components/ComponentsBacheca/PrezziLatte";
+import FormIscrizione from "./components/FormIscrizione";
 
 const App = () => (
   <>
@@ -18,6 +19,7 @@ const App = () => (
             <Route element={<HomePage />} path="/" />
             <Route element={<Bacheca />} path="/mercati" />
             <Route element={<PrezziLatte />} path="/PrezziLatte" />
+            <Route element={<FormIscrizione />} path="/FormIscrizione" />
             <Route element={<NotFound />} path="*" />
           </Routes>
         </div>

@@ -11,16 +11,23 @@ const HomePage = () => {
       </h4>
       <Carousel>
         <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="/latte.png"
-            alt="Prezzi del Latte"
-            width="300px"
-            height="300px"
-          />
+          <div className="d-flex justify-content-center align-items-center w-100 h-100">
+            <img
+              className="d-block w-100"
+              src="/latte.png"
+              alt="Prezzi del Latte"
+              width="300px"
+              height="300px"
+              style={{
+                opacity: 0.8,
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                border: "2px solid #fff",
+              }}
+            />{" "}
+          </div>
           <Carousel.Caption>
-            <h3 style={{ color: "#0085B5" }}>Prezzi del Latte</h3>
-            <p style={{ color: "#0085B5" }}>
+            <h3 style={{ color: "black" }}>Prezzi del Latte</h3>
+            <p style={{ color: "black" }}>
               Informazioni aggiornate sui prezzi del latte
             </p>
           </Carousel.Caption>
@@ -33,10 +40,15 @@ const HomePage = () => {
             alt="Ovini"
             width="300px"
             height="300px"
+            style={{
+              opacity: 0.8,
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              border: "2px solid #fff",
+            }}
           />
           <Carousel.Caption>
-            <h3 style={{ color: "#0085B5" }}>Ovini</h3>
-            <p style={{ color: "#0085B5" }}>
+            <h3 style={{ color: "black" }}>Ovini</h3>
+            <p style={{ color: "black" }}>
               Novità e tendenze riguardanti allevamento degli ovini
             </p>
           </Carousel.Caption>
@@ -49,10 +61,15 @@ const HomePage = () => {
             alt="Suini"
             width="300px"
             height="300px"
+            style={{
+              opacity: 0.8,
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              border: "2px solid #fff",
+            }}
           />
           <Carousel.Caption>
-            <h3 style={{ color: "#0085B5" }}>Suini</h3>
-            <p style={{ color: "#0085B5" }}>Ultime notizie dal mercato suino</p>
+            <h3 style={{ color: "black" }}>Suini</h3>
+            <p style={{ color: "black" }}>Ultime notizie dal mercato suino</p>
           </Carousel.Caption>
         </Carousel.Item>
 
@@ -63,10 +80,15 @@ const HomePage = () => {
             alt="Bovini"
             width="300px"
             height="300px"
+            style={{
+              opacity: 0.8,
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              border: "2px solid #fff",
+            }}
           />
           <Carousel.Caption>
-            <h3 style={{ color: "#0085B5" }}>Bovini</h3>
-            <p style={{ color: "#0085B5" }}>
+            <h3 style={{ color: "black" }}>Bovini</h3>
+            <p style={{ color: "black" }}>
               Aggiornamenti e prezzi del settore bovino
             </p>
           </Carousel.Caption>
