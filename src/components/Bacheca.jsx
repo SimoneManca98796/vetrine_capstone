@@ -5,6 +5,33 @@ import "../App.css";
 const Bacheca = () => {
   return (
     <div className="mt-0">
+      {/* Sezione introduttiva */}
+      {/*  <div
+        className="intro-section"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: "20px",
+          width: "100%",
+        }}
+      >
+        <div style={{ flex: 1 }}>
+          <h3>Bacheca dei Prezzi</h3>
+          <p>
+            Questa bacheca fornisce dettagli sui prezzi del mercato del latte,
+            degli ovini, dei suini e dei bovini, con un confronto tra i prezzi
+            in Italia e negli Stati Uniti.
+          </p>
+        </div>
+        <div style={{ flex: 1 }}>
+          <img
+            src="/immagineBachecaCentrale.png"
+            alt="Bacheca Introduzione"
+            style={{ width: "100%", height: "auto", borderRadius: "10px" }}
+          />
+        </div>
+      </div> */}
       <div
         className="table-container"
         style={{
@@ -17,7 +44,7 @@ const Bacheca = () => {
           <tbody>
             <tr>
               <td style={{ textAlign: "center" }}>
-                <h4>Prezzi Latte</h4>
+                <h4 className="titoloAccentrato">Prezzi Latte</h4>
                 <Link to="/PrezziLatte">
                   <button
                     className="btn btn-primary rounded-circle"
@@ -47,7 +74,7 @@ const Bacheca = () => {
 
             <tr>
               <td style={{ textAlign: "center" }}>
-                <h4>Prezzi Ovini</h4>
+                <h4 className="titoloAccentrato">Prezzi Ovini</h4>
                 <Link to="/PrezziOvini">
                   <button
                     className="btn btn-primary rounded-circle"
@@ -77,7 +104,7 @@ const Bacheca = () => {
 
             <tr>
               <td style={{ textAlign: "center" }}>
-                <h4>Prezzi Suini</h4>
+                <h4 className="titoloAccentrato">Prezzi Suini</h4>
                 <Link to="/PrezziSuini">
                   <button
                     className="btn btn-primary rounded-circle"
@@ -107,7 +134,7 @@ const Bacheca = () => {
 
             <tr>
               <td style={{ textAlign: "center" }}>
-                <h4>Prezzi Bovini</h4>
+                <h4 className="titoloAccentrato">Prezzi Bovini</h4>
                 <Link to="/PrezziBovini">
                   <button
                     className="btn btn-primary rounded-circle"
