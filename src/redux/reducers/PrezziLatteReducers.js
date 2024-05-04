@@ -1,4 +1,10 @@
-import { ADD_PRICE, FETCH_PRICES_SUCCESS, FILTER_PRICES } from "../actions";
+// Importa i tipi di azioni dal file di azioni
+import {
+  ADD_PRICE,
+  FETCH_PRICES_SUCCESS,
+  FETCH_FILTERED_PRICES_SUCCESS, // Assicurati che questo sia importato correttamente
+  FILTER_PRICES,
+} from "../actions";
 
 const initialState = {
   prezzilist: [],
@@ -10,8 +16,17 @@ const PrezziLatteReducer = (state = initialState, action) => {
     case FETCH_PRICES_SUCCESS:
       return {
         ...state,
-        prezzilist: action.payload,
-        filteredList: action.payload,
+        prezzilist: Array.isArray(action.payload) ? action.payload : [],
+        // Non aggiornare filteredList qui, a meno che non sia intenzionale farlo ogni volta
+      };
+    case FETCH_FILTERED_PRICES_SUCCESS:
+      // Accedi specificamente al campo content del payload se esiste
+      console.log("Updating filteredList with:", action.payload.content);
+      return {
+        ...state,
+        filteredList: Array.isArray(action.payload.content)
+          ? action.payload.content
+          : [],
       };
     case ADD_PRICE:
       return {

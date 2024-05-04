@@ -2,6 +2,7 @@
 export const ADD_PRICE = "ADD_PRICE";
 export const FETCH_PRICES_SUCCESS = "FETCH_PRICES_SUCCESS";
 export const FILTER_PRICES = "FILTER_PRICES";
+export const FETCH_FILTERED_PRICES_SUCCESS = "FETCH_FILTERED_PRICES_SUCCESS"; // STORICO
 
 // Aggiunge un nuovo prezzo
 export const addPrice = (priceData) => ({
@@ -43,8 +44,37 @@ export const fetchPrices = () => {
   };
 };
 
-// Azione per filtrare i prezzi
+// Fetches filtered prices based on criteria
+export const fetchFilteredPrices = (filterCriteria) => {
+  console.log("Sending request with:", filterCriteria);
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/prezzi?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("Filtered data received:", data);
+      dispatch({
+        type: FETCH_FILTERED_PRICES_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Failed to fetch prices:", error);
+    }
+  };
+};
+
+// Filters prices (this might now be redundant if fetching from server)
 export const filterPrices = (criteria) => ({
   type: FILTER_PRICES,
   payload: criteria,
 });
+/*
+// Azione per filtrare i prezzi
+export const filterPrices = (criteria) => ({
+  type: FILTER_PRICES,
+  payload: criteria,
+});*/

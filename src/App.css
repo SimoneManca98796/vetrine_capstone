@@ -29,6 +29,17 @@ footer {
   }
 }
 /* ////////////////// */ 
+@media (min-width: 768px) {
+  .carousel-container {
+      width: 678.3px; /* Larghezza fissa per desktop */
+      height: 300px;   /* Altezza fissa per desktop */
+      margin: 0 auto;  /* Centra il contenitore */
+  }
+
+  .carousel-item img {
+      object-fit: cover; /* Mantiene le proporzioni delle immagini */
+  }
+}
 
 /* ////////////////// */ 
 /* ////////////////// */

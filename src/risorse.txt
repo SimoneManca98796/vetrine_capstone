@@ -296,3 +296,20 @@ const PrezziLatte = () => {
 
 export default PrezziLatte;
 /////////////////////////////////////
+package simonemanca.vetrineCapstone.repositories;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import simonemanca.vetrineCapstone.entities.PrezzoStorico;
+
+import java.util.Date;
+
+public interface PrezzoStoricoRepository extends JpaRepository<PrezzoStorico, Long> {
+    Page<PrezzoStorico> findByData(Date data, Pageable pageable);
+
+    @Query("SELECT p FROM PrezzoStorico p WHERE (:data IS NULL OR p.data = :data) AND (:luogo IS NULL OR p.luogo = :luogo)")
+    Page<PrezzoStorico> findByDataAndLuogo(@Param("data") Date data, @Param("luogo") String luogo, Pageable pageable);
+}
