@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "../App.css";
 
-const FormIscrizione = () => {
-  const [formData, setFormData] = useState({
-    nome: "",
-    cognome: "",
+const FormLogin = () => {
+  const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
+    setLoginData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -20,7 +18,7 @@ const FormIscrizione = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    console.log(loginData);
   };
 
   return (
@@ -30,59 +28,55 @@ const FormIscrizione = () => {
           <div
             className="form-container"
             style={{
-              border: "2px solid #0056b3",
+              backgroundColor: "#B9D4F0", // Colore chiaro blu per lo sfondo del form
+              border: "3px solid #0056b3", // Bordo blu
+              borderRadius: "20px",
               padding: "20px",
+              maxWidth: "450px",
+              margin: "auto",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <h2>Registrazione</h2>
+            <h2>Accedi</h2>
             <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formNome">
-                <Form.Label>Nome</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Inserisci il tuo nome..."
-                  name="nome"
-                  value={formData.nome}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-              <Form.Group controlId="formCognome">
-                <Form.Label>Cognome</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Inserisci il tuo cognome..."
-                  name="cognome"
-                  value={formData.cognome}
-                  onChange={handleChange}
-                />
-              </Form.Group>
               <Form.Group controlId="formEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Inserisci la tua email..."
                   name="email"
-                  value={formData.email}
+                  value={loginData.email}
                   onChange={handleChange}
                 />
               </Form.Group>
+
               <Form.Group controlId="formPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Inserisci la tua password...."
+                  placeholder="Inserisci la tua password..."
                   name="password"
-                  value={formData.password}
+                  value={loginData.password}
                   onChange={handleChange}
                 />
               </Form.Group>
-              <div className="mb-4"></div> {/* Aggiunge spazio extra */}
+
+              <div style={{ marginTop: "15px" }}></div>
+
               <Button
                 variant="primary"
                 type="submit"
-                style={{ backgroundColor: "#0056b3", borderColor: "#0056b3" }}
+                style={{
+                  backgroundColor: "#0056b3",
+                  borderColor: "#0056b3",
+                  padding: "8px 16px",
+                  borderRadius: "10px",
+                  display: "block", // Mostra il pulsante come blocco
+                  width: "auto",
+                  margin: "0 auto",
+                }}
               >
-                Iscriviti
+                Accedi
               </Button>
             </Form>
           </div>
@@ -92,4 +86,4 @@ const FormIscrizione = () => {
   );
 };
 
-export default FormIscrizione;
+export default FormLogin;

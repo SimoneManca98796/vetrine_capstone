@@ -68,7 +68,8 @@ footer {
 /* ////////////////// */
 /* CSS PER FORM DI CONTATTO */
 .form-container {
-  background: linear-gradient(45deg, #e6f5d0, #b4e0a8); /* Gradiente ispirato al tema agricolo */
+ 
+  background: #B9D4F0;
   border: 3px solid #4caf50; /* Bordo verde */
   border-radius: 20px; /* Angoli curvi */
   padding: 20px; /* Spazio interno */
@@ -98,5 +99,9 @@ footer {
 }
 /**/
 /**(
+
+/* ////////////////// */
+/* ////////////////// */ 
+/* ////////////////// */
 /* ////////////////// */ 
 /* ////////////////// */

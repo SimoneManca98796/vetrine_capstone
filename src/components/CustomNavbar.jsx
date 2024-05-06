@@ -44,7 +44,7 @@ const CustomNavbar = () => {
             </Nav.Item>
             <Link to="/prodotti" className="text-decoration-none">
               <Nav.Item>
-                <Nav.Link href="#prodotti" className="text-white text-center">
+                <Nav.Link href="/prodotti" className="text-white text-center">
                   <Cash size={20} />
                   <div>Prodotti</div>
                 </Nav.Link>
@@ -60,7 +60,7 @@ const CustomNavbar = () => {
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#aziende" className="text-white text-center">
+              <Nav.Link href="/FormLogin" className="text-white text-center">
                 <Grid3x3GapFill size={20} />
                 <div>Aziende</div>
               </Nav.Link>
