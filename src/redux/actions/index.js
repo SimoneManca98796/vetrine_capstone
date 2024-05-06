@@ -72,9 +72,8 @@ export const filterPrices = (criteria) => ({
   type: FILTER_PRICES,
   payload: criteria,
 });
-/*
-// Azione per filtrare i prezzi
-export const filterPrices = (criteria) => ({
-  type: FILTER_PRICES,
-  payload: criteria,
-});*/
+
+// AZIONE NAVBAR PER LOGGARE E USCIRE
+//In questo modo preparo l'app per interagire
+// facilmente un backend per la gestione degli utenti, utilizzando
+// Redux per gestire lo stato dell'interfaccia utente in modo reattivo

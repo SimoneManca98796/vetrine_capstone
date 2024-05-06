@@ -42,7 +42,7 @@ const CustomFooter = () => {
           </Col>
           <Col>
             <ul className="list-unstyled">
-              <li>Contattaci:</li>
+              <li>Contattami:</li>
               <li>
                 <img
                   src="/logo facebook.png"
@@ -58,16 +58,10 @@ const CustomFooter = () => {
                   width="24"
                   height="24"
                 />
+
                 <img
-                  src="/logo X.png"
-                  alt="X"
-                  className="social-icon"
-                  width="24"
-                  height="24"
-                />
-                <img
-                  src="/logo whats.png"
-                  alt="Whatsapp"
+                  src="/logo github.png"
+                  alt="GitHub"
                   className="social-icon me-3"
                   width="24"
                   height="24"

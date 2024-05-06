@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container, Navbar, Nav, Dropdown } from "react-bootstrap";
+import { useSelector } from "react-redux"; // Importa useSelector per accedere allo stato Redux
+import { Container, Navbar, Nav, Dropdown, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {
   HouseDoorFill,
@@ -14,6 +15,7 @@ import logo from "/Vetrine.png";
 
 const CustomNavbar = () => {
   const [mostraDropdown, setMostraDropdown] = useState(false);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Prende lo stato di autenticazione
 
   return (
     <Navbar
@@ -28,8 +30,6 @@ const CustomNavbar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {" "}
-            {/*  d-flex justify-content-between w-50 PER STACCARE UN PO LE ICONE */}
             <Nav.Item>
               <Link to="/" className="nav-link text-white text-center">
                 <HouseDoorFill size={20} />
@@ -51,43 +51,51 @@ const CustomNavbar = () => {
               </Nav.Item>
             </Link>
             <Nav.Item>
-              <Nav.Link
-                href="/FormIscrizione"
-                className="text-white text-center"
-              >
+              <Nav.Link href="/notifiche" className="text-white text-center">
                 <BellFill size={20} />
                 <div>Notifiche</div>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/FormLogin" className="text-white text-center">
+              <Nav.Link href="/aziende" className="text-white text-center">
                 <Grid3x3GapFill size={20} />
                 <div>Aziende</div>
               </Nav.Link>
             </Nav.Item>
           </Nav>
           <Nav className="justify-content-end">
-            <Dropdown align="end">
-              <Dropdown.Toggle
-                variant="transparent"
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                }}
-                onClick={() => setMostraDropdown(!mostraDropdown)}
-              >
-                <PersonCircle size={24} />
-              </Dropdown.Toggle>
-              <Dropdown.Menu show={mostraDropdown}>
-                <Dropdown.Item href="/profile">Profilo</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item href="#settings">
-                  Impostazioni e privacy
-                </Dropdown.Item>
-                <Dropdown.Item href="#help">Guida</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            {!isAuthenticated ? (
+              <>
+                <Nav.Link href="/FormLogin" className="text-white">
+                  Accedi
+                </Nav.Link>
+                <Nav.Link href="/FormIscrizione" className="text-white">
+                  Registrati
+                </Nav.Link>
+              </>
+            ) : (
+              <Dropdown align="end">
+                <Dropdown.Toggle
+                  variant="transparent"
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setMostraDropdown(!mostraDropdown)}
+                >
+                  <PersonCircle size={24} className="text-white" />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/profile">Profilo</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item href="#settings">
+                    Impostazioni e privacy
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#help">Guida</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
