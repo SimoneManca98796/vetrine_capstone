@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux"; // Importa useSelector per accedere allo stato Redux
-import { Container, Navbar, Nav, Dropdown, NavDropdown } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { Container, Navbar, Nav, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {
   HouseDoorFill,
@@ -12,10 +12,27 @@ import {
 } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "/Vetrine.png";
+import { loginUser, logoutUser } from "../redux/actions/index";
+import { useNavigate } from "react-router-dom";
 
 const CustomNavbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [mostraDropdown, setMostraDropdown] = useState(false);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Prende lo stato di autenticazione
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  // Handler per il login (esempio con dati statici, sostituire con dati reali)
+  const handleLogin = () => {
+    //const credentials = { username: "user@example.com", password: "password" };
+    //dispatch(loginUser(credentials));
+    navigate("/FormLogin");
+  };
+
+  // Handler per il logout
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/");
+  };
 
   return (
     <Navbar
@@ -66,7 +83,7 @@ const CustomNavbar = () => {
           <Nav className="justify-content-end">
             {!isAuthenticated ? (
               <>
-                <Nav.Link href="/FormLogin" className="text-white">
+                <Nav.Link onClick={handleLogin} className="text-white">
                   Accedi
                 </Nav.Link>
                 <Nav.Link href="/FormIscrizione" className="text-white">
@@ -89,6 +106,7 @@ const CustomNavbar = () => {
                 <Dropdown.Menu>
                   <Dropdown.Item href="/profile">Profilo</Dropdown.Item>
                   <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                   <Dropdown.Item href="#settings">
                     Impostazioni e privacy
                   </Dropdown.Item>

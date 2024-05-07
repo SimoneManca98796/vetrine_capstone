@@ -3,6 +3,13 @@ export const ADD_PRICE = "ADD_PRICE";
 export const FETCH_PRICES_SUCCESS = "FETCH_PRICES_SUCCESS";
 export const FILTER_PRICES = "FILTER_PRICES";
 export const FETCH_FILTERED_PRICES_SUCCESS = "FETCH_FILTERED_PRICES_SUCCESS"; // STORICO
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS"; // LOGIN :)
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const LOGOUT = "LOGOUT"; // LOGOUT :(
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
+
+import axios from "axios";
 
 // Aggiunge un nuovo prezzo
 export const addPrice = (priceData) => ({
@@ -77,3 +84,56 @@ export const filterPrices = (criteria) => ({
 //In questo modo preparo l'app per interagire
 // facilmente un backend per la gestione degli utenti, utilizzando
 // Redux per gestire lo stato dell'interfaccia utente in modo reattivo
+// Azione unificata per effettuare il login
+export const loginUser = (credentials) => async (dispatch) => {
+  console.log("Invio dati di login:", credentials);
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/auth/login",
+      credentials
+    );
+    console.log("Risposta dal server:", response);
+    if (response.status === 200) {
+      const { token } = response.data;
+      console.log("Login riuscito, token ricevuto:", token);
+      dispatch({ type: LOGIN_SUCCESS, payload: token });
+      localStorage.setItem("token", token); // Salvataggio del token nel localStorage
+    } else {
+      console.log("Login fallito, status:", response.status);
+      dispatch({ type: LOGIN_FAIL });
+    }
+  } catch (error) {
+    console.error(
+      "Errore nel login:",
+      error.response?.data?.message || error.message
+    );
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+
+// Azione per registrare un nuovo utente
+export const registerUser = (userData) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/auth/register",
+      userData
+    );
+    if (response.status === 201) {
+      // Status 201 indica "Created"
+      dispatch({ type: REGISTER_SUCCESS });
+    } else {
+      dispatch({ type: REGISTER_FAIL });
+    }
+  } catch (error) {
+    console.error("Registration error:", error.response || error.message);
+    dispatch({ type: REGISTER_FAIL });
+  }
+};
+
+// Azione per il logout
+export const logoutUser = () => {
+  localStorage.removeItem("token"); // Rimuove il token dal localStorage
+  return {
+    type: LOGOUT,
+  };
+};

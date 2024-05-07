@@ -1,4 +1,4 @@
-// src/reducers/authReducer.js
+import { LOGIN_SUCCESS, LOGOUT } from "../actions/index";
 
 const initialState = {
   isAuthenticated: false,
@@ -7,17 +7,17 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "LOGIN_SUCCESS":
+    case LOGIN_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload.user,
+        token: action.payload, // Memorizza il token nello stato
       };
-    case "LOGOUT":
+    case LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
-        user: null,
+        token: null, // Rimuovi il token dallo stato
       };
     default:
       return state;

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/actions";
 import "../App.css";
 
 const FormLogin = () => {
@@ -7,6 +9,8 @@ const FormLogin = () => {
     email: "",
     password: "",
   });
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,7 +22,7 @@ const FormLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginData);
+    dispatch(loginUser(loginData)); // Utilizza il dispatch qui per inviare l'azione di login
   };
 
   return (
