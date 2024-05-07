@@ -1,3 +1,17 @@
+import axios from "axios";
+
+// Imposta un interceptor per aggiungere il token ad ogni richiesta
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 // KEY USDA : OmfmTW7muPfBACbK4U5PeMVFViEblYHua4g6a6Li
 export const ADD_PRICE = "ADD_PRICE";
 export const FETCH_PRICES_SUCCESS = "FETCH_PRICES_SUCCESS";
@@ -9,7 +23,7 @@ export const LOGOUT = "LOGOUT"; // LOGOUT :(
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 
-import axios from "axios";
+//import axios from "axios";
 
 // Aggiunge un nuovo prezzo
 export const addPrice = (priceData) => ({
