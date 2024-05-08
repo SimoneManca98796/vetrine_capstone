@@ -11,6 +11,18 @@ import {
   Button,
 } from "react-bootstrap";
 import { format } from "date-fns";
+import Select from "react-select";
+
+// Opzioni per la selezione dei luoghi
+const cityOptions = [
+  { value: "Sardegna", label: "Sardegna" },
+  { value: "Macomer", label: "Macomer" },
+  { value: "Cagliari", label: "Cagliari" },
+  { value: "Sassari", label: "Sassari" },
+  { value: "Foggia", label: "Foggia" },
+  { value: "Grosseto", label: "Grosseto" },
+  { value: "Roma", label: "Roma" },
+];
 
 const PrezziLatte = () => {
   const dispatch = useDispatch();
@@ -25,28 +37,21 @@ const PrezziLatte = () => {
     setTimeout(() => setLoading(false), 2000);
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log("Current filteredList state:", filteredList);
-  }, [filteredList]);
-
   const handleFilterChange = (key, value) => {
-    if (key === "data") {
-      value = format(new Date(value), "yyyy-MM-dd"); // Formatta la data subito
-    }
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
   const applyFilters = () => {
-    console.log("Applying filters with:", filters);
-    const formattedDate = format(new Date(filters.data), "yyyy-MM-dd");
-    console.log("Formatted date sent to server:", formattedDate); // Verifica che la data sia corretta
+    const formattedDate = filters.data
+      ? format(new Date(filters.data), "yyyy-MM-dd")
+      : "";
     dispatch(fetchFilteredPrices({ ...filters, data: formattedDate }));
   };
 
   return (
     <Container>
       <Row className="mb-4 mt-0">
-        <Col xs={12} sm={6}>
+        <Col xs={12}>
           <h2>PREZZI DEL LATTE</h2>
           <Form>
             <Form.Group className="mb-3">
@@ -59,68 +64,59 @@ const PrezziLatte = () => {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Luogo</Form.Label>
-              <Form.Control
-                as="select"
-                value={filters.luogo}
-                onChange={(e) => handleFilterChange("luogo", e.target.value)}
-              >
-                {[...new Set(prezzilist.map((item) => item.luogo))].map(
-                  (luogo, idx) => (
-                    <option key={idx} value={luogo}>
-                      {luogo}
-                    </option>
+              <Select
+                options={cityOptions}
+                onChange={(selectedOption) =>
+                  handleFilterChange(
+                    "luogo",
+                    selectedOption ? selectedOption.value : ""
                   )
-                )}
-              </Form.Control>
+                }
+                placeholder="Scegli luogo"
+                isClearable
+                isSearchable
+              />
             </Form.Group>
             <Button onClick={applyFilters}>Applica Filtri</Button>
           </Form>
-        </Col>
-        <Col
-          xs={12}
-          sm={6}
-          className="d-flex align-items-center justify-content-end"
-        >
-          {/* Altri controlli se necessario */}
         </Col>
       </Row>
       <Row>
         <Col>
           {loading ? (
-            <div className="d-flex justify-content-center">
-              <Spinner animation="border" />
-            </div>
+            <Spinner
+              animation="border"
+              className="d-flex justify-content-center"
+            />
           ) : (
-            <div className="table-responsive">
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Data</th>
-                    <th>Luogo</th>
-                    <th>Prodotto</th>
-                    <th>Prezzo</th>
-                    <th>Variazione</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredList && filteredList.length > 0 ? (
-                    filteredList.map((item, idx) => (
-                      <tr key={idx}>
-                        <td>{item.data}</td>
-                        <td>{item.luogo}</td>
-                        <td>{item.prodotto}</td>
-                        <td>{item.prezzo}</td>
-                        <td>{item.varPerc || "N/A"}</td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="5">Nessun dato disponibile</td>
+            <Table striped bordered hover className="table-responsive">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Luogo</th>
+                  <th>Prodotto</th>
+                  <th>Prezzo</th>
+                  <th>Variazione</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredList && filteredList.length > 0 ? (
+                  filteredList.map((item, idx) => (
+                    <tr key={idx}>
+                      <td>{item.data}</td>
+                      <td>{item.luogo}</td>
+                      <td>{item.prodotto}</td>
+                      <td>{item.prezzo ? `${item.prezzo} €` : "N/D"}</td>
+                      <td>{item.varPerc ? `${item.varPerc}%` : "N/A"}</td>
                     </tr>
-                  )}
-                </tbody>
-              </Table>
-            </div>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5">Nessun dato disponibile</td>
+                  </tr>
+                )}
+              </tbody>
+            </Table>
           )}
         </Col>
       </Row>

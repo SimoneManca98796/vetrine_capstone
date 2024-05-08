@@ -26,10 +26,28 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 //import axios from "axios";
 
 // Aggiunge un nuovo prezzo
-export const addPrice = (priceData) => ({
-  type: ADD_PRICE,
-  payload: priceData,
-});
+export const addNewPrice = (priceData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/prezzi",
+        priceData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch({
+        type: ADD_PRICE,
+        payload: response.data,
+      });
+      console.log("Prezzo aggiunto con successo", response.data);
+    } catch (error) {
+      console.error("Errore nell'aggiungere il nuovo prezzo:", error);
+    }
+  };
+};
 
 // Recupera i dati esistenti
 export const fetchPrices = () => {
@@ -37,22 +55,22 @@ export const fetchPrices = () => {
     const prices = [
       {
         prodotto: "Pecorino",
-        prezzo: "14 €/kg",
-        varPerc: "0%",
+        prezzo: "14",
+        varPerc: "0",
         data: "01/05/24",
         luogo: "Siena",
       },
       {
         prodotto: "Latte",
-        prezzo: "1,40 €/L",
-        varPerc: "0%",
+        prezzo: "1,40",
+        varPerc: "0",
         data: "01/05/24",
         luogo: "Siena",
       },
       {
         prodotto: "Caciotta",
-        prezzo: "10 €/kg",
-        varPerc: "0%",
+        prezzo: "10",
+        varPerc: "0",
         data: "26/04/24",
         luogo: "Firenze",
       },
@@ -70,18 +88,17 @@ export const fetchFilteredPrices = (filterCriteria) => {
   console.log("Sending request with:", filterCriteria);
   return async (dispatch) => {
     try {
-      const response = await fetch(
+      const response = await axios.get(
         `http://localhost:8080/api/prezzi?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
       );
-      if (!response.ok) {
+      if (response.status === 200) {
+        dispatch({
+          type: FETCH_FILTERED_PRICES_SUCCESS,
+          payload: response.data,
+        });
+      } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json();
-      console.log("Filtered data received:", data);
-      dispatch({
-        type: FETCH_FILTERED_PRICES_SUCCESS,
-        payload: data,
-      });
     } catch (error) {
       console.error("Failed to fetch prices:", error);
     }
