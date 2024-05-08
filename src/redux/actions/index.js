@@ -99,7 +99,7 @@ export const filterPrices = (criteria) => ({
 // facilmente un backend per la gestione degli utenti, utilizzando
 // Redux per gestire lo stato dell'interfaccia utente in modo reattivo
 // Azione unificata per effettuare il login
-export const loginUser = (credentials) => async (dispatch) => {
+export const loginUser = (credentials, navigate) => async (dispatch) => {
   console.log("Invio dati di login:", credentials);
   try {
     const response = await axios.post(
@@ -112,6 +112,7 @@ export const loginUser = (credentials) => async (dispatch) => {
       console.log("Login riuscito, token ricevuto:", token);
       dispatch({ type: LOGIN_SUCCESS, payload: token });
       localStorage.setItem("token", token); // Salvataggio del token nel localStorage
+      navigate("/");
     } else {
       console.log("Login fallito, status:", response.status);
       dispatch({ type: LOGIN_FAIL });

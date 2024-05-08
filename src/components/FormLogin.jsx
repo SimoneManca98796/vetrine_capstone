@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/actions";
 import "../App.css";
@@ -11,7 +12,7 @@ const FormLogin = () => {
   });
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prevState) => ({
@@ -22,7 +23,7 @@ const FormLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser(loginData)); // Utilizza il dispatch qui per inviare l'azione di login
+    dispatch(loginUser(loginData, navigate)); // Utilizza il dispatch qui per inviare l'azione di login
   };
 
   return (
