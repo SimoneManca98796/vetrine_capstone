@@ -34,7 +34,7 @@ const FormLogin = () => {
             className="form-container"
             style={{
               backgroundColor: "#B9D4F0", // Colore chiaro blu per lo sfondo del form
-              border: "3px solid #0056b3", // Bordo blu
+              border: "3px solid #0056b3",
               borderRadius: "20px",
               padding: "20px",
               maxWidth: "450px",
