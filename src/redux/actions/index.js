@@ -127,7 +127,7 @@ export const loginUser = (credentials, navigate) => async (dispatch) => {
 };
 
 // Azione per registrare un nuovo utente
-export const registerUser = (userData) => async (dispatch) => {
+export const registerUser = (userData, navigate) => async (dispatch) => {
   try {
     const response = await axios.post(
       "http://localhost:8080/api/auth/register",
@@ -136,6 +136,7 @@ export const registerUser = (userData) => async (dispatch) => {
     if (response.status === 201) {
       dispatch({ type: REGISTER_SUCCESS, payload: response.data });
       console.log("Registrazione riuscita:", response.data);
+      navigate("/");
     } else {
       console.log("Registrazione fallita:", response.status);
       dispatch({ type: REGISTER_FAIL });

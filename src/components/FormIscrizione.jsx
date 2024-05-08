@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
@@ -13,6 +14,7 @@ const FormIscrizione = () => {
   });
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +26,7 @@ const FormIscrizione = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerUser(formData))
+    dispatch(registerUser(formData, navigate))
       .then((response) => {
         console.log("Registrazione riuscita:", response.data);
         setErrors({}); // Pulisce gli errori precedenti se la registrazione è riuscita

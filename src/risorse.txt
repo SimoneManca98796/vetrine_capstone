@@ -339,3 +339,29 @@ export const registerUser = (userData) => async (dispatch) => {
   }
 };
 ///////////////////////////////////////
+ERRORI DI REGISTRAZIONE: 
+Registrazione riuscita: {id: '1d655ce2-3f38-4e5f-ba7f-9317b9a0fff0', name: 'Simone', surname: 'Manca', email: 'simone.manca.98@gmail.com', password: '$2a$10$Kn7iY2oJjvTb2hxRO8PpI.xyNAMWBr68wC2Yxr9zmX5jgoNd40FRy', …}
+FormIscrizione.jsx:35 Errore nella registrazione: TypeError: Cannot read properties of undefined (reading 'data')
+    at FormIscrizione.jsx:31:57
+overrideMethod @ console.js:273
+(anonime) @ FormIscrizione.jsx:35
+Promise.catch (asinc)
+handleSubmit @ FormIscrizione.jsx:34
+callCallback2 @ chunk-QO4NA2F3.js?v=279b23e2:3674
+invokeGuardedCallbackDev @ chunk-QO4NA2F3.js?v=279b23e2:3699
+invokeGuardedCallback @ chunk-QO4NA2F3.js?v=279b23e2:3733
+invokeGuardedCallbackAndCatchFirstError @ chunk-QO4NA2F3.js?v=279b23e2:3736
+executeDispatch @ chunk-QO4NA2F3.js?v=279b23e2:7016
+processDispatchQueueItemsInOrder @ chunk-QO4NA2F3.js?v=279b23e2:7036
+processDispatchQueue @ chunk-QO4NA2F3.js?v=279b23e2:7045
+dispatchEventsForPlugins @ chunk-QO4NA2F3.js?v=279b23e2:7053
+(anonime) @ chunk-QO4NA2F3.js?v=279b23e2:7177
+batchedUpdates$1 @ chunk-QO4NA2F3.js?v=279b23e2:18941
+batchedUpdates @ chunk-QO4NA2F3.js?v=279b23e2:3579
+dispatchEventForPluginEventSystem @ chunk-QO4NA2F3.js?v=279b23e2:7176
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ chunk-QO4NA2F3.js?v=279b23e2:5478
+dispatchEvent @ chunk-QO4NA2F3.js?v=279b23e2:5472
+dispatchDiscreteEvent @ chunk-QO4NA2F3.js?v=279b23e2:5449
+Mostra 16 altri frame
+Mostra meno
+//////////////////////////////////////////////
