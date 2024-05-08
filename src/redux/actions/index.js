@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Imposta un interceptor per aggiungere il token ad ogni richiesta
-axios.interceptors.request.use(
+/*axios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -10,7 +10,7 @@ axios.interceptors.request.use(
     return config;
   },
   (error) => Promise.reject(error)
-);
+);*/
 
 // KEY USDA : OmfmTW7muPfBACbK4U5PeMVFViEblYHua4g6a6Li
 export const ADD_PRICE = "ADD_PRICE";
@@ -134,14 +134,21 @@ export const registerUser = (userData) => async (dispatch) => {
       userData
     );
     if (response.status === 201) {
-      // Status 201 indica "Created"
-      dispatch({ type: REGISTER_SUCCESS });
+      dispatch({ type: REGISTER_SUCCESS, payload: response.data });
+      console.log("Registrazione riuscita:", response.data);
     } else {
+      console.log("Registrazione fallita:", response.status);
       dispatch({ type: REGISTER_FAIL });
     }
   } catch (error) {
-    console.error("Registration error:", error.response || error.message);
-    dispatch({ type: REGISTER_FAIL });
+    console.error(
+      "Errore nella registrazione:",
+      error.response?.data?.message || error.message
+    );
+    dispatch({
+      type: REGISTER_FAIL,
+      error: error.response?.data?.message || error.message,
+    });
   }
 };
 

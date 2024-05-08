@@ -1,14 +1,18 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../redux/actions";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "../App.css";
 
 const FormIscrizione = () => {
   const [formData, setFormData] = useState({
-    nome: "",
-    cognome: "",
+    name: "",
+    surname: "",
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,7 +24,23 @@ const FormIscrizione = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(registerUser(formData))
+      .then((response) => {
+        console.log("Registrazione riuscita:", response.data);
+        setErrors({}); // Pulisce gli errori precedenti se la registrazione è riuscita
+      })
+      .catch((error) => {
+        console.error("Errore nella registrazione:", error);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.errors
+        ) {
+          setErrors(error.response.data.errors); // Assumendo che gli errori siano inviati così
+        } else {
+          setErrors({ general: "Si è verificato un errore di registrazione." });
+        }
+      });
   };
 
   return (
@@ -29,32 +49,37 @@ const FormIscrizione = () => {
         <Col xs={12} md={6}>
           <div
             className="form-container"
-            style={{
-              border: "2px solid #0056b3",
-              padding: "20px",
-            }}
+            style={{ border: "2px solid #0056b3", padding: "20px" }}
           >
             <h2>Registrazione</h2>
-            <Form onSubmit={handleSubmit}>
+            <Form noValidate onSubmit={handleSubmit}>
               <Form.Group controlId="formNome">
                 <Form.Label>Nome</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Inserisci il tuo nome..."
-                  name="nome"
-                  value={formData.nome}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
+                  isInvalid={!!errors.name}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.name}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="formCognome">
                 <Form.Label>Cognome</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Inserisci il tuo cognome..."
-                  name="cognome"
-                  value={formData.cognome}
+                  name="surname"
+                  value={formData.surname}
                   onChange={handleChange}
+                  isInvalid={!!errors.surname}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.surname}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="formEmail">
                 <Form.Label>Email</Form.Label>
@@ -64,19 +89,26 @@ const FormIscrizione = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  isInvalid={!!errors.email}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.email}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="formPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Inserisci la tua password...."
+                  placeholder="Inserisci la tua password..."
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
+                  isInvalid={!!errors.password}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.password}
+                </Form.Control.Feedback>
               </Form.Group>
-              <div className="mb-4"></div> {/* Aggiunge spazio extra */}
               <Button
                 variant="primary"
                 type="submit"

@@ -313,3 +313,29 @@ public interface PrezzoStoricoRepository extends JpaRepository<PrezzoStorico, Lo
     @Query("SELECT p FROM PrezzoStorico p WHERE (:data IS NULL OR p.data = :data) AND (:luogo IS NULL OR p.luogo = :luogo)")
     Page<PrezzoStorico> findByDataAndLuogo(@Param("data") Date data, @Param("luogo") String luogo, Pageable pageable);
 }
+///////////////////////////////////////
+export const registerUser = (userData) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/auth/register",
+      userData
+    );
+    if (response.status === 201) {
+      dispatch({ type: REGISTER_SUCCESS, payload: response.data });
+      console.log("Registrazione riuscita:", response.data);
+    } else {
+      console.log("Registrazione fallita:", response.status);
+      dispatch({ type: REGISTER_FAIL });
+    }
+  } catch (error) {
+    console.error(
+      "Errore nella registrazione:",
+      error.response?.data?.message || error.message
+    );
+    dispatch({
+      type: REGISTER_FAIL,
+      error: error.response?.data?.message || error.message,
+    });
+  }
+};
+///////////////////////////////////////
