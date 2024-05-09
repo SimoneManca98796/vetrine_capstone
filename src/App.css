@@ -106,6 +106,25 @@ footer {
 
 /* ////////////////// */
 /* ////////////////// */ 
+/* DROPDOWN RESPONSIVE E BELLO: */
+/* Assicurarsi che il dropdown non superi la larghezza dello schermo */
+/*.nav-dropdown-menu {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%; 
+  top: 58px; 
+}
+
+@media (max-width: 768px) {
+  .nav-dropdown-menu {
+      width: 90%; 
+  }
+}
+
+.dropdown-item {
+  padding: 10px 15px; 
+  white-space: nowrap; 
+}*/
 /* ////////////////// */
 /* ////////////////// */ 
 /* ////////////////// */

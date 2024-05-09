@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Navbar, Nav, Dropdown } from "react-bootstrap";
+import { Container, Navbar, Nav, Dropdown, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {
   HouseDoorFill,
@@ -14,6 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "/Vetrine.png";
 import { loginUser, logoutUser } from "../redux/actions/index";
 import { useNavigate } from "react-router-dom";
+import AvatarUpload from "./AvatarUpload";
 
 const CustomNavbar = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,9 @@ const CustomNavbar = () => {
   const [mostraDropdown, setMostraDropdown] = useState(false);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  // Handler per il login (esempio con dati statici, sostituire con dati reali)
+  const avatarUrl = useSelector((state) => state.auth.avatarUrl); // l'URL dell'avatar
+
+  // Handler per il login
   const handleLogin = () => {
     //const credentials = { username: "user@example.com", password: "password" };
     //dispatch(loginUser(credentials));
@@ -31,7 +34,13 @@ const CustomNavbar = () => {
   // Handler per il logout
   const handleLogout = () => {
     dispatch(logoutUser());
+    localStorage.removeItem("avatarUrl");
     navigate("/");
+  };
+
+  const handleToggleDropdown = () => {
+    setMostraDropdown(!mostraDropdown);
+    console.log("Dropdown state after click:", !mostraDropdown); // Monitora lo stato del dropdown
   };
 
   return (
@@ -91,7 +100,11 @@ const CustomNavbar = () => {
                 </Nav.Link>
               </>
             ) : (
-              <Dropdown align="end">
+              <Dropdown
+                align="end"
+                show={mostraDropdown}
+                onToggle={() => setMostraDropdown(!mostraDropdown)}
+              >
                 <Dropdown.Toggle
                   variant="transparent"
                   style={{
@@ -99,11 +112,19 @@ const CustomNavbar = () => {
                     background: "transparent",
                     cursor: "pointer",
                   }}
-                  onClick={() => setMostraDropdown(!mostraDropdown)}
+                  onClick={handleToggleDropdown}
                 >
-                  <PersonCircle size={24} className="text-white" />
+                  {avatarUrl ? (
+                    <Image
+                      src={avatarUrl}
+                      roundedCircle
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                  ) : (
+                    <PersonCircle size={24} className="text-white" />
+                  )}
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="nav-dropdown-menu">
                   <Dropdown.Item href="/profile">Profilo</Dropdown.Item>
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
@@ -111,6 +132,10 @@ const CustomNavbar = () => {
                     Impostazioni e privacy
                   </Dropdown.Item>
                   <Dropdown.Item href="#help">Guida</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item>
+                    <AvatarUpload /> {/* component per l'avatar immagine */}
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             )}

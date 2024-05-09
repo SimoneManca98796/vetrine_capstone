@@ -125,10 +125,11 @@ export const loginUser = (credentials, navigate) => async (dispatch) => {
     );
     console.log("Risposta dal server:", response);
     if (response.status === 200) {
-      const { token } = response.data;
+      const { token, avatarUrl } = response.data;
       console.log("Login riuscito, token ricevuto:", token);
       dispatch({ type: LOGIN_SUCCESS, payload: token });
       localStorage.setItem("token", token); // Salvataggio del token nel localStorage
+      localStorage.setItem("avatarUrl", avatarUrl); // Salva l'URL dell'avatar
       navigate("/");
     } else {
       console.log("Login fallito, status:", response.status);
@@ -177,3 +178,9 @@ export const logoutUser = () => {
     type: LOGOUT,
   };
 };
+//////////////
+// Aggiungi questa azione in actions/index.js
+export const updateAvatarUrl = (avatarUrl) => ({
+  type: "UPDATE_AVATAR_URL",
+  payload: avatarUrl,
+});
