@@ -1,6 +1,13 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Container, Navbar, Nav, Dropdown, Image } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import {
+  Container,
+  Navbar,
+  Nav,
+  Dropdown,
+  Image,
+  Modal,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {
   HouseDoorFill,
@@ -22,7 +29,13 @@ const CustomNavbar = () => {
   const [mostraDropdown, setMostraDropdown] = useState(false);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  const avatarUrl = useSelector((state) => state.auth.avatarUrl); // l'URL dell'avatar
+  const avatarUrl = useSelector((state) => state.auth.avatarUrl, shallowEqual); // l'URL dell'avatar
+
+  const [showAvatarUpload, setShowAvatarUpload] = useState(false);
+
+  useEffect(() => {
+    console.log("L'URL dell'avatar è cambiato:", avatarUrl);
+  }, [avatarUrl]);
 
   // Handler per il login
   const handleLogin = () => {
@@ -116,7 +129,7 @@ const CustomNavbar = () => {
                 >
                   {avatarUrl ? (
                     <Image
-                      src={avatarUrl}
+                      src={`${avatarUrl}?${new Date().getTime()}`}
                       roundedCircle
                       style={{ width: "30px", height: "30px" }}
                     />
@@ -125,17 +138,17 @@ const CustomNavbar = () => {
                   )}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="nav-dropdown-menu">
-                  <Dropdown.Item href="/profile">Profilo</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-                  <Dropdown.Item href="#settings">
-                    Impostazioni e privacy
+                  {/* Altri elementi del menu */}
+                  <Dropdown.Item
+                    as="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowAvatarUpload(!showAvatarUpload); // Cambia lo stato per mostrare/nascondere AvatarUpload
+                    }}
+                  >
+                    Carica Avatar
                   </Dropdown.Item>
-                  <Dropdown.Item href="#help">Guida</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item>
-                    <AvatarUpload /> {/* component per l'avatar immagine */}
-                  </Dropdown.Item>
+                  {showAvatarUpload && <AvatarUpload />}
                 </Dropdown.Menu>
               </Dropdown>
             )}

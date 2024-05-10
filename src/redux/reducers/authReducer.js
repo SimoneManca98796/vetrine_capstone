@@ -43,6 +43,7 @@ const authReducer = (state = initialState, action) => {
     default:
       return state;
     case "UPDATE_AVATAR_URL":
+      console.log("URL Avatar aggiornato:", action.payload);
       return {
         ...state,
         avatarUrl: action.payload,

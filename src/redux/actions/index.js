@@ -1,16 +1,17 @@
 import axios from "axios";
 
 // Imposta un interceptor per aggiungere il token ad ogni richiesta
-/*axios.interceptors.request.use(
+axios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
+    console.log("Current token:", token);
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
   (error) => Promise.reject(error)
-);*/
+);
 
 // KEY USDA : OmfmTW7muPfBACbK4U5PeMVFViEblYHua4g6a6Li
 export const ADD_PRICE = "ADD_PRICE";
@@ -180,7 +181,10 @@ export const logoutUser = () => {
 };
 //////////////
 // Aggiungi questa azione in actions/index.js
-export const updateAvatarUrl = (avatarUrl) => ({
-  type: "UPDATE_AVATAR_URL",
-  payload: avatarUrl,
-});
+export const updateAvatarUrl = (avatarUrl) => {
+  console.log("Aggiornamento URL Avatar:", avatarUrl);
+  return {
+    type: "UPDATE_AVATAR_URL",
+    payload: avatarUrl,
+  };
+};
