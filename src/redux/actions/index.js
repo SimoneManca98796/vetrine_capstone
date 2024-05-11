@@ -23,7 +23,12 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT"; // LOGOUT :(
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
-
+export const FETCH_OVINI_PRICES_SUCCESS = "FETCH_OVINI_PRICES_SUCCESS"; //PREZZI OVINI
+export const FETCH_FILTERED_OVINI_PRICES_SUCCESS =
+  "FETCH_FILTERED_OVINI_PRICES_SUCCESS"; //PREZZI OVINI
+export const ADD_OVINI_PRICE = "ADD_OVINI_PRICE"; // Action type per aggiungere un prezzo agli ovini
+export const FILTER_OVINI_PRICES = "FILTER_OVINI_PRICES";
+// Action type per filtrare i prezzi degli ovini
 //import axios from "axios";
 
 // Aggiunge un nuovo prezzo
@@ -160,6 +165,7 @@ export const registerUser = (userData, navigate) => async (dispatch) => {
       console.log("Registrazione fallita:", response.status);
       dispatch({ type: REGISTER_FAIL });
     }
+    return response;
   } catch (error) {
     console.error(
       "Errore nella registrazione:",
@@ -188,3 +194,67 @@ export const updateAvatarUrl = (avatarUrl) => {
     payload: avatarUrl,
   };
 };
+///////////////////////////
+///////////////////////////
+// Fetch prices PER OVINI
+export const fetchOviniPrices = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/prezziOvini");
+      dispatch({
+        type: FETCH_OVINI_PRICES_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Failed to fetch ovini prices:", error);
+    }
+  };
+};
+
+// Fetch filtered prices PER OVINI
+export const fetchFilteredOviniPrices = (filterCriteria) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/prezziOvini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
+      );
+      dispatch({
+        type: FETCH_FILTERED_OVINI_PRICES_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Failed to fetch filtered ovini prices:", error);
+    }
+  };
+};
+//////////////////
+// Aggiungi un nuovo prezzo per gli ovini
+export const addOviniPrice = (priceData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/prezziOvini",
+        priceData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch({
+        type: ADD_OVINI_PRICE,
+        payload: response.data,
+      });
+      console.log("Prezzo ovini aggiunto con successo", response.data);
+    } catch (error) {
+      console.error("Errore nell'aggiungere il nuovo prezzo ovini:", error);
+    }
+  };
+};
+
+// Azione per filtrare i prezzi degli ovini in locale
+export const filterOviniPrices = (criteria) => ({
+  type: FILTER_OVINI_PRICES,
+  payload: criteria,
+});
+////////////////////

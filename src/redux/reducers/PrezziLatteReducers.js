@@ -1,8 +1,7 @@
-// Importa i tipi di azioni dal file di azioni
 import {
   ADD_PRICE,
   FETCH_PRICES_SUCCESS,
-  FETCH_FILTERED_PRICES_SUCCESS, // Assicurati che questo sia importato correttamente
+  FETCH_FILTERED_PRICES_SUCCESS,
   FILTER_PRICES,
 } from "../actions";
 

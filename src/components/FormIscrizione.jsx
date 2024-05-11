@@ -28,6 +28,7 @@ const FormIscrizione = () => {
     e.preventDefault();
     dispatch(registerUser(formData, navigate))
       .then((response) => {
+        console.log(response);
         console.log("Registrazione riuscita:", response.data);
         setErrors({}); // Pulisce gli errori precedenti se la registrazione è riuscita
       })

@@ -1,80 +1,124 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchOviniPrices,
+  fetchFilteredOviniPrices,
+} from "../../redux/actions";
 import {
   Container,
   Row,
   Col,
-  Dropdown,
+  Table,
   Spinner,
-  ListGroup,
+  Form,
+  Button,
 } from "react-bootstrap";
+import Select from "react-select";
 import { format } from "date-fns";
-import itLocale from "date-fns/locale/it";
+
+const cityOptions = [
+  { value: "Sardegna", label: "Sardegna" },
+  { value: "Macomer", label: "Macomer" },
+  { value: "Cagliari", label: "Cagliari" },
+  { value: "Sassari", label: "Sassari" },
+  { value: "Foggia", label: "Foggia" },
+  { value: "Grosseto", label: "Grosseto" },
+  { value: "Roma", label: "Roma" },
+];
 
 const PrezziOvini = () => {
+  const dispatch = useDispatch();
+  const { filteredList, prezzilist } = useSelector(
+    (state) => state.prezziOvini
+  );
   const [loading, setLoading] = useState(true);
-  const [prezzi, setPrezzi] = useState({});
-  const [language, setLanguage] = useState("Italia");
-  const [currentDate, setCurrentDate] = useState(new Date());
-
-  const caricaDati = () => {
-    setTimeout(() => {
-      setPrezzi({
-        agnello: "12 €/kg",
-        pecora: "8 €/kg",
-      });
-      setLoading(false);
-    }, 2000); // Ritardo di 2 secondi
-  };
+  const [filters, setFilters] = useState({ data: "", luogo: "" });
 
   useEffect(() => {
-    caricaDati();
+    dispatch(fetchOviniPrices());
+    setTimeout(() => setLoading(false), 2000);
+  }, [dispatch]);
 
-    const dateInterval = setInterval(() => {
-      setCurrentDate(new Date());
-    }, 1000); // Aggiorna la data ogni secondo
+  const handleFilterChange = (key, value) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  };
 
-    return () => clearInterval(dateInterval);
-  }, []);
-
-  const handleLanguageChange = (lang) => setLanguage(lang);
+  const applyFilters = () => {
+    const formattedDate = filters.data
+      ? format(new Date(filters.data), "yyyy-MM-dd")
+      : "";
+    dispatch(fetchFilteredOviniPrices({ ...filters, data: formattedDate }));
+  };
 
   return (
     <Container>
-      <Row className="mb-4">
-        <Col>
+      <Row className="mb-4 mt-0">
+        <Col xs={12}>
           <h2>PREZZI DEGLI OVINI</h2>
-        </Col>
-        <Col className="d-flex justify-content-end align-items-center">
-          <span className="me-3">
-            {format(currentDate, "dd/MM/yyyy HH:mm", { locale: itLocale })}
-          </span>
-          <Dropdown>
-            <Dropdown.Toggle variant="primary">{language}</Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => handleLanguageChange("Italia")}>
-                Italia
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => handleLanguageChange("Francia")}>
-                Francia
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => handleLanguageChange("Spagna")}>
-                Spagna
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Data</Form.Label>
+              <Form.Control
+                type="date"
+                value={filters.data}
+                onChange={(e) => handleFilterChange("data", e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Luogo</Form.Label>
+              <Select
+                options={cityOptions}
+                onChange={(selectedOption) =>
+                  handleFilterChange(
+                    "luogo",
+                    selectedOption ? selectedOption.value : ""
+                  )
+                }
+                placeholder="Scegli luogo"
+                isClearable
+                isSearchable
+              />
+            </Form.Group>
+            <Button onClick={applyFilters}>Applica Filtri</Button>
+          </Form>
         </Col>
       </Row>
       <Row>
         <Col>
           {loading ? (
-            <div className="d-flex justify-content-center">
-              <Spinner animation="border" />
-            </div>
+            <Spinner
+              animation="border"
+              className="d-flex justify-content-center"
+            />
           ) : (
-            <ListGroup className="gap-2">
-              <ListGroup.Item>Agnello: {prezzi.agnello}</ListGroup.Item>
-              <ListGroup.Item>Pecora: {prezzi.pecora}</ListGroup.Item>
-            </ListGroup>
+            <Table striped bordered hover className="table-responsive">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Luogo</th>
+                  <th>Prodotto</th>
+                  <th>Prezzo</th>
+                  <th>Variazione</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredList && filteredList.length > 0 ? (
+                  filteredList.map((item, idx) => (
+                    <tr key={idx}>
+                      <td>{item.data}</td>
+                      <td>{item.luogo}</td>
+                      <td>{item.prodotto}</td>
+                      <td>{item.prezzo ? `${item.prezzo} €` : "N/D"}</td>
+                      <td>{item.varPerc ? `${item.varPerc}%` : "N/A"}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5">Nessun dato disponibile</td>
+                  </tr>
+                )}
+              </tbody>
+            </Table>
           )}
         </Col>
       </Row>

@@ -138,7 +138,9 @@ const CustomNavbar = () => {
                   )}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="nav-dropdown-menu">
-                  {/* Altri elementi del menu */}
+                  <Dropdown.Item onClick={() => navigate("/profile")}>
+                    Profilo
+                  </Dropdown.Item>
                   <Dropdown.Item
                     as="button"
                     onClick={(e) => {
@@ -149,6 +151,12 @@ const CustomNavbar = () => {
                     Carica Avatar
                   </Dropdown.Item>
                   {showAvatarUpload && <AvatarUpload />}
+                  <Dropdown.Item
+                    onClick={handleLogout}
+                    style={{ color: "gold" }}
+                  >
+                    Logout
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             )}
