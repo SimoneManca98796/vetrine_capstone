@@ -30,6 +30,13 @@ export const ADD_OVINI_PRICE = "ADD_OVINI_PRICE"; // Action type per aggiungere 
 export const FILTER_OVINI_PRICES = "FILTER_OVINI_PRICES";
 // Action type per filtrare i prezzi degli ovini
 //import axios from "axios";
+///////////////////////
+// PER SUINI:
+export const FETCH_SUINI_PRICES_SUCCESS = "FETCH_SUINI_PRICES_SUCCESS"; //PREZZI SUINI
+export const FETCH_FILTERED_SUINI_PRICES_SUCCESS =
+  "FETCH_FILTERED_OVINI_PRICES_SUCCESS"; //PREZZI SUINI
+export const ADD_SUINI_PRICE = "ADD_OVINI_PRICE"; // Action type per aggiungere un prezzo agli suini
+export const FILTER_SUINI_PRICES = "FILTER_SUINI_PRICES";
 
 // Aggiunge un nuovo prezzo
 export const addNewPrice = (priceData) => {
@@ -252,9 +259,72 @@ export const addOviniPrice = (priceData) => {
   };
 };
 
-// Azione per filtrare i prezzi degli ovini in locale
+// Azione per filtrare i prezzi degli suini in locale
 export const filterOviniPrices = (criteria) => ({
   type: FILTER_OVINI_PRICES,
+  payload: criteria,
+});
+////////////////////
+///////////////////////////
+// Fetch prices PER SUINI
+export const fetchSuiniPrices = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/prezziSuini");
+      dispatch({
+        type: FETCH_SUINI_PRICES_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Failed to fetch ovini prices:", error);
+    }
+  };
+};
+
+// Fetch filtered prices PER OVINI
+export const fetchFilteredSuiniPrices = (filterCriteria) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/prezziSuini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
+      );
+      dispatch({
+        type: FETCH_FILTERED_SUINI_PRICES_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Failed to fetch filtered ovini prices:", error);
+    }
+  };
+};
+//////////////////
+// Aggiungi un nuovo prezzo per i suini
+export const addSuiniPrice = (priceData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/prezziSuini",
+        priceData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch({
+        type: ADD_SUINI_PRICE,
+        payload: response.data,
+      });
+      console.log("Prezzo suini aggiunto con successo", response.data);
+    } catch (error) {
+      console.error("Errore nell'aggiungere il nuovo prezzo suini:", error);
+    }
+  };
+};
+
+// Azione per filtrare i prezzi degli suini in locale
+export const filterSuiniPrices = (criteria) => ({
+  type: FILTER_SUINI_PRICES,
   payload: criteria,
 });
 ////////////////////

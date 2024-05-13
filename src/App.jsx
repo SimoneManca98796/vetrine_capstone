@@ -8,6 +8,7 @@ import HomePage from "./components/HomePage";
 import Bacheca from "./components/Bacheca";
 import PrezziLatte from "./components/ComponentsBacheca/PrezziLatte";
 import PrezziOvini from "./components/ComponentsBacheca/PrezziOvini";
+import PrezziSuini from "./components/ComponentsBacheca/PrezziSuini";
 import FormIscrizione from "./components/FormIscrizione";
 import FormLogin from "./components/FormLogin";
 import Prodotti from "./components/Prodotti";
@@ -23,6 +24,7 @@ const App = () => (
             <Route element={<Bacheca />} path="/mercati" />
             <Route element={<PrezziLatte />} path="/PrezziLatte" />
             <Route element={<PrezziOvini />} path="/PrezziOvini" />
+            <Route element={<PrezziSuini />} path="/PrezziSuini" />
             <Route element={<FormIscrizione />} path="/FormIscrizione" />
             <Route element={<FormLogin />} path="/FormLogin" />
             <Route element={<Prodotti />} path="/Prodotti" />

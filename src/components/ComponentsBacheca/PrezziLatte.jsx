@@ -12,7 +12,8 @@ import {
 } from "react-bootstrap";
 import { format } from "date-fns";
 import Select from "react-select";
-
+import "../../App.css";
+import "../../prezzidatistyle.css";
 // Opzioni per la selezione dei luoghi
 const cityOptions = [
   { value: "Sardegna", label: "Sardegna" },
@@ -49,7 +50,7 @@ const PrezziLatte = () => {
   };
 
   return (
-    <Container>
+    <Container className="prezzi-latte">
       <Row className="mb-4 mt-0">
         <Col xs={12}>
           <h2>PREZZI DEL LATTE</h2>
@@ -89,7 +90,12 @@ const PrezziLatte = () => {
               className="d-flex justify-content-center"
             />
           ) : (
-            <Table striped bordered hover className="table-responsive">
+            <Table
+              striped
+              bordered
+              hover
+              className="table-responsive custom-table"
+            >
               <thead>
                 <tr>
                   <th>Data</th>

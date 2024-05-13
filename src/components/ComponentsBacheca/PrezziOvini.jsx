@@ -15,6 +15,7 @@ import {
 } from "react-bootstrap";
 import Select from "react-select";
 import { format } from "date-fns";
+import "../../prezzidatistyle.css";
 
 const cityOptions = [
   { value: "Sardegna", label: "Sardegna" },
@@ -51,7 +52,7 @@ const PrezziOvini = () => {
   };
 
   return (
-    <Container>
+    <Container className="prezzi-ovini">
       <Row className="mb-4 mt-0">
         <Col xs={12}>
           <h2>PREZZI DEGLI OVINI</h2>
@@ -91,7 +92,12 @@ const PrezziOvini = () => {
               className="d-flex justify-content-center"
             />
           ) : (
-            <Table striped bordered hover className="table-responsive">
+            <Table
+              striped
+              bordered
+              hover
+              className="table-responsive custom-tables"
+            >
               <thead>
                 <tr>
                   <th>Data</th>

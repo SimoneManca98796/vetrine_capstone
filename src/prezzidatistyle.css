@@ -1,0 +1,62 @@
+/* /////// COMPONENTS TABELLARI /////////// */
+/* ///////////// PREZZI LATTE:  ////////////// */ 
+.prezzi-latte {
+    background-color: #86B4BE;
+  }
+  
+  .custom-table {
+    background-color: #194988 !important;
+    color: #050712 !important;
+  }
+  
+  .custom-table thead th {
+    background-color: #050712 !important;
+    color: #ffffff !important;
+  }
+  
+  .custom-table tbody td {
+    background-color: #194988 !important;
+    color: #ffffff !important;
+  }
+/* /////////////////////////// */ 
+/* /////////////////////////// */ 
+/* OVINI: */ 
+.prezzi-ovini {
+    background-color:  #995C3E ;
+  }
+  
+  .custom-tables {
+    background-color: #F0CD78, !important;
+    color: #050712 !important;
+  }
+  
+  .custom-tables thead th {
+    background-color: #050712 !important;
+    color: #B12AA1 !important;
+  }
+  
+  .custom-tables tbody td {
+    background-color: #F0CD78 !important;
+    color: #B12AA1 !important;
+  }
+  /* /////////////////////////// */ 
+/* /////////////////////////// */ 
+/* SUINI: */ 
+.prezzi-suini {
+    background-color:  #A93FC9 ;
+  }
+  
+  .custom-tabless {
+    background-color: #F0CD78, !important;
+    color: #A93FC9 !important;
+  }
+  
+  .custom-tabless thead th {
+    background-color: #F79BF5!important;
+    color: #F79BF5 !important;
+  }
+  
+  .custom-tabless tbody td {
+    background-color: #F79BF5 !important;
+    color: #A93FC9 !important;
+  }
