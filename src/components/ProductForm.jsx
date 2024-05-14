@@ -7,12 +7,12 @@ const ProductForm = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [file, setFile] = useState(null); // Stato per il file selezionato
+  const [file, setFile] = useState(null);
   const [category, setCategory] = useState("");
   const dispatch = useDispatch();
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]); // Imposta il file nello stato
+    setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
@@ -24,15 +24,14 @@ const ProductForm = () => {
       return;
     }
 
+    // Upload dell'immagine
     const formData = new FormData();
     formData.append("file", file);
     formData.append("name", name);
-    formData.append("description", description); // Aggiungi description al formData
-    formData.append("price", price); // Aggiungi price al formData
 
     try {
       const uploadResponse = await axios.post(
-        `http://localhost:8080/api/products/categoryName/${category}`,
+        "http://localhost:8080/api/products/upload",
         formData,
         {
           headers: {
@@ -42,8 +41,17 @@ const ProductForm = () => {
         }
       );
 
-      const productData = uploadResponse.data;
+      const imageUrl = uploadResponse.data.imageUrl;
 
+      const productData = {
+        name,
+        description,
+        price: parseFloat(price),
+        imageUrl,
+        categoryName: category,
+      };
+
+      // Invia i dati del prodotto al server
       dispatch(createProduct(productData));
     } catch (error) {
       console.error(
@@ -75,11 +83,7 @@ const ProductForm = () => {
         onChange={(e) => setPrice(e.target.value)}
         required
       />
-      <input
-        type="file"
-        onChange={handleFileChange} // Gestisce la selezione del file
-        required
-      />
+      <input type="file" onChange={handleFileChange} required />
       <input
         type="text"
         placeholder="Categoria"

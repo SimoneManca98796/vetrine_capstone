@@ -26,12 +26,15 @@ const productsReducer = (state = initialState, action) => {
         ...state,
         [action.category]: action.payload,
       };
-    case CREATE_PRODUCT_SUCCESS:
+    case CREATE_PRODUCT_SUCCESS: {
       console.log("Prodotto creato:", action.payload);
+      const { categoryName } = action.payload;
       return {
         ...state,
         allProducts: [...state.allProducts, action.payload],
+        [categoryName]: [...(state[categoryName] || []), action.payload],
       };
+    }
     case SEARCH_PRODUCTS: {
       const filteredAllProducts = state.allProducts.filter((product) =>
         product.name.toLowerCase().includes(action.payload.toLowerCase())
