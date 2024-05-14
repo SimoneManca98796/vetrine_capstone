@@ -4,25 +4,25 @@ import { fetchProductsByCategory } from "../../redux/actions/index";
 import { Card, Button } from "react-bootstrap";
 import ProductForm from "../ProductForm";
 
-const Animali = () => {
+const Attrezzature = () => {
   const dispatch = useDispatch();
-  const animali = useSelector((state) => state.products.animali);
+  const attrezzature = useSelector((state) => state.products.attrezzature);
 
   useEffect(() => {
-    dispatch(fetchProductsByCategory("animali"));
+    dispatch(fetchProductsByCategory("attrezzature"));
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("Animali:", animali);
-  }, [animali]);
+    console.log("Attrezzature:", attrezzature);
+  }, [attrezzature]);
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-3">Animali</h1>
+      <h1 className="mb-3">Attrezzature e Utensili</h1>
       <ProductForm />
       <div className="row">
-        {animali && animali.length > 0 ? (
-          animali.map((product) => (
+        {attrezzature && attrezzature.length > 0 ? (
+          attrezzature.map((product) => (
             <div className="col-md-4 mb-4" key={product.id}>
               <Card>
                 <Card.Img
@@ -50,4 +50,4 @@ const Animali = () => {
   );
 };
 
-export default Animali;
+export default Attrezzature;

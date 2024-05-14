@@ -52,7 +52,7 @@ const Prodotti = () => {
               <tr>
                 <td className="text-center">
                   <h4>Prodotti Artigianali</h4>
-                  <Link to="/Artigianato">
+                  <Link to="/Artigianali">
                     <Button variant="warning" className="rounded-circle">
                       <img
                         src="/Giallo.png"
@@ -86,6 +86,25 @@ const Prodotti = () => {
                 </td>
                 <td className="align-middle">
                   Scopri e partecipa alla vendita di animali qui!
+                </td>
+              </tr>
+              <tr>
+                <td className="text-center">
+                  <h4>Attrezzature&Utensili</h4>
+                  <Link to="/Attrezzature">
+                    <Button variant="success" className="rounded-circle">
+                      <img
+                        src="/Grigio.png"
+                        alt="Piantine"
+                        width="50"
+                        height="50"
+                        className="rounded-circle"
+                      />
+                    </Button>
+                  </Link>
+                </td>
+                <td className="align-middle">
+                  Compra o vendi attrezzature&utensili qui!
                 </td>
               </tr>
             </tbody>

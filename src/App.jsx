@@ -12,6 +12,11 @@ import PrezziSuini from "./components/ComponentsBacheca/PrezziSuini";
 import FormIscrizione from "./components/FormIscrizione";
 import FormLogin from "./components/FormLogin";
 import Prodotti from "./components/Prodotti";
+import Piantine from "./components/ComponentsProdotti.jsx/Piantine";
+import Artigianali from "./components/ComponentsProdotti.jsx/Artigianali";
+import Animali from "./components/ComponentsProdotti.jsx/Animali";
+import Attrezzature from "./components/ComponentsProdotti.jsx/Attrezzature";
+import ProductForm from "./components/ProductForm";
 
 const App = () => (
   <>
@@ -28,6 +33,11 @@ const App = () => (
             <Route element={<FormIscrizione />} path="/FormIscrizione" />
             <Route element={<FormLogin />} path="/FormLogin" />
             <Route element={<Prodotti />} path="/Prodotti" />
+            <Route element={<Piantine />} path="/Piantine" />
+            <Route element={<Artigianali />} path="/Artigianali" />
+            <Route element={<Animali />} path="/Animali" />
+            <Route element={<Attrezzature />} path="/Attrezzature" />
+            <Route element={<ProductForm />} path="/nuovo-prodotto" />
             <Route element={<NotFound />} path="*" />
           </Routes>
         </div>

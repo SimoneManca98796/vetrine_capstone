@@ -37,6 +37,14 @@ export const FETCH_FILTERED_SUINI_PRICES_SUCCESS =
   "FETCH_FILTERED_OVINI_PRICES_SUCCESS"; //PREZZI SUINI
 export const ADD_SUINI_PRICE = "ADD_OVINI_PRICE"; // Action type per aggiungere un prezzo agli suini
 export const FILTER_SUINI_PRICES = "FILTER_SUINI_PRICES";
+// COSTANTI PER E-COMMERCE:
+export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
+export const FILTER_PIANTINE_PRICES = "FILTER_PIANTINE_PRICES";
+export const FILTER_ARTIGIANALI_PRICES = "FILTER_ARTIGIANALI_PRICES";
+export const FILTER_ANIMALI_PRICES = "FILTER_ANIMALI_PRICES";
+export const FILTER_ATTREZZATURE_PRICES = "FILTER_ATTREZZATURE_PRICES";
+export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS";
+export const CREATE_PRODUCT_SUCCESS = "CREATE_PRODUCT_SUCCESS";
 
 // Aggiunge un nuovo prezzo
 export const addNewPrice = (priceData) => {
@@ -328,3 +336,76 @@ export const filterSuiniPrices = (criteria) => ({
   payload: criteria,
 });
 ////////////////////
+////////////////////
+// Azioni
+export const fetchProductsByCategory = (category) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/api/products/categoryName/${category}`
+    );
+    console.log("Risposta API:", response.data);
+    dispatch({
+      type: FETCH_PRODUCTS_SUCCESS,
+      category,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.error(`Failed to fetch products for category ${category}:`, error);
+  }
+};
+
+// Azione di filtro per piantine&Ortaggi
+export const filterPiantinePrices = (criteria) => ({
+  type: FILTER_PIANTINE_PRICES,
+  payload: criteria,
+});
+
+// Azione di filtro per prodotti artigianali
+export const filterArtigianaliPrices = (criteria) => ({
+  type: FILTER_ARTIGIANALI_PRICES,
+  payload: criteria,
+});
+
+// Azione di filtro per animali
+export const filterAnimaliPrices = (criteria) => ({
+  type: FILTER_ANIMALI_PRICES,
+  payload: criteria,
+});
+
+// Azione di filtro per attrezzature e utensili
+export const filterAttrezzaturePrices = (criteria) => ({
+  type: FILTER_ATTREZZATURE_PRICES,
+  payload: criteria,
+});
+///////////////////////////////////
+//////// BARRA DI RICERCA ////////////////
+export const searchProducts = (searchTerm) => {
+  return {
+    type: "SEARCH_PRODUCTS",
+    payload: searchTerm,
+  };
+};
+//////////////////////////////////////////
+// Funzione per creare un nuovo prodotto
+export const createProduct = (productData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/products",
+        productData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch({
+        type: CREATE_PRODUCT_SUCCESS,
+        payload: response.data,
+      });
+      console.log("Prodotto creato con successo", response.data);
+    } catch (error) {
+      console.error("Errore nella creazione del prodotto:", error);
+    }
+  };
+};
