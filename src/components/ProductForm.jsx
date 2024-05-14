@@ -26,10 +26,13 @@ const ProductForm = () => {
 
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("name", name);
+    formData.append("description", description); // Aggiungi description al formData
+    formData.append("price", price); // Aggiungi price al formData
 
     try {
       const uploadResponse = await axios.post(
-        "http://localhost:8080/api/products/upload",
+        `http://localhost:8080/api/products/categoryName/${category}`,
         formData,
         {
           headers: {
@@ -39,30 +42,9 @@ const ProductForm = () => {
         }
       );
 
-      const imageUrl = uploadResponse.data.imageUrl;
+      const productData = uploadResponse.data;
 
-      const productData = {
-        name,
-        description,
-        price: parseFloat(price),
-        imageUrl,
-        category: {
-          id: parseInt(category),
-        },
-      };
-
-      // Invia i dati del prodotto al server
-      const productResponse = await axios.post(
-        "http://localhost:8080/api/products",
-        productData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      dispatch(createProduct(productResponse.data));
+      dispatch(createProduct(productData));
     } catch (error) {
       console.error(
         "Errore nel caricamento dell'immagine o nell'invio del prodotto:",
