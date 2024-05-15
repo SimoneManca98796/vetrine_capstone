@@ -9,6 +9,7 @@ import Bacheca from "./components/Bacheca";
 import PrezziLatte from "./components/ComponentsBacheca/PrezziLatte";
 import PrezziOvini from "./components/ComponentsBacheca/PrezziOvini";
 import PrezziSuini from "./components/ComponentsBacheca/PrezziSuini";
+import PrezziAmericani from "./components/ComponentsBacheca/PrezziAmericani";
 import FormIscrizione from "./components/FormIscrizione";
 import FormLogin from "./components/FormLogin";
 import Prodotti from "./components/Prodotti";
@@ -17,10 +18,20 @@ import Artigianali from "./components/ComponentsProdotti.jsx/Artigianali";
 import Animali from "./components/ComponentsProdotti.jsx/Animali";
 import Attrezzature from "./components/ComponentsProdotti.jsx/Attrezzature";
 import ProductForm from "./components/ProductForm";
+//import CheckoutForm from "./components/CheckoutForm";
+// Stripe
+//import { Elements } from "@stripe/react-stripe-js";
+//import { loadStripe } from "@stripe/stripe-js";
+
+// Chiave pubblicabile di Stripe
+//const stripePromise = loadStripe(
+// "pk_live_51PGRC8EEPe7qppias0V6rJQNngJ6OE24ovrGOxmRt723kBKPH2NFvUYlOIvIEnkC0dSHBwbPz7FTiJBT5Cc8nBUW00mwlajsIq"
+//);
 
 const App = () => (
   <>
     <BrowserRouter>
+      {/* <Elements stripe={stripePromise}> */}
       <div className="d-flex flex-column h-100">
         <CustomNavbar />
         <div className="flex-grow-1 d-flex align-items-center justify-content-center">
@@ -30,6 +41,7 @@ const App = () => (
             <Route element={<PrezziLatte />} path="/PrezziLatte" />
             <Route element={<PrezziOvini />} path="/PrezziOvini" />
             <Route element={<PrezziSuini />} path="/PrezziSuini" />
+            <Route element={<PrezziAmericani />} path="/PrezziAmericani" />
             <Route element={<FormIscrizione />} path="/FormIscrizione" />
             <Route element={<FormLogin />} path="/FormLogin" />
             <Route element={<Prodotti />} path="/Prodotti" />
@@ -38,11 +50,13 @@ const App = () => (
             <Route element={<Animali />} path="/Animali" />
             <Route element={<Attrezzature />} path="/Attrezzature" />
             <Route element={<ProductForm />} path="/nuovo-prodotto" />
+            {/*  <Route element={<CheckoutForm />} path="/checkout" /> */}
             <Route element={<NotFound />} path="*" />
           </Routes>
         </div>
         <CustomFooter />
       </div>
+      {/* </Elements> */}
     </BrowserRouter>
   </>
 );

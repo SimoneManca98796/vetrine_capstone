@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const USDA_API_KEY = "OmfmTW7muPfBACbK4U5PeMVFViEblYHua4g6a6Li";
+
 // Imposta un interceptor per aggiungere il token ad ogni richiesta
 axios.interceptors.request.use(
   (config) => {
@@ -45,6 +47,9 @@ export const FILTER_ANIMALI_PRICES = "FILTER_ANIMALI_PRICES";
 export const FILTER_ATTREZZATURE_PRICES = "FILTER_ATTREZZATURE_PRICES";
 export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS";
 export const CREATE_PRODUCT_SUCCESS = "CREATE_PRODUCT_SUCCESS";
+// COSTANTI PER PAGAMENTI:
+export const CREATE_PAYMENT_INTENT_SUCCESS = "CREATE_PAYMENT_INTENT_SUCCESS";
+export const CREATE_PAYMENT_INTENT_FAILURE = "CREATE_PAYMENT_INTENT_FAILURE";
 
 // Aggiunge un nuovo prezzo
 export const addNewPrice = (priceData) => {
@@ -409,3 +414,73 @@ export const createProduct = (productData) => {
     }
   };
 };
+//////////////////////////////////////////////////77
+////////////////////////////////////////////////////
+/*export const createPaymentIntent =
+  (paymentMethodId, amount) => async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/payment/create-payment-intent",
+        {
+          paymentMethodId,
+          amount,
+        }
+      );
+      dispatch({
+        type: CREATE_PAYMENT_INTENT_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: CREATE_PAYMENT_INTENT_FAILURE,
+        payload: error.message,
+      });
+    }
+  };*/
+//////////////////////////////
+////////////////API AMERICANA UDSA //////////////////////////
+// Helper function to filter the relevant data
+const filterRelevantData = (foods) => {
+  const relevantKeywords = ["ovine", "suine", "bovine", "cheese", "milk"];
+  return foods.filter((food) => {
+    const description = food.description.toLowerCase();
+    return relevantKeywords.some((keyword) => description.includes(keyword));
+  });
+};
+
+// Fetch American prices
+export const fetchAmericanPrices = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `https://api.nal.usda.gov/fdc/v1/foods/search?query=prices&api_key=${USDA_API_KEY}`
+      );
+      const filteredData = filterRelevantData(response.data.foods);
+      dispatch({
+        type: FETCH_PRICES_SUCCESS,
+        payload: filteredData,
+      });
+    } catch (error) {
+      console.error("Failed to fetch American prices:", error);
+    }
+  };
+};
+
+// Fetch filtered American prices
+export const fetchFilteredAmericanPrices = (filterCriteria) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `https://api.nal.usda.gov/fdc/v1/foods/search?query=prices&data=${filterCriteria.data}&luogo=${filterCriteria.luogo}&api_key=${USDA_API_KEY}`
+      );
+      const filteredData = filterRelevantData(response.data.foods);
+      dispatch({
+        type: FETCH_FILTERED_PRICES_SUCCESS,
+        payload: filteredData,
+      });
+    } catch (error) {
+      console.error("Failed to fetch filtered American prices:", error);
+    }
+  };
+};
+/////////////////////////////////////////////////////////////

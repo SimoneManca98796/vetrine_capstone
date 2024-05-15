@@ -161,6 +161,35 @@ const Bacheca = () => {
                 </p>
               </td>
             </tr>
+            <tr>
+              <td colSpan="2">
+                <hr />
+              </td>
+            </tr>
+            <tr>
+              <td style={{ textAlign: "center" }}>
+                <h4 className="titoloAccentrato">Prezzi Americani</h4>
+                <Link to="/PrezziAmericani">
+                  <button
+                    className="btn btn-primary rounded-circle"
+                    style={{ padding: 0 }}
+                  >
+                    <img
+                      src="/USA.png"
+                      alt="USA"
+                      width="50px"
+                      height="50px"
+                      style={{ borderRadius: "50%" }}
+                    />
+                  </button>
+                </Link>
+              </td>
+              <td>
+                <p className="text-no-underline centered-text">
+                  Dettagli sui prezzi americani disponibili qui.
+                </p>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
