@@ -1,232 +1,287 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
+import "../HomePage.css";
+import { motion } from "framer-motion";
+import { FaArrowRight } from "react-icons/fa";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   return (
-    <div>
-      <h4 className="text-center mb-4" style={{ color: "#0085B5" }}>
+    <div style={{ paddingTop: "80px" }}>
+      <div className="intro-section">
+        <motion.div
+          className="intro-caption"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="intro-text">Benvenuti nel nostro portale agricolo</h1>
+          <p>
+            Rimani aggiornato sui prezzi di mercato, compra e vendi prodotti
+            agricoli, e tieniti al passo con le tendenze del settore.
+          </p>
+        </motion.div>
+        <motion.img
+          src="/Vetrine.png"
+          alt="Logo App"
+          className="intro-logo"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        />
+      </div>
+
+      <motion.h4
+        className="text-center mb-4"
+        style={{ color: "#0085B5", marginTop: "20px" }}
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         TIENITI AGGIORNATO SUI PREZZI DEL MERCATO :
-      </h4>
+      </motion.h4>
       <div className="carousel-container">
         <Carousel className="responsive-carousel">
           <Carousel.Item>
-            <img
-              className="d-block w-100"
+            <motion.img
+              className="d-block w-100 carousel-image"
               src="/latte.png"
               alt="Prezzi del Latte"
               style={{
                 opacity: 0.8,
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                 border: "2px solid #fff",
-                maxWidth: "876.3px" /* Dimensione fissa per desktop */,
-                height: "auto" /* Mantiene le proporzioni */,
+                maxWidth: "100%",
+                height: "auto",
+                cursor: "pointer",
               }}
+              onClick={() => handleNavigation("/PrezziLatte")}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             />
-            <Carousel.Caption>
-              <h3 style={{ color: "black" }}>Prezzi del Latte</h3>
-              <p style={{ color: "black" }}>
-                Informazioni aggiornate sui prezzi del latte
-              </p>
+            <Carousel.Caption className="carousel-caption">
+              <h3>Prezzi del Latte</h3>
+              <p>Informazioni aggiornate sui prezzi del latte</p>
             </Carousel.Caption>
           </Carousel.Item>
 
           <Carousel.Item>
-            <img
-              className="d-block w-100"
+            <motion.img
+              className="d-block w-100 carousel-image"
               src="/ovini.png"
-              alt="Ovini"
+              alt="Prezzi degli Ovini"
               style={{
                 opacity: 0.8,
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                 border: "2px solid #fff",
-                maxWidth: "876.3px",
+                maxWidth: "100%",
                 height: "auto",
+                cursor: "pointer",
               }}
+              onClick={() => handleNavigation("/PrezziOvini")}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             />
-            <Carousel.Caption>
-              <h3 style={{ color: "black" }}>Ovini</h3>
-              <p style={{ color: "black" }}>
-                Novità e tendenze riguardanti allevamento degli ovini
-              </p>
+            <Carousel.Caption className="carousel-caption">
+              <h3>Prezzi degli Ovini</h3>
+              <p>Novità e tendenze riguardanti allevamento degli ovini</p>
             </Carousel.Caption>
           </Carousel.Item>
 
           <Carousel.Item>
-            <img
-              className="d-block w-100"
+            <motion.img
+              className="d-block w-100 carousel-image"
               src="/suini.png"
-              alt="Suini"
+              alt="Prezzi dei Suini"
               style={{
                 opacity: 0.8,
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                 border: "2px solid #fff",
-                maxWidth: "876.3px",
+                maxWidth: "100%",
                 height: "auto",
+                cursor: "pointer",
               }}
+              onClick={() => handleNavigation("/PrezziSuini")}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             />
-            <Carousel.Caption>
-              <h3 style={{ color: "black" }}>Suini</h3>
-              <p style={{ color: "black" }}>Ultime notizie dal mercato suino</p>
+            <Carousel.Caption className="carousel-caption">
+              <h3>Prezzi dei Suini</h3>
+              <p>Ultime notizie dal mercato suino</p>
             </Carousel.Caption>
           </Carousel.Item>
 
           <Carousel.Item>
-            <img
-              className="d-block w-100"
+            <motion.img
+              className="d-block w-100 carousel-image"
               src="/bovini.png"
-              alt="Bovini"
+              alt="Prezzi dei Bovini"
               style={{
                 opacity: 0.8,
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                 border: "2px solid #fff",
-                maxWidth: "876.3px",
+                maxWidth: "100%",
                 height: "auto",
+                cursor: "pointer",
               }}
+              onClick={() => handleNavigation("/PrezziAmericani")}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             />
-            <Carousel.Caption>
-              <h3 style={{ color: "black" }}>Bovini</h3>
-              <p style={{ color: "black" }}>
-                Aggiornamenti e prezzi del settore bovino
-              </p>
+            <Carousel.Caption className="carousel-caption">
+              <h3>Prezzi dei Bovini</h3>
+              <p>Aggiornamenti e prezzi del settore bovino</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
       </div>
-      {/* Spazio per separare i caroselli */}
-      <div style={{ marginBottom: "150px" }}></div>
-
-      {/* Secondo carosello */}
-      <h4 className="text-center mb-4" style={{ color: "#0085B5" }}>
-        METTI IN VENDITA E/O COMPRA I PRODOTTI DELLA TUA TERRA:
-      </h4>
-      <div className="carousel-container">
-        <Carousel>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="/caserecci.png"
-              alt="Vendita di prodotti caserecci"
-              style={{
-                maxWidth: "876.3px",
-                height: "auto",
-              }}
-            />
-            <Carousel.Caption>
-              <h3 style={{ color: "#0085B5" }}>
-                Vendita di prodotti caserecci
-              </h3>
-              <p style={{ color: "#0085B5" }}>
-                Trova e vendi prodotti fatti in casa direttamente dalla tua
-                terra
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="/piantine.png"
-              alt="Vendita di piantine"
-              style={{
-                maxWidth: "876.3px",
-                height: "auto",
-              }}
-            />
-            <Carousel.Caption>
-              <h3 style={{ color: "#0085B5" }}>Vendita di piantine</h3>
-              <p style={{ color: "#0085B5" }}>
-                Scopri una vasta selezione di piantine per il tuo giardino o
-                orto
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="/venditeAnimali.png"
-              alt="Vendita di animali"
-              style={{
-                maxWidth: "876.3px",
-                height: "auto",
-              }}
-            />
-            <Carousel.Caption>
-              <h3 style={{ color: "#0085B5" }}>Vendita di animali</h3>
-              <p style={{ color: "#0085B5" }}>
-                Trova il tuo nuovo compagno nella nostra selezione di animali
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
+      <div className="info-section">
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Benvenuti nel nostro portale per agricoltori
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          Scopri le ultime novità sui prezzi del mercato, vendi e compra
+          prodotti agricoli, e rimani aggiornato sulle tendenze del settore.
+        </motion.p>
+        <motion.img
+          src="/HomePagePrima.webp"
+          alt="Agricoltura"
+          style={{ width: "170px", height: "170px" }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        />
+        <button
+          className="cta-button"
+          onClick={() => handleNavigation("/Prodotti")}
+        >
+          Scopri i nostri prodotti <FaArrowRight />
+        </button>
       </div>
-      {/**/}
-      <div style={{ marginBottom: "150px" }}></div>
-      <h4 className="text-center mb-4" style={{ color: "#0085B5" }}>
-        METTI IN VENDITA E/O COMPRA I PRODOTTI DELLA TUA TERRA:
-      </h4>
-      <div className="carousel-container">
-        <Carousel>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="/caserecci.png"
-              alt="Vendita di prodotti caserecci"
-              style={{
-                maxWidth: "876.3px",
-                height: "auto",
-              }}
-            />
-            <Carousel.Caption>
-              <h3 style={{ color: "#0085B5" }}>
-                Vendita di prodotti caserecci
-              </h3>
-              <p style={{ color: "#0085B5" }}>
-                Trova e vendi prodotti fatti in casa direttamente dalla tua
-                terra
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
+      <div className="second-carousel-container">
+        <h4 className="text-center mb-4" style={{ color: "#0085B5" }}>
+          METTI IN VENDITA E/O COMPRA I PRODOTTI DELLA TUA TERRA:
+        </h4>
+        <div className="carousel-container">
+          <Carousel className="responsive-carousel">
+            <Carousel.Item>
+              <motion.img
+                className="d-block w-100 carousel-image"
+                src="/caserecci.png"
+                alt="Vendita di prodotti caserecci"
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleNavigation("/Artigianali")}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              />
+              <Carousel.Caption className="carousel-caption">
+                <h3>Vendita di prodotti caserecci</h3>
+                <p>
+                  Trova e vendi prodotti fatti in casa direttamente dalla tua
+                  terra
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
 
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="/piantine.png"
-              alt="Vendita di piantine"
-              style={{
-                maxWidth: "876.3px",
-                height: "auto",
-              }}
-            />
-            <Carousel.Caption>
-              <h3 style={{ color: "#0085B5" }}>Vendita di piantine</h3>
-              <p style={{ color: "#0085B5" }}>
-                Scopri una vasta selezione di piantine per il tuo giardino o
-                orto
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
+            <Carousel.Item>
+              <motion.img
+                className="d-block w-100 carousel-image"
+                src="/piantine.png"
+                alt="Vendita di piantine"
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleNavigation("/Piantine")}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              />
+              <Carousel.Caption className="carousel-caption">
+                <h3>Vendita di piantine</h3>
+                <p>
+                  Scopri una vasta selezione di piantine per il tuo giardino o
+                  orto
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
 
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="/venditeAnimali.png"
-              alt="Vendita di animali"
-              style={{
-                maxWidth: "876.3px",
-                height: "auto",
-              }}
-            />
-            <Carousel.Caption>
-              <h3 style={{ color: "#0085B5" }}>Vendita di animali</h3>
-              <p style={{ color: "#0085B5" }}>
-                Trova il tuo nuovo compagno nella nostra selezione di animali
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
+            <Carousel.Item>
+              <motion.img
+                className="d-block w-100 carousel-image"
+                src="/venditeAnimali.png"
+                alt="Vendita di animali"
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleNavigation("/Animali")}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              />
+              <Carousel.Caption className="carousel-caption">
+                <h3>Vendita di animali</h3>
+                <p>
+                  Trova il tuo nuovo compagno nella nostra selezione di animali
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
+        </div>
+      </div>
+      <div className="info-section">
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Esplora le nostre funzionalità
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          Il nostro portale offre una varietà di servizi per gli agricoltori,
+          inclusi aggiornamenti sui prezzi, una piattaforma per vendere e
+          comprare prodotti agricoli, e molto altro. Naviga attraverso i nostri
+          caroselli per saperne di più.
+        </motion.p>
+        <motion.img
+          src="/HomePageSeconda.webp"
+          alt="Mercato agricolo"
+          style={{ width: "400px", height: "400px" }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        />
+        <button
+          className="cta-button"
+          onClick={() => handleNavigation("/Attrezzature")}
+        >
+          Esplora le attrezzature <FaArrowRight />
+        </button>
       </div>
     </div>
   );

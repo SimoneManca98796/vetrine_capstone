@@ -1,0 +1,149 @@
+body {
+    font-family: 'Arial, sans-serif';
+    background: linear-gradient(to right, #e0eafc, #cfdef3);
+    margin: 0;
+    padding: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.carousel-container {
+    max-width: 1200px;
+    margin: 20px auto; /* Aggiungi margine superiore */
+    padding: 1rem;
+}
+
+.carousel-caption h3, .carousel-caption p {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    padding: 10px;
+    color: #000;
+}
+
+.info-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: #f7f7f7;
+    margin: 50px 0; /* Aggiungi margine superiore e inferiore */
+}
+
+.info-section h2 {
+    color: #0085B5;
+    margin-bottom: 20px;
+}
+
+.info-section p {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.info-section img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.second-carousel-container {
+    background-color: #e0eafc; /* Sfondo azzurro per la seconda sezione */
+    padding: 20px 0; /* Aggiungi padding superiore e inferiore */
+}
+
+/* Animazioni */
+.carousel-image {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.cta-button {
+    background: linear-gradient(90deg, rgba(88,88,88,1) 0%, rgba(117,117,117,1) 35%, rgba(230,230,230,1) 100%);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    margin-left: 20px; /* Aggiungi margine sinistro */
+}
+
+.cta-button:hover {
+    background-color: #005f7a;
+}
+
+@media (max-width: 768px) {
+    .carousel-caption h3, .carousel-caption p {
+        font-size: 0.9rem; /* Riduci la dimensione delle didascalie sui dispositivi mobili */
+        padding: 5px; /* Riduci il padding delle didascalie sui dispositivi mobili */
+    }
+
+    .text-center.mb-4 {
+        font-size: 1.2rem;
+    }
+
+    .info-section {
+        padding: 20px 10px;
+    }
+
+    .info-section p {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        margin-left: 0; /* Rimuovi il margine sinistro sui dispositivi mobili */
+    }
+}
+
+/* Intro Section */
+.intro-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.intro-caption {
+    max-width: 60%;
+}
+
+.intro-text {
+    color: #0085B5;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.intro-logo {
+    max-width: 30%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .intro-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .intro-caption, .intro-logo {
+        max-width: 100%;
+    }
+}
+  
+  
+  
+  
+  
+  

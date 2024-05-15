@@ -3,11 +3,12 @@ html, body {
   margin: 0;
   padding: 0;
   background-image: url("/1.jpg");
+  font-family: 'Arial, sans-serif';
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
 }
 
 body {
   padding-top: 150px;
-  
   background-size: cover; 
   background-repeat: no-repeat; 
 }
@@ -16,7 +17,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* flex: 1*/
 }
 
 footer {
@@ -35,15 +35,18 @@ footer {
 /* ////////////////// */ 
 @media (min-width: 768px) {
   .carousel-container {
-      width: 678.3px; /* Larghezza fissa per desktop */
-      height: 300px;   /* Altezza fissa per desktop */
-      margin: 0 auto;  /* Centra il contenitore */
+    width: 678.3px; /* Larghezza fissa per desktop */
+    height: 300px;   /* Altezza fissa per desktop */
+    margin: 0 auto;  /* Centra il contenitore */
   }
 
   .carousel-item img {
-      object-fit: cover; /* Mantiene le proporzioni delle immagini */
+    object-fit: cover; /* Mantiene le proporzioni delle immagini */
   }
 }
+
+
+
 
 /* ////////////////// */ 
 /* ////////////////// */
