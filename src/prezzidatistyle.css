@@ -1,23 +1,5 @@
 /* /////// COMPONENTS TABELLARI /////////// */
-/* ///////////// PREZZI LATTE:  ////////////// */ 
-.prezzi-latte {
-    background-color: #86B4BE;
-  }
-  
-  .custom-table {
-    background-color: #194988 !important;
-    color: #050712 !important;
-  }
-  
-  .custom-table thead th {
-    background-color: #050712 !important;
-    color: #ffffff !important;
-  }
-  
-  .custom-table tbody td {
-    background-color: #194988 !important;
-    color: #ffffff !important;
-  }
+
 /* /////////////////////////// */ 
 /* /////////////////////////// */ 
 /* OVINI: */ 

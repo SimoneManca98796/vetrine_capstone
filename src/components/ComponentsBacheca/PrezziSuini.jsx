@@ -15,7 +15,6 @@ import {
 } from "react-bootstrap";
 import Select from "react-select";
 import { format } from "date-fns";
-import "../../prezzidatistyle.css";
 
 const cityOptions = [
   { value: "Sardegna", label: "Sardegna" },
