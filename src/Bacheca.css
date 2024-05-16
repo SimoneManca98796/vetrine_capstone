@@ -1,130 +1,225 @@
+body.bacheca {
+  background: rgb(220, 220, 220);
+  font-family: 'Arial, sans-serif';
+}
+
 .bacheca-container {
-    padding-top: 80px; /* Regola il padding per assicurarti che la navbar non copra il contenuto */
-    margin: 20px;
-    background: rgb(156,139,139);
-    background: linear-gradient(90deg, rgba(156,139,139,1) 50%, rgba(108,63,0,1) 100%);
+  padding-top: 80px;
+  margin: 20px;
 }
 
 .intro-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .intro-content {
-    flex: 1;
-    padding-right: 20px;
+  flex: 1;
+  padding-right: 20px;
 }
 
 .intro-image {
-    flex: 1;
-    text-align: center;
+  flex: 1;
+  text-align: center;
 }
 
 .intro-img {
-    width: 200px;
-    height: auto;
-    border-radius: 10px;
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
 }
 
 .table-container {
-    padding: 20px;
-    background-color: #F0F0F0;
-    border-radius: 10px;
+  padding: 20px;
+  background-color: #F0F0F0;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .price-table {
-    width: 100%;
-    text-align: center;
-    border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
 }
 
-.price-table th, .price-table td {
-    padding: 15px;
-    border: 1px solid #ddd;
+.price-table th,
+.price-table td {
+  padding: 15px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.price-table th {
+  font-size: 1.2rem;
+  color: #0085B5;
+  font-weight: bold;
+}
+
+.price-table td {
+  padding: 10px;
 }
 
 .icon-cell {
-    padding: 10px;
-    text-align: center;
-    vertical-align: top;
+  padding: 10px;
+  text-align: center;
+  vertical-align: top;
 }
 
 .icon-button {
-    padding: 0;
-    background-color: transparent;
-    border: none;
-    transition: border 0.3s ease;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  outline: 2px solid transparent;
+  transition: outline 0.3s ease, transform 0.3s ease;
 }
 
 .icon-button:hover {
-    border: 2px solid #0085B5;
+  outline: 2px solid #0085B5;
+  transform: scale(1.05);
 }
 
 .icon-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    transition: transform 0.3s ease;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
 }
 
 .icon-button:hover .icon-img {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .titoloAccentrato {
-    font-size: 1.25rem;
-    color: #0085B5;
-    margin: 10px 0 5px 0;
+  font-size: 1.5rem;
+  color: #0085B5;
+  margin: 10px 0 5px 0;
+  font-weight: bold;
 }
 
 .centered-text {
-    text-align: center;
-    margin: 5px 0 10px 0;
+  text-align: center;
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+}
+
+.arrow-up {
+  display: none;
 }
 
 .american-prices-section {
-    margin-top: 40px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .didascalia {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 20px;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 768px) {
-    .intro-section {
-        flex-direction: column;
-        text-align: center;
-    }
+  .intro-section {
+    flex-direction: column;
+    text-align: center;
+  }
 
-    .intro-content {
-        padding-right: 0;
-    }
+  .intro-content {
+    padding-right: 0;
+  }
 
-    .intro-img {
-        width: 150px;
-    }
+  .intro-img {
+    width: 80px;
+  }
 
-    .icon-img {
-        width: 40px;
-        height: 40px;
-    }
+  .icon-img {
+    width: 50px;
+    height: 50px;
+  }
 
-    .american-prices-section {
-        margin-top: 20px;
-    }
+  .price-table th,
+  .price-table td {
+    padding: 10px;
+  }
+
+  .price-table thead {
+    display: none;
+  }
+
+  .price-table tbody {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .price-table tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .price-table td {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .price-table td .centered-text {
+    font-weight: bold;
+  }
+
+  .icon-button {
+    margin-bottom: 10px;
+  }
+
+  .icon-img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .arrow-up {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    background: url('/arrow-up.webp') no-repeat center center;
+    background-size: contain;
+  }
 }
+
+
+.box-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.border-radius {
+  border-radius: 15px;
+}
+
+
+
+  
+  
+  
+  
 
 

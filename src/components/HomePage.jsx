@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,6 +9,13 @@ import { FaArrowRight } from "react-icons/fa";
 
 const HomePage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.body.classList.add("homepage");
+    return () => {
+      document.body.classList.remove("homepage");
+    };
+  }, []);
 
   const handleNavigation = (path) => {
     navigate(path);

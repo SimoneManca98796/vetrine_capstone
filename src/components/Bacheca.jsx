@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import "../Bacheca.css";
 
 const Bacheca = () => {
+  useEffect(() => {
+    document.body.classList.add("bacheca");
+    return () => {
+      document.body.classList.remove("bacheca");
+    };
+  }, []);
+
   return (
     <div className="bacheca-wrapper">
       <div className="bacheca-container">
-        {/* Sezione introduttiva */}
         <div className="intro-section">
           <div className="intro-content">
             <h3>Bacheca dei Prezzi</h3>
@@ -44,6 +50,7 @@ const Bacheca = () => {
                       <img src="/latte.png" alt="Latte" className="icon-img" />
                     </button>
                   </Link>
+                  <span className="arrow-up"></span>
                   <p className="text-no-underline centered-text">
                     Dettagli sui prezzi del latte disponibili qui.
                   </p>
@@ -54,6 +61,7 @@ const Bacheca = () => {
                       <img src="/ovini.png" alt="Ovini" className="icon-img" />
                     </button>
                   </Link>
+                  <span className="arrow-up"></span>
                   <p className="text-no-underline centered-text">
                     Dettagli sui prezzi degli ovini disponibili qui.
                   </p>
@@ -64,6 +72,7 @@ const Bacheca = () => {
                       <img src="/suini.png" alt="Suini" className="icon-img" />
                     </button>
                   </Link>
+                  <span className="arrow-up"></span>
                   <p className="text-no-underline centered-text">
                     Dettagli sui prezzi dei suini disponibili qui.
                   </p>
@@ -78,6 +87,7 @@ const Bacheca = () => {
                       />
                     </button>
                   </Link>
+                  <span className="arrow-up"></span>
                   <p className="text-no-underline centered-text">
                     Dettagli sui prezzi dei bovini disponibili qui.
                   </p>

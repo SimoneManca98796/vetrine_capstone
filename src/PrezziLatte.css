@@ -1,0 +1,79 @@
+/* ///////////// PREZZI LATTE:  ////////////// */
+.prezzi-latte {
+    padding-top: 80px; 
+    background-color: #e0eafc;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.custom-table {
+    background-color: #ffffff;
+    color: #333333;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-table thead th {
+    background-color: #0085B5;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.custom-table tbody td {
+    background-color: #f0f0f0;
+    color: #333333;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #e0eafc;
+}
+
+.filter-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.filter-form .form-label {
+    color: #0085B5;
+    font-weight: bold;
+}
+
+.filter-form .form-control,
+.filter-form .select__control {
+    border: 1px solid #0085B5;
+}
+
+.filter-form .btn {
+    background-color: #0085B5;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.filter-form .btn:hover {
+    background-color: #005f7a;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+@media (max-width: 768px) {
+    .prezzi-latte {
+        padding-top: 60px; 
+    }
+
+    .custom-table {
+        font-size: 0.9rem;
+    }
+
+    .filter-form {
+        padding: 15px;
+    }
+}

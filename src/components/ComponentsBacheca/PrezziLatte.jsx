@@ -13,8 +13,8 @@ import {
 import { format } from "date-fns";
 import Select from "react-select";
 import "../../App.css";
-import "../../prezzidatistyle.css";
-// Opzioni per la selezione dei luoghi
+import "../../PrezziLatte.css";
+
 const cityOptions = [
   { value: "Sardegna", label: "Sardegna" },
   { value: "Macomer", label: "Macomer" },
@@ -54,7 +54,7 @@ const PrezziLatte = () => {
       <Row className="mb-4 mt-0">
         <Col xs={12}>
           <h2>PREZZI DEL LATTE</h2>
-          <Form>
+          <Form className="filter-form">
             <Form.Group className="mb-3">
               <Form.Label>Data</Form.Label>
               <Form.Control
@@ -85,10 +85,9 @@ const PrezziLatte = () => {
       <Row>
         <Col>
           {loading ? (
-            <Spinner
-              animation="border"
-              className="d-flex justify-content-center"
-            />
+            <div className="spinner-container">
+              <Spinner animation="border" />
+            </div>
           ) : (
             <Table
               striped

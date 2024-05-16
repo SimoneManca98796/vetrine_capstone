@@ -9,6 +9,7 @@ const CustomFooter = () => {
     "/": "#0085B5",
     "/mercati": "rgb(156,139,139)",
     "/prodotti": "#0044cc",
+    "/PrezziLatte": "#DADDE2",
   };
 
   const footerColor = footerColors[location.pathname] || "#0085B5"; // Colore di default
