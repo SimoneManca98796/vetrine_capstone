@@ -7,21 +7,3 @@
   /* /////////////////////////// */ 
 /* /////////////////////////// */ 
 /* SUINI: */ 
-.prezzi-suini {
-    background-color:  #A93FC9 ;
-  }
-  
-  .custom-tabless {
-    background-color: #F0CD78, !important;
-    color: #A93FC9 !important;
-  }
-  
-  .custom-tabless thead th {
-    background-color: #F79BF5!important;
-    color: #F79BF5 !important;
-  }
-  
-  .custom-tabless tbody td {
-    background-color: #F79BF5 !important;
-    color: #A93FC9 !important;
-  }

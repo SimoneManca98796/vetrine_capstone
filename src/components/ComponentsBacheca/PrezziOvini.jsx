@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import { format } from "date-fns";
 import Select from "react-select";
-import { Line } from "react-chartjs-2"; // Importa il componente grafico
+import { Line } from "react-chartjs-2";
 import "chart.js/auto"; // Importa la libreria del grafico
 import "../../App.css";
 import "../../PrezziOvini.css";
@@ -51,7 +51,7 @@ const PrezziOvini = () => {
 
   useEffect(() => {
     if (prezzilist.length > 0) {
-      const latestDate = prezzilist[0].data; // Assumendo che la lista sia ordinata per data
+      const latestDate = prezzilist[0].data;
       setLastUpdated(format(new Date(latestDate), "dd/MM/yyyy"));
     }
   }, [prezzilist]);
@@ -92,8 +92,8 @@ const PrezziOvini = () => {
           <Col xs={12}>
             <h2 style={{ fontSize: "1.2rem" }}>PREZZI DEGLI OVINI</h2>
             <p style={{ fontSize: "0.9rem" }}>
-              Scopri i prezzi aggiornati degli ovini e dei prodotti caseari in
-              Italia. Puoi filtrare i dati per data e luogo per vedere
+              Scopri i prezzi aggiornati degli ovini, carni di pecora e agnello
+              in Italia. Puoi filtrare i dati per data e luogo per vedere
               l&apos;andamento nel tempo.
             </p>
             <p style={{ fontSize: "0.9rem" }}>

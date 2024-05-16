@@ -1,0 +1,157 @@
+/* ///////////// PREZZI SUINI:  ////////////// */
+body.prezziSuini {
+    background-color: rgba(255, 194, 209, 0.5); /* Pink */
+    margin: 0;
+    padding: 0;
+}
+
+.prezzi-suini-container {
+    padding-top: 150px !important;
+    background-color: #FFC2D1; /* Pink */
+    min-height: 100vh;
+    padding: 10px;
+    overflow-x: hidden;
+}
+
+.prezzi-suini .custom-table {
+    background-color: #ffffff; /* White */
+    color: #FB6F92; /* Rose Pompadour */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    overflow-x: auto;
+    font-size: 0.8rem;
+}
+
+.prezzi-suini .custom-table thead th {
+    background-color: #FB6F92; /* Rose Pompadour */
+    color: #ffffff; /* White */
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border-bottom: 2px solid #FB6F92; /* Rose Pompadour */
+    font-size: 0.9rem;
+}
+
+.prezzi-suini .custom-table tbody tr:nth-child(even) {
+    background-color: rgba(251, 111, 146, 0.1); /* Rose Pompadour with transparency */
+}
+
+.prezzi-suini .custom-table tbody tr:nth-child(odd) {
+    background-color: rgba(251, 111, 146, 0.3); /* Rose Pompadour with more transparency */
+}
+
+.prezzi-suini .custom-table tbody tr:hover {
+    background-color: rgba(251, 111, 146, 0.5); /* Rose Pompadour with even more transparency */
+}
+
+.prezzi-suini .custom-table td, .prezzi-suini .custom-table th {
+    padding: 8px;
+    text-align: left;
+}
+
+.prezzi-suini .filter-form {
+    background-color: #FFC2D1; /* Pink */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.prezzi-suini .filter-form .form-label {
+    color: #FB6F92; /* Rose Pompadour */
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.prezzi-suini .filter-form .form-control,
+.prezzi-suini .filter-form .select__control {
+    border: 1px solid #FB6F92; /* Rose Pompadour */
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.prezzi-suini .filter-form .btn {
+    background-color: #FB6F92; /* Rose Pompadour */
+    color: #ffffff; /* White */
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.prezzi-suini .filter-form .btn:hover {
+    background-color: #FF8FAB; /* Baker-Miller pink */
+}
+
+.prezzi-suini .spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 194, 209, 0.7); /* Pink with transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.prezzi-suini .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+@media (max-width: 768px) {
+    .prezzi-suini-container {
+        padding-top: 60px;
+        padding: 10px;
+    }
+
+    .prezzi-suini .custom-table {
+        font-size: 0.7rem;
+    }
+
+    .prezzi-suini .filter-form {
+        padding: 10px;
+    }
+
+    .prezzi-suini .filter-form .form-label {
+        font-size: 0.8rem;
+    }
+
+    .prezzi-suini .filter-form .form-control,
+    .prezzi-suini .filter-form .select__control {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .prezzi-suini .filter-form .btn {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .navbar {
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        font-size: 0.8rem;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 0.8rem;
+    }
+
+    .navbar-toggler {
+        font-size: 0.8rem;
+    }
+}
