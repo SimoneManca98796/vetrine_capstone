@@ -3,24 +3,7 @@
 /* /////////////////////////// */ 
 /* /////////////////////////// */ 
 /* OVINI: */ 
-.prezzi-ovini {
-    background-color:  #995C3E ;
-  }
-  
-  .custom-tables {
-    background-color: #F0CD78, !important;
-    color: #050712 !important;
-  }
-  
-  .custom-tables thead th {
-    background-color: #050712 !important;
-    color: #B12AA1 !important;
-  }
-  
-  .custom-tables tbody td {
-    background-color: #F0CD78 !important;
-    color: #B12AA1 !important;
-  }
+
   /* /////////////////////////// */ 
 /* /////////////////////////// */ 
 /* SUINI: */ 
