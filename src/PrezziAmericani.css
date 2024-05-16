@@ -1,0 +1,174 @@
+/* ///////////// PREZZI AMERICANI:  ////////////// */
+body.prezziAmericani {
+    background: linear-gradient(to bottom, #B22234,  #3C3B6E); /* USA flag colors */
+    margin: 0;
+    padding: 0;
+}
+
+.prezzi-americani-container {
+    padding-top: 150px !important;
+    background: linear-gradient(to bottom, #FFFFFF, #B22234, #3C3B6E); /* USA flag colors */
+    min-height: 100vh;
+    padding: 10px;
+    overflow-x: hidden;
+}
+
+.prezzi-americani .custom-table {
+    background-color: #ffffff; /* White */
+    color: #B22234; /* Red */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    overflow-x: auto;
+    font-size: 0.8rem;
+}
+
+.prezzi-americani .custom-table thead th {
+    background-color: #3C3B6E; /* Navy Blue */
+    color: #ffffff; /* White */
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border-bottom: 2px solid #B22234; /* Red */
+    font-size: 0.9rem;
+}
+
+.prezzi-americani .custom-table tbody tr:nth-child(even) {
+    background-color: rgba(178, 34, 52, 0.1); /* Red with transparency */
+}
+
+.prezzi-americani .custom-table tbody tr:nth-child(odd) {
+    background-color: rgba(60, 59, 110, 0.1); /* Blue with transparency */
+}
+
+.prezzi-americani .custom-table tbody tr:hover {
+    background-color: rgba(60, 59, 110, 0.3); /* Blue with more transparency */
+}
+
+.prezzi-americani .custom-table td, .prezzi-americani .custom-table th {
+    padding: 8px;
+    text-align: left;
+}
+
+.prezzi-americani .filter-form {
+    background-color: #3C3B6E; /* Navy Blue */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.prezzi-americani .filter-form .form-label {
+    color: #ffffff; /* White */
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.prezzi-americani .filter-form .form-control,
+.prezzi-americani .filter-form .select__control {
+    border: 1px solid #B22234; /* Red */
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.prezzi-americani .filter-form .btn {
+    background-color: #B22234; /* Red */
+    color: #ffffff; /* White */
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.prezzi-americani .filter-form .btn:hover {
+    background-color: #FF4500; /* Darker red */
+}
+
+.prezzi-americani .spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(60, 59, 110, 0.7); /* Navy blue with transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.prezzi-americani .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+@media (max-width: 768px) {
+    .prezzi-americani-container {
+        padding-top: 60px;
+        padding: 10px;
+    }
+
+    .prezzi-americani .custom-table {
+        font-size: 0.7rem;
+    }
+
+    .prezzi-americani .filter-form {
+        padding: 10px;
+    }
+
+    .prezzi-americani .filter-form .form-label {
+        font-size: 0.8rem;
+    }
+
+    .prezzi-americani .filter-form .form-control,
+    .prezzi-americani .filter-form .select__control {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .prezzi-americani .filter-form .btn {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .navbar {
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        font-size: 0.8rem;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 0.8rem;
+    }
+
+    .navbar-toggler {
+        font-size: 0.8rem;
+    }
+
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .custom-table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        overflow-x: auto;
+    }
+}
+
+
+

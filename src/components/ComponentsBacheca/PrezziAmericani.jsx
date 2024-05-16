@@ -16,9 +16,16 @@ import {
 import { format } from "date-fns";
 import Select from "react-select";
 import "../../App.css";
-import "../../prezzidatistyle.css";
+import "../../PrezziAmericani.css";
 
 const PrezziAmericani = () => {
+  useEffect(() => {
+    document.body.classList.add("prezziAmericani");
+    return () => {
+      document.body.classList.remove("prezziAmericani");
+    };
+  }, []);
+
   const dispatch = useDispatch();
   const { filteredList, prezzilist } = useSelector(
     (state) => state.prezziAmericani
@@ -43,92 +50,95 @@ const PrezziAmericani = () => {
   };
 
   return (
-    <Container className="prezzi-americani">
-      <Row className="mb-4 mt-0">
-        <Col xs={12}>
-          <h2>PREZZI AMERICANI</h2>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Data</Form.Label>
-              <Form.Control
-                type="date"
-                value={filters.data}
-                onChange={(e) => handleFilterChange("data", e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Luogo</Form.Label>
-              <Select
-                options={[{ value: "USA", label: "USA" }]}
-                onChange={(selectedOption) =>
-                  handleFilterChange(
-                    "luogo",
-                    selectedOption ? selectedOption.value : ""
-                  )
-                }
-                placeholder="Scegli luogo"
-                isClearable
-                isSearchable
-              />
-            </Form.Group>
-            <Button onClick={applyFilters}>Applica Filtri</Button>
-          </Form>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {loading ? (
-            <Spinner
-              animation="border"
-              className="d-flex justify-content-center"
-            />
-          ) : (
-            <Table
-              striped
-              bordered
-              hover
-              className="table-responsive custom-table"
-            >
-              <thead>
-                <tr>
-                  <th>Data</th>
-                  <th>Luogo</th>
-                  <th>Prodotto</th>
-                  <th>Prezzo</th>
-                  <th>Variazione</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredList && filteredList.length > 0 ? (
-                  filteredList.map((item, idx) => (
-                    <tr key={idx}>
-                      <td>{item.publishedDate}</td>
-                      <td>{item.marketCountry || "USA"}</td>
-                      <td>{item.description}</td>
-                      <td>
-                        {item.foodNutrients.find(
-                          (nutrient) => nutrient.nutrientName === "Energy"
-                        )?.value || "N/D"}{" "}
-                        $
-                      </td>
-                      <td>
-                        {item.percentDailyValue
-                          ? `${item.percentDailyValue}%`
-                          : "N/A"}
-                      </td>
+    <div className="prezzi-americani-container">
+      <Container className="prezzi-americani">
+        <Row className="mb-4 mt-0">
+          <Col xs={12}>
+            <h2>PREZZI AMERICANI</h2>
+            <Form className="filter-form">
+              <Form.Group className="mb-3">
+                <Form.Label>Data</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={filters.data}
+                  onChange={(e) => handleFilterChange("data", e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Luogo</Form.Label>
+                <Select
+                  options={[{ value: "USA", label: "USA" }]}
+                  onChange={(selectedOption) =>
+                    handleFilterChange(
+                      "luogo",
+                      selectedOption ? selectedOption.value : ""
+                    )
+                  }
+                  placeholder="Scegli luogo"
+                  isClearable
+                  isSearchable
+                />
+              </Form.Group>
+              <Button onClick={applyFilters}>Applica Filtri</Button>
+            </Form>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {loading ? (
+              <div className="spinner-container">
+                <Spinner animation="border" />
+              </div>
+            ) : (
+              <div className="table-responsive">
+                <Table
+                  striped
+                  bordered
+                  hover
+                  className="table-responsive custom-table"
+                >
+                  <thead>
+                    <tr>
+                      <th>Data</th>
+                      <th>Luogo</th>
+                      <th>Prodotto</th>
+                      <th>Prezzo</th>
+                      <th>Variazione</th>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="5">Nessun dato disponibile</td>
-                  </tr>
-                )}
-              </tbody>
-            </Table>
-          )}
-        </Col>
-      </Row>
-    </Container>
+                  </thead>
+                  <tbody>
+                    {filteredList && filteredList.length > 0 ? (
+                      filteredList.map((item, idx) => (
+                        <tr key={idx}>
+                          <td>{item.publishedDate}</td>
+                          <td>{item.marketCountry || "USA"}</td>
+                          <td>{item.description}</td>
+                          <td>
+                            {item.foodNutrients.find(
+                              (nutrient) => nutrient.nutrientName === "Energy"
+                            )?.value || "N/D"}{" "}
+                            $
+                          </td>
+                          <td>
+                            {item.percentDailyValue
+                              ? `${item.percentDailyValue}%`
+                              : "N/A"}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5">Nessun dato disponibile</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </Table>
+              </div>
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 
