@@ -45,6 +45,8 @@ const CustomNavbar = () => {
     "/prodotti": "#0044cc",
     "/PrezziLatte": "#DADDE2",
     "/PrezziOvini": "#9E2A2B",
+    "/PrezziSuini": "#881B80",
+    "/PrezziBovini": "#007200",
   };
 
   // Ottieni il colore in base al percorso attuale

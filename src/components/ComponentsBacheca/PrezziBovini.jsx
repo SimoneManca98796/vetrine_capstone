@@ -1,84 +1,208 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPrices, fetchFilteredPrices } from "../../redux/actions";
 import {
   Container,
   Row,
   Col,
-  Dropdown,
+  Table,
   Spinner,
-  ListGroup,
+  Form,
+  Button,
 } from "react-bootstrap";
 import { format } from "date-fns";
-import itLocale from "date-fns/locale/it";
+import Select from "react-select";
+import { Line } from "react-chartjs-2"; // Importa il componente grafico
+import "chart.js/auto"; // Importa la libreria del grafico
+import "../../App.css";
+import "../../PrezziBovini.css";
+
+const cityOptions = [
+  { value: "Sardegna", label: "Sardegna" },
+  { value: "Macomer", label: "Macomer" },
+  { value: "Cagliari", label: "Cagliari" },
+  { value: "Sassari", label: "Sassari" },
+  { value: "Foggia", label: "Foggia" },
+  { value: "Grosseto", label: "Grosseto" },
+  { value: "Roma", label: "Roma" },
+];
 
 const PrezziBovini = () => {
-  const [loading, setLoading] = useState(true);
-  const [prezzi, setPrezzi] = useState({});
-  const [language, setLanguage] = useState("Italia");
-  const [currentDate, setCurrentDate] = useState(new Date());
-
-  const caricaDati = () => {
-    setTimeout(() => {
-      setPrezzi({
-        vitello: "15 €/kg",
-        mucca: "12 €/kg",
-      });
-      setLoading(false);
-    }, 2000); // Ritardo di 2 secondi
-  };
-
   useEffect(() => {
-    caricaDati();
-
-    const dateInterval = setInterval(() => {
-      setCurrentDate(new Date());
-    }, 1000); // Aggiorna la data ogni secondo
-
-    return () => clearInterval(dateInterval);
+    document.body.classList.add("prezziBovini");
+    return () => {
+      document.body.classList.remove("prezziBovini");
+    };
   }, []);
 
-  const handleLanguageChange = (lang) => setLanguage(lang);
+  const dispatch = useDispatch();
+  const { filteredList = [], prezzilist } = useSelector(
+    (state) => state.prezziBovini || { filteredList: [], prezzilist: [] }
+  );
+  const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({ data: "", luogo: "" });
+  const [lastUpdated, setLastUpdated] = useState(""); // Stato per l'ultima data di aggiornamento
+
+  useEffect(() => {
+    dispatch(fetchPrices()).then(() => {
+      setTimeout(() => setLoading(false), 1000); // Imposta un timeout di 1 secondo
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (prezzilist.length > 0) {
+      const latestDate = prezzilist[0].data; // Assumendo che la lista sia ordinata per data
+      setLastUpdated(format(new Date(latestDate), "dd/MM/yyyy"));
+    }
+  }, [prezzilist]);
+
+  const handleFilterChange = (key, value) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const applyFilters = () => {
+    const formattedDate = filters.data
+      ? format(new Date(filters.data), "yyyy-MM-dd")
+      : "";
+    dispatch(fetchFilteredPrices({ ...filters, data: formattedDate }));
+  };
+
+  const chartData = {
+    labels: Array.isArray(filteredList)
+      ? filteredList.map((item) => item.data)
+      : [],
+    datasets: [
+      {
+        label: "Prezzo",
+        data: Array.isArray(filteredList)
+          ? filteredList.map((item) => item.prezzo)
+          : [],
+        fill: false,
+        backgroundColor: "#70E000", // SGBUS green
+        borderColor: "#007200", // Office green
+      },
+    ],
+  };
 
   return (
-    <Container>
-      <Row className="mb-4">
-        <Col>
-          <h2>PREZZI DEI SUINI</h2>
-        </Col>
-        <Col className="d-flex justify-content-end align-items-center">
-          <span className="me-3">
-            {format(currentDate, "dd/MM/yyyy HH:mm", { locale: itLocale })}
-          </span>
-          <Dropdown>
-            <Dropdown.Toggle variant="primary">{language}</Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => handleLanguageChange("Italia")}>
-                Italia
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => handleLanguageChange("Francia")}>
-                Francia
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => handleLanguageChange("Spagna")}>
-                Spagna
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {loading ? (
-            <div className="d-flex justify-content-center">
-              <Spinner animation="border" />
-            </div>
-          ) : (
-            <ListGroup className="gap-2">
-              <ListGroup.Item>Vitello: {prezzi.vitello}</ListGroup.Item>
-              <ListGroup.Item>Mucca: {prezzi.mucca}</ListGroup.Item>
-            </ListGroup>
-          )}
-        </Col>
-      </Row>
-    </Container>
+    <div className="prezzi-bovini-container">
+      {loading && (
+        <div className="spinner-overlay">
+          <Spinner animation="border" variant="light" />
+        </div>
+      )}
+      <Container className="prezzi-bovini">
+        <Row className="mb-4 mt-0">
+          <Col xs={12}>
+            <h2 style={{ fontSize: "1.2rem" }}>PREZZI DEI BOVINI</h2>
+            <p style={{ fontSize: "0.9rem" }}>
+              Scopri i prezzi aggiornati dei bovini e dei vitelli in Italia.
+              Puoi filtrare i dati per data e luogo per vedere l&apos;andamento
+              nel tempo.
+            </p>
+            <p style={{ fontSize: "0.9rem" }}>
+              <strong>Ultimo aggiornamento:</strong> {lastUpdated}
+            </p>
+            <Form className="filter-form">
+              <Form.Group className="mb-3">
+                <Form.Label>Data</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={filters.data}
+                  onChange={(e) => handleFilterChange("data", e.target.value)}
+                  style={{ fontSize: "0.8rem", padding: "0.25rem 0.5rem" }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Luogo</Form.Label>
+                <Select
+                  options={cityOptions}
+                  onChange={(selectedOption) =>
+                    handleFilterChange(
+                      "luogo",
+                      selectedOption ? selectedOption.value : ""
+                    )
+                  }
+                  placeholder="Scegli luogo"
+                  isClearable
+                  isSearchable
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      fontSize: "0.8rem",
+                      padding: "0.25rem 0.5rem",
+                    }),
+                  }}
+                />
+              </Form.Group>
+              <Button
+                onClick={applyFilters}
+                style={{ fontSize: "0.9rem", padding: "0.25rem 0.5rem" }}
+              >
+                Applica Filtri
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {loading ? (
+              <div className="spinner-container">
+                <Spinner animation="border" />
+              </div>
+            ) : (
+              <>
+                <div className="table-responsive">
+                  <Table striped bordered hover className="custom-table">
+                    <thead>
+                      <tr>
+                        <th>Data</th>
+                        <th>Luogo</th>
+                        <th>Prodotto</th>
+                        <th>Prezzo</th>
+                        <th>Variazione</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredList && filteredList.length > 0 ? (
+                        filteredList.map((item, idx) => (
+                          <tr key={idx}>
+                            <td>{item.data}</td>
+                            <td>{item.luogo}</td>
+                            <td>{item.prodotto}</td>
+                            <td>{item.prezzo ? `${item.prezzo} €` : "N/D"}</td>
+                            <td>{item.varPerc ? `${item.varPerc}%` : "N/A"}</td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="5">Nessun dato disponibile</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </Table>
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    maxWidth: "100%",
+                    margin: "20px auto",
+                  }}
+                >
+                  <h3 style={{ fontSize: "1rem" }}>Andamento Prezzi</h3>
+                  <div style={{ height: "300px" }}>
+                    <Line
+                      data={chartData}
+                      options={{ responsive: true, maintainAspectRatio: false }}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 

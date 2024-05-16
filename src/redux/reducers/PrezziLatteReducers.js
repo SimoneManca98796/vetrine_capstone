@@ -19,7 +19,6 @@ const PrezziLatteReducer = (state = initialState, action) => {
         filteredList: Array.isArray(action.payload) ? action.payload : [],
       };
     case FETCH_FILTERED_PRICES_SUCCESS:
-      // Accedi specificamente al campo content del payload se esiste
       console.log("Updating filteredList with:", action.payload.content);
       return {
         ...state,

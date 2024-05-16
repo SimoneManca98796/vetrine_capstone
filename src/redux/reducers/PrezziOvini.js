@@ -1,8 +1,8 @@
 import {
   FETCH_OVINI_PRICES_SUCCESS,
   FETCH_FILTERED_OVINI_PRICES_SUCCESS,
-  ADD_OVINI_PRICE, // Assumi che questa azione sia definita
-  FILTER_OVINI_PRICES, // Assumi che questa azione sia definita
+  ADD_OVINI_PRICE,
+  FILTER_OVINI_PRICES,
 } from "../actions";
 
 const initialState = {
@@ -16,7 +16,7 @@ const PrezziOviniReducer = (state = initialState, action) => {
       return {
         ...state,
         prezzilist: action.payload,
-        filteredList: action.payload, // Assicurati di aggiornare entrambi per coerenza iniziale
+        filteredList: action.payload,
       };
     }
     case FETCH_FILTERED_OVINI_PRICES_SUCCESS: {
@@ -30,7 +30,7 @@ const PrezziOviniReducer = (state = initialState, action) => {
       return {
         ...state,
         prezzilist: updatedPrezzi,
-        filteredList: updatedPrezzi, // Opzionale: aggiorna la lista filtrata se necessario
+        filteredList: updatedPrezzi,
       };
     }
     case FILTER_OVINI_PRICES: {

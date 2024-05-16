@@ -39,6 +39,12 @@ export const FETCH_FILTERED_SUINI_PRICES_SUCCESS =
   "FETCH_FILTERED_OVINI_PRICES_SUCCESS"; //PREZZI SUINI
 export const ADD_SUINI_PRICE = "ADD_OVINI_PRICE"; // Action type per aggiungere un prezzo agli suini
 export const FILTER_SUINI_PRICES = "FILTER_SUINI_PRICES";
+// PER BOVINI:
+export const FETCH_BOVINI_PRICES_SUCCESS = "FETCH_BOVINI_PRICES_SUCCESS"; //PREZZI BOVINI
+export const FETCH_FILTERED_BOVINI_PRICES_SUCCESS =
+  "FETCH_FILTERED_BOVINI_PRICES_SUCCESS"; //PREZZI BOVINI
+export const ADD_BOVINI_PRICE = "ADD_BOVINI_PRICE"; // Action type per aggiungere un prezzo ai bovini
+export const FILTER_BOVINI_PRICES = "FILTER_BOVINI_PRICES";
 // COSTANTI PER E-COMMERCE:
 export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
 export const FILTER_PIANTINE_PRICES = "FILTER_PIANTINE_PRICES";
@@ -272,7 +278,7 @@ export const addOviniPrice = (priceData) => {
   };
 };
 
-// Azione per filtrare i prezzi degli suini in locale
+// Azione per filtrare i prezzi degli ovini in locale
 export const filterOviniPrices = (criteria) => ({
   type: FILTER_OVINI_PRICES,
   payload: criteria,
@@ -335,12 +341,76 @@ export const addSuiniPrice = (priceData) => {
   };
 };
 
-// Azione per filtrare i prezzi degli suini in locale
+// Azione per filtrare i prezzi dei suini in locale
 export const filterSuiniPrices = (criteria) => ({
   type: FILTER_SUINI_PRICES,
   payload: criteria,
 });
 ////////////////////
+// BOVINI:
+// Fetch prices PER BOVINI
+export const fetchBoviniPrices = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/api/prezziBovini"
+      );
+      dispatch({
+        type: FETCH_BOVINI_PRICES_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Failed to fetch bovini prices:", error);
+    }
+  };
+};
+
+// Fetch filtered prices PER OVINI
+export const fetchFilteredBoviniPrices = (filterCriteria) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/prezziBovini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
+      );
+      dispatch({
+        type: FETCH_FILTERED_BOVINI_PRICES_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Failed to fetch filtered bovini prices:", error);
+    }
+  };
+};
+//////////////////
+// Aggiungi un nuovo prezzo per gli ovini
+export const addBoviniPrice = (priceData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/prezziBovini",
+        priceData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch({
+        type: ADD_BOVINI_PRICE,
+        payload: response.data,
+      });
+      console.log("Prezzo bovini aggiunto con successo", response.data);
+    } catch (error) {
+      console.error("Errore nell'aggiungere il nuovo prezzo bovini:", error);
+    }
+  };
+};
+
+// Azione per filtrare i prezzi dei bovini in locale
+export const filterBoviniPrices = (criteria) => ({
+  type: FILTER_BOVINI_PRICES,
+  payload: criteria,
+});
 ////////////////////
 // Azioni
 export const fetchProductsByCategory = (category) => async (dispatch) => {
