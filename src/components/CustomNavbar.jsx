@@ -8,7 +8,7 @@ import {
   Image,
   Modal,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   HouseDoorFill,
   GraphUpArrow,
@@ -26,6 +26,7 @@ import AvatarUpload from "./AvatarUpload";
 const CustomNavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation(); // percorso per cambio navbar
   const [mostraDropdown, setMostraDropdown] = useState(false);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
@@ -36,6 +37,17 @@ const CustomNavbar = () => {
   useEffect(() => {
     console.log("L'URL dell'avatar è cambiato:", avatarUrl);
   }, [avatarUrl]);
+
+  // Definisci colori per le diverse pagine
+  const navbarColors = {
+    "/": "#0085B5",
+    "/mercati": "rgb(156,139,139)",
+    "/prodotti": "#0044cc",
+    // Aggiungi altri percorsi e colori qui
+  };
+
+  // Ottieni il colore in base al percorso attuale
+  const navbarColor = navbarColors[location.pathname] || "#0085B5";
 
   // Handler per il login
   const handleLogin = () => {
@@ -60,7 +72,7 @@ const CustomNavbar = () => {
     <Navbar
       expand="lg"
       className="shadow-sm fixed-top pb-0"
-      style={{ backgroundColor: "#0085B5" }}
+      style={{ backgroundColor: navbarColor }}
     >
       <Container>
         <Navbar.Brand href="/">

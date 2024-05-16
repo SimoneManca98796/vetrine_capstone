@@ -1,11 +1,22 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 
 const CustomFooter = () => {
+  const location = useLocation();
+
+  const footerColors = {
+    "/": "#0085B5",
+    "/mercati": "rgb(156,139,139)",
+    "/prodotti": "#0044cc",
+  };
+
+  const footerColor = footerColors[location.pathname] || "#0085B5"; // Colore di default
+
   return (
     <footer
       className="text-light text-center py-3 mt-5"
-      style={{ backgroundColor: "#0085B5" }}
+      style={{ backgroundColor: footerColor }}
     >
       <Container>
         <Row>
