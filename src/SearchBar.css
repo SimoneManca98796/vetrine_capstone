@@ -1,0 +1,17 @@
+.search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .form-control {
+    border-radius: 0;
+  }
+  
+  .btn {
+    border-radius: 0;
+  }
+  

@@ -3,18 +3,22 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchProductsByCategory,
   addItemToCart,
+  searchProducts,
 } from "../../redux/actions/index";
-import { Card, Button, Alert } from "react-bootstrap";
+import { Card, Button, Alert, Modal, Form } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Assicurati di importare Link
 import ProductForm from "../ProductForm";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaInfoCircle } from "react-icons/fa";
 import CartDropdown from "./CartDropdown";
+import SearchBar from "../SearchBar"; // Assicurati di importare SearchBar
 import "../../Piantine.css";
 
 const Piantine = () => {
   const dispatch = useDispatch();
   const piantine = useSelector((state) => state.products.piantine);
   const [cartOpen, setCartOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     dispatch(fetchProductsByCategory("piantine"));
@@ -28,8 +32,23 @@ const Piantine = () => {
     setCartOpen(!cartOpen);
   };
 
+  const handleShowModal = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedProduct(null);
+  };
+
+  const handleSearch = (searchTerm) => {
+    dispatch(searchProducts(searchTerm));
+  };
+
   return (
     <div className="main-content container">
+      <SearchBar onSearch={handleSearch} />
       <h1 className="mb-3">Piantine e Ortaggi</h1>
       <Alert variant="info">
         Nota: Il carrello si trova nella pagina{" "}
@@ -60,6 +79,10 @@ const Piantine = () => {
                   >
                     Aggiungi al Carrello
                   </Button>
+                  <FaInfoCircle
+                    className="info-icon"
+                    onClick={() => handleShowModal(product)}
+                  />
                 </Card.Body>
               </Card>
             </div>
@@ -70,6 +93,34 @@ const Piantine = () => {
       </div>
       <FaShoppingCart className="cart-icon" onClick={toggleCart} />
       {cartOpen && <CartDropdown />}
+
+      {/* Modal for product details */}
+      {selectedProduct && (
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>{selectedProduct.name}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <img
+              src={selectedProduct.imageUrl}
+              alt={selectedProduct.name}
+              className="img-fluid"
+            />
+            <p>{selectedProduct.description}</p>
+            <p>
+              <strong>Prezzo:</strong> €{selectedProduct.price}
+            </p>
+            <p>
+              <strong>Venduto da:</strong> {selectedProduct.vendor}
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Chiudi
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </div>
   );
 };

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../redux/actions/index";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import "../ProductForm.css";
 
 const ProductForm = () => {
   const [name, setName] = useState("");
@@ -62,37 +64,71 @@ const ProductForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Nome"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-      <textarea
-        placeholder="Descrizione"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-      <input
-        type="number"
-        placeholder="Prezzo"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-        required
-      />
-      <input type="file" onChange={handleFileChange} required />
-      <input
-        type="text"
-        placeholder="Categoria"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        required
-      />
-      <button type="submit">Aggiungi Prodotto</button>
-    </form>
+    <Container className="product-form-container mt-4 mb-4">
+      <h2>Aggiungi Prodotto</h2>
+      <Form onSubmit={handleSubmit}>
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="formName">
+              <Form.Label>Nome</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Nome"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="formCategory">
+              <Form.Label>Categoria</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Categoria"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col>
+            <Form.Group controlId="formDescription">
+              <Form.Label>Descrizione</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Descrizione"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="formPrice">
+              <Form.Label>Prezzo</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Prezzo"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="formFile">
+              <Form.Label>Immagine</Form.Label>
+              <Form.Control type="file" onChange={handleFileChange} required />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Button variant="primary" type="submit">
+          Aggiungi Prodotto
+        </Button>
+      </Form>
+    </Container>
   );
 };
 
