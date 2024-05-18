@@ -56,7 +56,11 @@ export const CREATE_PRODUCT_SUCCESS = "CREATE_PRODUCT_SUCCESS";
 // COSTANTI PER PAGAMENTI:
 export const CREATE_PAYMENT_INTENT_SUCCESS = "CREATE_PAYMENT_INTENT_SUCCESS";
 export const CREATE_PAYMENT_INTENT_FAILURE = "CREATE_PAYMENT_INTENT_FAILURE";
-
+// CARRELLO COSTANTI:
+export const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
+export const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART";
+export const UPDATE_ITEM_QUANTITY = "UPDATE_ITEM_QUANTITY";
+export const APPLY_DISCOUNT_CODE = "APPLY_DISCOUNT_CODE";
 // Aggiunge un nuovo prezzo
 export const addNewPrice = (priceData) => {
   return async (dispatch) => {
@@ -554,3 +558,23 @@ export const fetchFilteredAmericanPrices = (filterCriteria) => {
   };
 };
 /////////////////////////////////////////////////////////////
+// AZIONI CARRELLO PRODOTTI: // Azioni
+export const addItemToCart = (item) => ({
+  type: ADD_ITEM_TO_CART,
+  payload: item,
+});
+
+export const removeItemFromCart = (itemId) => ({
+  type: REMOVE_ITEM_FROM_CART,
+  payload: itemId,
+});
+
+export const updateItemQuantity = (itemId, quantity) => ({
+  type: UPDATE_ITEM_QUANTITY,
+  payload: { itemId, quantity },
+});
+
+export const applyDiscountCode = (code) => ({
+  type: APPLY_DISCOUNT_CODE,
+  payload: code,
+});

@@ -1,0 +1,60 @@
+.carrello-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .carrello-container h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    margin-bottom: 20px;
+  }
+  
+  .discount-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .discount-form .form-label {
+    margin-right: 10px;
+  }
+  
+  .discount-form .form-control {
+    margin-right: 10px;
+    flex-grow: 1;
+  }
+  
+  .cart-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .checkout-button {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: background-color 0.3s, border-color 0.3s;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .checkout-button:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+  }
+  

@@ -1,25 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProductsByCategory } from "../../redux/actions/index";
-import { Card, Button } from "react-bootstrap";
+import {
+  fetchProductsByCategory,
+  addItemToCart,
+} from "../../redux/actions/index";
+import { Card, Button, Alert } from "react-bootstrap";
+import { Link } from "react-router-dom"; // Assicurati di importare Link
 import ProductForm from "../ProductForm";
+import { FaShoppingCart } from "react-icons/fa";
+import CartDropdown from "./CartDropdown";
+import "../../Piantine.css";
 
 const Piantine = () => {
   const dispatch = useDispatch();
   const piantine = useSelector((state) => state.products.piantine);
+  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchProductsByCategory("piantine"));
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log("Piantine:", piantine);
-  }, [piantine]);
+  const handleAddToCart = (product) => {
+    dispatch(addItemToCart({ ...product, quantity: 1 }));
+  };
+
+  const toggleCart = () => {
+    setCartOpen(!cartOpen);
+  };
 
   return (
-    <div className="container mt-5">
+    <div className="main-content container">
       <h1 className="mb-3">Piantine e Ortaggi</h1>
-      <ProductForm />
+      <Alert variant="info">
+        Nota: Il carrello si trova nella pagina{" "}
+        <Link to="/Prodotti">Prodotti</Link>.
+      </Alert>
+      <ProductForm category="piantine" />
       <div className="row">
         {Array.isArray(piantine) && piantine.length > 0 ? (
           piantine.map((product) => (
@@ -37,7 +53,13 @@ const Piantine = () => {
                     <br />
                     Prezzo: €{product.price}
                   </Card.Text>
-                  <Button variant="primary">Acquista</Button>
+                  <Button
+                    variant="primary"
+                    className="button"
+                    onClick={() => handleAddToCart(product)}
+                  >
+                    Aggiungi al Carrello
+                  </Button>
                 </Card.Body>
               </Card>
             </div>
@@ -46,6 +68,8 @@ const Piantine = () => {
           <p>Nessun prodotto trovato.</p>
         )}
       </div>
+      <FaShoppingCart className="cart-icon" onClick={toggleCart} />
+      {cartOpen && <CartDropdown />}
     </div>
   );
 };
