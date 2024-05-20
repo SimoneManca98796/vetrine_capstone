@@ -3,16 +3,19 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/actions";
-import "../App.css";
+import logo from "/Vetrine.png";
+import "../LoginForm.css";
 
 const FormLogin = () => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prevState) => ({
@@ -23,26 +26,17 @@ const FormLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser(loginData, navigate)); // Utilizza il dispatch qui per inviare l'azione di login
+    dispatch(loginUser(loginData, navigate, setErrorMessage));
   };
 
   return (
-    <Container>
+    <Container className="spaziatura">
       <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
-          <div
-            className="form-container"
-            style={{
-              backgroundColor: "#B9D4F0", // Colore chiaro blu per lo sfondo del form
-              border: "3px solid #0056b3",
-              borderRadius: "20px",
-              padding: "20px",
-              maxWidth: "450px",
-              margin: "auto",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
-          >
+          <div className="login-container">
+            <img src={logo} alt="Logo" />
             <h2>Accedi</h2>
+            <p>Benvenuto! Accedi al tuo account per continuare.</p>
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="formEmail">
                 <Form.Label>Email</Form.Label>
@@ -58,32 +52,32 @@ const FormLogin = () => {
               <Form.Group controlId="formPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Inserisci la tua password..."
                   name="password"
                   value={loginData.password}
                   onChange={handleChange}
                 />
+                <Button
+                  variant="link"
+                  className="show-password"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "Nascondi" : "Mostra"} password
+                </Button>
               </Form.Group>
 
-              <div style={{ marginTop: "15px" }}></div>
+              {errorMessage && (
+                <div className="error-message">{errorMessage}</div>
+              )}
 
-              <Button
-                variant="primary"
-                type="submit"
-                style={{
-                  backgroundColor: "#0056b3",
-                  borderColor: "#0056b3",
-                  padding: "8px 16px",
-                  borderRadius: "10px",
-                  display: "block", // Mostra il pulsante come blocco
-                  width: "auto",
-                  margin: "0 auto",
-                }}
-              >
+              <Button variant="primary" type="submit">
                 Accedi
               </Button>
             </Form>
+            <div className="register-link">
+              Non hai un account? <a href="/register">Registrati</a>
+            </div>
           </div>
         </Col>
       </Row>

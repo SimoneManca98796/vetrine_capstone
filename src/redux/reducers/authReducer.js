@@ -9,6 +9,8 @@ import {
 const initialState = {
   isAuthenticated: false,
   user: null,
+  token: null,
+  avatarUrl: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -17,15 +19,21 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        token: action.payload.token, // Memorizza il token nello stato
-        avatarUrl: action.payload.avatarUrl, // Memorizza l'URL dell'avatar nello stato
-        // token: action.payload, // Memorizza il token nello stato
+        token: action.payload.token,
+        avatarUrl: action.payload.avatarUrl,
+      };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        token: action.payload.token,
+        avatarUrl: action.payload.avatarUrl,
       };
     case LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
-        token: null, // Rimuove il token dallo stato
+        token: null,
         avatarUrl: null,
       };
     case LOGIN_FAIL:
@@ -36,18 +44,14 @@ const authReducer = (state = initialState, action) => {
         token: null,
         avatarUrl: null,
       };
-    case REGISTER_SUCCESS:
-      return {
-        ...state,
-      };
-    default:
-      return state;
     case "UPDATE_AVATAR_URL":
       console.log("URL Avatar aggiornato:", action.payload);
       return {
         ...state,
         avatarUrl: action.payload,
       };
+    default:
+      return state;
   }
 };
 

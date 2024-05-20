@@ -152,61 +152,73 @@ export const filterPrices = (criteria) => ({
 // facilmente un backend per la gestione degli utenti, utilizzando
 // Redux per gestire lo stato dell'interfaccia utente in modo reattivo
 // Azione unificata per effettuare il login
-export const loginUser = (credentials, navigate) => async (dispatch) => {
-  console.log("Invio dati di login:", credentials);
-  try {
-    const response = await axios.post(
-      "http://localhost:8080/api/auth/login",
-      credentials
-    );
-    console.log("Risposta dal server:", response);
-    if (response.status === 200) {
-      const { token, avatarUrl } = response.data;
-      console.log("Login riuscito, token ricevuto:", token);
-      dispatch({ type: LOGIN_SUCCESS, payload: token });
-      localStorage.setItem("token", token); // Salvataggio del token nel localStorage
-      localStorage.setItem("avatarUrl", avatarUrl); // Salva l'URL dell'avatar
-      navigate("/");
-    } else {
-      console.log("Login fallito, status:", response.status);
+export const loginUser =
+  (credentials, navigate, setErrorMessage) => async (dispatch) => {
+    console.log("Invio dati di login:", credentials);
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        credentials
+      );
+      console.log("Risposta dal server:", response);
+      if (response.status === 200) {
+        const { token, avatarUrl } = response.data;
+        console.log("Login riuscito, token ricevuto:", token);
+        dispatch({ type: LOGIN_SUCCESS, payload: { token, avatarUrl } });
+        localStorage.setItem("token", token); // Salvataggio del token nel localStorage
+        localStorage.setItem("avatarUrl", avatarUrl); // Salva l'URL dell'avatar
+        alert("Benvenuto! Accesso effettuato con successo.");
+        navigate("/");
+      } else {
+        console.log("Login fallito, status:", response.status);
+        dispatch({ type: LOGIN_FAIL });
+        setErrorMessage("Errore nel login. Riprova.");
+      }
+    } catch (error) {
+      console.error(
+        "Errore nel login:",
+        error.response?.data?.message || error.message
+      );
       dispatch({ type: LOGIN_FAIL });
+      setErrorMessage("Hai sbagliato password, riprova!");
     }
-  } catch (error) {
-    console.error(
-      "Errore nel login:",
-      error.response?.data?.message || error.message
-    );
-    dispatch({ type: LOGIN_FAIL });
-  }
-};
+  };
 
 // Azione per registrare un nuovo utente
-export const registerUser = (userData, navigate) => async (dispatch) => {
-  try {
-    const response = await axios.post(
-      "http://localhost:8080/api/auth/register",
-      userData
-    );
-    if (response.status === 201) {
-      dispatch({ type: REGISTER_SUCCESS, payload: response.data });
-      console.log("Registrazione riuscita:", response.data);
-      navigate("/");
-    } else {
-      console.log("Registrazione fallita:", response.status);
-      dispatch({ type: REGISTER_FAIL });
+export const registerUser =
+  (userData, navigate, setErrors) => async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/register",
+        userData
+      );
+      if (response.status === 201) {
+        dispatch({ type: REGISTER_SUCCESS, payload: response.data });
+        console.log("Registrazione riuscita:", response.data);
+        alert("Registrazione riuscita! Benvenuto.");
+        navigate("/");
+      } else {
+        console.log("Registrazione fallita:", response.status);
+        dispatch({ type: REGISTER_FAIL });
+        setErrors({ general: "Registrazione fallita. Riprova." });
+      }
+      return response;
+    } catch (error) {
+      console.error(
+        "Errore nella registrazione:",
+        error.response?.data?.message || error.message
+      );
+      dispatch({
+        type: REGISTER_FAIL,
+        error: error.response?.data?.message || error.message,
+      });
+      setErrors(
+        error.response?.data?.errors || {
+          general: "Si è verificato un errore di registrazione.",
+        }
+      );
     }
-    return response;
-  } catch (error) {
-    console.error(
-      "Errore nella registrazione:",
-      error.response?.data?.message || error.message
-    );
-    dispatch({
-      type: REGISTER_FAIL,
-      error: error.response?.data?.message || error.message,
-    });
-  }
-};
+  };
 
 // Azione per il logout
 export const logoutUser = () => {

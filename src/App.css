@@ -71,36 +71,7 @@ footer {
 /* ////////////////// */
 /* ////////////////// */
 /* CSS PER FORM DI CONTATTO */
-.form-container {
- 
-  background: #B9D4F0;
-  border: 3px solid #4caf50; /* Bordo verde */
-  border-radius: 20px; /* Angoli curvi */
-  padding: 20px; /* Spazio interno */
-  max-width: 450px; /* Larghezza massima */
-  margin: auto; /* Centrare la forma */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra */
-}
 
-.form-container .form-group {
-  margin-bottom: 20px; /* Spazio tra i campi del modulo */
-}
-
-.form-container .form-label {
-  color: #388e3c; /* Colore verde per le etichette */
-}
-
-.form-container .form-control {
-  border: 1px solid #81c784; /* Bordo verde per i campi di input */
-  border-radius: 10px; /* Angoli curvi per i campi di input */
-}
-
-.form-container .btn-primary {
-  background-color: #388e3c; /* Colore del pulsante */
-  border: none; /* Rimuove il bordo predefinito del pulsante */
-  padding: 10px 20px; /* Aggiunge spazio interno al pulsante */
-  border-radius: 10px; /* Angoli curvi per il pulsante */
-}
 /**/
 /**(
 

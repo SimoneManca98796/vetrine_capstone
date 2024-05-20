@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import "../App.css";
+import logo from "/Vetrine.png";
+import "../FormIscrizione.css";
 
 const FormIscrizione = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ const FormIscrizione = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerUser(formData, navigate))
+    dispatch(registerUser(formData, navigate, setErrors))
       .then((response) => {
         console.log(response);
         console.log("Registrazione riuscita:", response.data);
@@ -39,7 +40,7 @@ const FormIscrizione = () => {
           error.response.data &&
           error.response.data.errors
         ) {
-          setErrors(error.response.data.errors); // Assumendo che gli errori siano inviati così
+          setErrors(error.response.data.errors);
         } else {
           setErrors({ general: "Si è verificato un errore di registrazione." });
         }
@@ -47,13 +48,11 @@ const FormIscrizione = () => {
   };
 
   return (
-    <Container>
+    <Container className="spaziatura">
       <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
-          <div
-            className="form-container"
-            style={{ border: "2px solid #0056b3", padding: "20px" }}
-          >
+          <div className="register-container">
+            <img src={logo} alt="Logo" width="100px" height="100px" />
             <h2>Registrazione</h2>
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Group controlId="formNome">
@@ -112,6 +111,9 @@ const FormIscrizione = () => {
                   {errors.password}
                 </Form.Control.Feedback>
               </Form.Group>
+              {errors.general && (
+                <div className="error-message">{errors.general}</div>
+              )}
               <Button
                 variant="primary"
                 type="submit"
