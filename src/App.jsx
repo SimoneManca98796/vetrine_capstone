@@ -19,6 +19,7 @@ import Artigianali from "./components/ComponentsProdotti.jsx/Artigianali";
 import Animali from "./components/ComponentsProdotti.jsx/Animali";
 import Attrezzature from "./components/ComponentsProdotti.jsx/Attrezzature";
 import ProductForm from "./components/ProductForm";
+import Aziende from "./components/Aziende";
 //import CheckoutForm from "./components/CheckoutForm";
 // Stripe
 //import { Elements } from "@stripe/react-stripe-js";
@@ -53,6 +54,7 @@ const App = () => (
             <Route element={<Attrezzature />} path="/Attrezzature" />
             <Route element={<ProductForm />} path="/nuovo-prodotto" />
             {/*  <Route element={<CheckoutForm />} path="/checkout" /> */}
+            <Route element={<Aziende />} path="/Aziende" />
             <Route element={<NotFound />} path="*" />
           </Routes>
         </div>

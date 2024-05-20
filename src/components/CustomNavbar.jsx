@@ -78,40 +78,54 @@ const CustomNavbar = () => {
       style={{ backgroundColor: navbarColor }}
     >
       <Container>
-        <Navbar.Brand href="/">
+        <Navbar.Brand as={Link} to="/">
           <img src={logo} width="68" height="68" alt="Agri App" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Item>
-              <Link to="/" className="nav-link text-white text-center">
+              <Nav.Link as={Link} to="/" className="text-white text-center">
                 <HouseDoorFill size={20} />
                 <div>Home</div>
-              </Link>
+              </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/mercati" className="text-white text-center">
+              <Nav.Link
+                as={Link}
+                to="/mercati"
+                className="text-white text-center"
+              >
                 <GraphUpArrow size={20} />
                 <div>Bacheca</div>
               </Nav.Link>
             </Nav.Item>
-            <Link to="/prodotti" className="text-decoration-none">
-              <Nav.Item>
-                <Nav.Link href="/prodotti" className="text-white text-center">
-                  <Cash size={20} />
-                  <div>Prodotti</div>
-                </Nav.Link>
-              </Nav.Item>
-            </Link>
             <Nav.Item>
-              <Nav.Link href="/notifiche" className="text-white text-center">
+              <Nav.Link
+                as={Link}
+                to="/prodotti"
+                className="text-white text-center"
+              >
+                <Cash size={20} />
+                <div>Prodotti</div>
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                as={Link}
+                to="/notifiche"
+                className="text-white text-center"
+              >
                 <BellFill size={20} />
                 <div>Notifiche</div>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/aziende" className="text-white text-center">
+              <Nav.Link
+                as={Link}
+                to="/aziende"
+                className="text-white text-center"
+              >
                 <Grid3x3GapFill size={20} />
                 <div>Aziende</div>
               </Nav.Link>
@@ -123,7 +137,7 @@ const CustomNavbar = () => {
                 <Nav.Link onClick={handleLogin} className="text-white">
                   Accedi
                 </Nav.Link>
-                <Nav.Link href="/FormIscrizione" className="text-white">
+                <Nav.Link as={Link} to="/FormIscrizione" className="text-white">
                   Registrati
                 </Nav.Link>
               </>
@@ -153,14 +167,14 @@ const CustomNavbar = () => {
                   )}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="nav-dropdown-menu">
-                  <Dropdown.Item onClick={() => navigate("/profile")}>
+                  <Dropdown.Item as={Link} to="/profile">
                     Profilo
                   </Dropdown.Item>
                   <Dropdown.Item
                     as="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setShowAvatarUpload(!showAvatarUpload); // Cambia lo stato per mostrare/nascondere AvatarUpload
+                      setShowAvatarUpload(!showAvatarUpload);
                     }}
                   >
                     Carica Avatar

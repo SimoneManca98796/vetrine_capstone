@@ -1,0 +1,121 @@
+body.aziende {
+    background-color: #DCDCDC; /* Sfondo grigio chiaro */
+    font-family: 'Arial, sans-serif';
+  }
+  
+  .aziende-container {
+    padding-top: 80px;
+    margin: 20px;
+  }
+  
+  .aziende-description-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #FFFFFF; /* Bianco per i box */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .aziende-description-content {
+    flex: 1;
+    padding-right: 20px;
+  }
+  
+  .aziende-description-image {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .aziende-description-img {
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .aziende-card {
+    background-color: #FFFFFF; /* Sfondo card bianco */
+    color: #333333; /* Testo card grigio scuro */
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .aziende-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .aziende-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .aziende-card-text {
+    font-size: 1rem;
+  }
+  
+  .aziende-button, .aziende-btn {
+    background: linear-gradient(45deg, #A27B7A, #E9C8C5); /* Gradient rosa antico */
+    border: none;
+    color: #FFFFFF; /* Testo bianco */
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .aziende-button:hover, .aziende-btn:hover {
+    background: linear-gradient(45deg, #A27B7A, #E9C8C5); /* Gradient rosa antico */
+    opacity: 0.9;
+  }
+  
+  .aziende-modal-content {
+    background-color: #FFFFFF; /* Sfondo modale */
+  }
+  
+  .aziende-modal-header {
+    background-color: #CB565A; /* Rosso scuro per header modale */
+    color: #FFFFFF; /* Testo bianco */
+  }
+  
+  .aziende-modal-footer {
+    border-top: none;
+  }
+  
+  .aziende-form-label {
+    color: #CB565A; /* Rosso scuro */
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .aziende-description-section {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .aziende-description-content {
+      padding-right: 0;
+    }
+  
+    .aziende-description-img {
+      width: 80px;
+    }
+  
+    .aziende-card-title {
+      font-size: 1.2rem;
+    }
+  
+    .aziende-card-text {
+      font-size: 0.9rem;
+    }
+  
+    .aziende-button, .aziende-btn {
+      padding: 8px 16px;
+    }
+  }
+  
+  
+  
+  

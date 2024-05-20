@@ -61,6 +61,9 @@ export const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
 export const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART";
 export const UPDATE_ITEM_QUANTITY = "UPDATE_ITEM_QUANTITY";
 export const APPLY_DISCOUNT_CODE = "APPLY_DISCOUNT_CODE";
+// AZIENDE:
+export const FETCH_AZIENDE_SUCCESS = "FETCH_AZIENDE_SUCCESS";
+export const CREATE_AZIENDA_SUCCESS = "CREATE_AZIENDA_SUCCESS";
 // Aggiunge un nuovo prezzo
 export const addNewPrice = (priceData) => {
   return async (dispatch) => {
@@ -590,3 +593,36 @@ export const applyDiscountCode = (code) => ({
   type: APPLY_DISCOUNT_CODE,
   payload: code,
 });
+///////////////////////
+/////// AZIENDE ///////////////7
+export const fetchAziende = () => async (dispatch) => {
+  try {
+    const response = await axios.get("http://localhost:8080/api/aziende");
+    dispatch({
+      type: FETCH_AZIENDE_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.error("Failed to fetch aziende:", error);
+  }
+};
+
+export const createAzienda = (aziendaData) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/aziende",
+      aziendaData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    dispatch({
+      type: CREATE_AZIENDA_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.error("Errore nella creazione dell'azienda:", error);
+  }
+};
