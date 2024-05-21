@@ -160,7 +160,11 @@ const PrezziLatte = () => {
                             <td>{item.luogo}</td>
                             <td>{item.prodotto}</td>
                             <td>{item.prezzo ? `${item.prezzo} €` : "N/D"}</td>
-                            <td>{item.varPerc ? `${item.varPerc}%` : "N/A"}</td>
+                            <td>
+                              {item.variazionePerc
+                                ? `${item.variazionePerc}`
+                                : "N/A"}
+                            </td>
                           </tr>
                         ))
                       ) : (
