@@ -272,8 +272,9 @@ const HomePage = () => {
         >
           Il nostro portale offre una varietà di servizi per gli agricoltori,
           inclusi aggiornamenti sui prezzi, una piattaforma per vendere e
-          comprare prodotti agricoli, e molto altro. Naviga attraverso i nostri
-          caroselli per saperne di più.
+          comprare prodotti agricoli, e molto altro. Visita la sezione Aziende
+          per leggere annunci che potrebbero interessarti o per farli
+          direttamente tu!
         </motion.p>
         <motion.img
           src="/HomePageSeconda.webp"
@@ -285,9 +286,9 @@ const HomePage = () => {
         />
         <button
           className="cta-button"
-          onClick={() => handleNavigation("/Attrezzature")}
+          onClick={() => handleNavigation("/Aziende")}
         >
-          Esplora le attrezzature <FaArrowRight />
+          Vedi gli annunci! <FaArrowRight />
         </button>
       </div>
     </div>

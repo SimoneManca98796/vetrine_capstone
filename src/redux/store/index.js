@@ -9,6 +9,7 @@ import productsReducer from "../reducers/productsReducer";
 //import paymentReducer from "../reducers/paymentReducer";
 import carrelloReducer from "../reducers/carrelloReducer";
 import aziendeReducer from "../reducers/aziendeReducer";
+import notificationReducer from "../reducers/notificationReducer";
 
 const globalReducer = combineReducers({
   prezziLatte: PrezziLatteReducer, // prezzi del latte
@@ -20,7 +21,8 @@ const globalReducer = combineReducers({
   products: productsReducer, // reducer dei prodotti per categoria (e-commerce)
   carrello: carrelloReducer, // reducer carrello
   // payment: paymentReducer, // reducer per i pagamenti stripe
-  aziende: aziendeReducer,
+  aziende: aziendeReducer, // annunci
+  notifiche: notificationReducer, // notifiche
 });
 
 const store = configureStore({

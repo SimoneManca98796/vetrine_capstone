@@ -7,6 +7,7 @@ import {
   Dropdown,
   Image,
   Modal,
+  Button,
 } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -22,6 +23,7 @@ import logo from "/Vetrine.png";
 import { loginUser, logoutUser } from "../redux/actions/index";
 import { useNavigate } from "react-router-dom";
 import AvatarUpload from "./AvatarUpload";
+import "../CustomNavbar.css";
 
 const CustomNavbar = () => {
   const dispatch = useDispatch();
@@ -41,21 +43,21 @@ const CustomNavbar = () => {
   // Definisci colori per le diverse pagine
   const navbarColors = {
     "/": "#0085B5",
-    "/mercati": "rgb(156,139,139)",
-    "/prodotti": "#0044cc",
-    "/PrezziLatte": "#DADDE2",
-    "/PrezziOvini": "#9E2A2B",
-    "/PrezziSuini": "#881B80",
-    "/PrezziBovini": "#007200",
   };
+  {
+    /* "/mercati": "rgb(156,139,139)",
+  "/prodotti": "#0044cc",
+  "/PrezziLatte": "#DADDE2",
+  "/PrezziOvini": "#9E2A2B",
+  "/PrezziSuini": "#881B80",
+  "/PrezziBovini": "#007200", */
+  }
 
   // Ottieni il colore in base al percorso attuale
   const navbarColor = navbarColors[location.pathname] || "#0085B5";
 
   // Handler per il login
   const handleLogin = () => {
-    //const credentials = { username: "user@example.com", password: "password" };
-    //dispatch(loginUser(credentials));
     navigate("/FormLogin");
   };
 
@@ -69,6 +71,11 @@ const CustomNavbar = () => {
   const handleToggleDropdown = () => {
     setMostraDropdown(!mostraDropdown);
     console.log("Dropdown state after click:", !mostraDropdown); // Monitora lo stato del dropdown
+  };
+
+  // Funzione per ottenere il colore delle icone attive
+  const getIconColor = (path) => {
+    return location.pathname === path ? "rgba(255, 255, 255, 0.7)" : "white";
   };
 
   return (
@@ -85,61 +92,84 @@ const CustomNavbar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Item>
-              <Nav.Link as={Link} to="/" className="text-white text-center">
-                <HouseDoorFill size={20} />
-                <div>Home</div>
+              <Nav.Link
+                as={Link}
+                to="/"
+                className={`text-center ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
+              >
+                <HouseDoorFill size={20} color={getIconColor("/")} />
+                <div className="nav-text">Home</div>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link
                 as={Link}
                 to="/mercati"
-                className="text-white text-center"
+                className={`text-center ${
+                  location.pathname === "/mercati" ? "active" : ""
+                }`}
               >
-                <GraphUpArrow size={20} />
-                <div>Bacheca</div>
+                <GraphUpArrow size={20} color={getIconColor("/mercati")} />
+                <div className="nav-text">Bacheca</div>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link
                 as={Link}
                 to="/prodotti"
-                className="text-white text-center"
+                className={`text-center ${
+                  location.pathname === "/prodotti" ? "active" : ""
+                }`}
               >
-                <Cash size={20} />
-                <div>Prodotti</div>
+                <Cash size={20} color={getIconColor("/prodotti")} />
+                <div className="nav-text">Prodotti</div>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link
                 as={Link}
                 to="/notifiche"
-                className="text-white text-center"
+                className={`text-center ${
+                  location.pathname === "/notifiche" ? "active" : ""
+                }`}
               >
-                <BellFill size={20} />
-                <div>Notifiche</div>
+                <BellFill size={20} color={getIconColor("/notifiche")} />
+                <div className="nav-text">Notifiche</div>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link
                 as={Link}
                 to="/aziende"
-                className="text-white text-center"
+                className={`text-center ${
+                  location.pathname === "/aziende" ? "active" : ""
+                }`}
               >
-                <Grid3x3GapFill size={20} />
-                <div>Aziende</div>
+                <Grid3x3GapFill size={20} color={getIconColor("/aziende")} />
+                <div className="nav-text">Aziende</div>
               </Nav.Link>
             </Nav.Item>
           </Nav>
           <Nav className="justify-content-end">
             {!isAuthenticated ? (
               <>
-                <Nav.Link onClick={handleLogin} className="text-white">
+                <Button
+                  onClick={handleLogin}
+                  variant="outline-light"
+                  className="mx-2"
+                >
                   Accedi
-                </Nav.Link>
-                <Nav.Link as={Link} to="/FormIscrizione" className="text-white">
+                </Button>
+                <Button
+                  as={Link}
+                  to="/FormIscrizione"
+                  variant="warning"
+                  className="mx-2"
+                >
                   Registrati
-                </Nav.Link>
+                </Button>
               </>
             ) : (
               <Dropdown

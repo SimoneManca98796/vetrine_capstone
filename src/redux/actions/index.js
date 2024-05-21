@@ -64,6 +64,10 @@ export const APPLY_DISCOUNT_CODE = "APPLY_DISCOUNT_CODE";
 // AZIENDE:
 export const FETCH_AZIENDE_SUCCESS = "FETCH_AZIENDE_SUCCESS";
 export const CREATE_AZIENDA_SUCCESS = "CREATE_AZIENDA_SUCCESS";
+// NOTIFICHE:
+export const FETCH_NOTIFICATIONS_SUCCESS = "FETCH_NOTIFICATIONS_SUCCESS";
+//////////////////////////////////////////
+///////////////// ZONA FETCH://////////////////////////
 // Aggiunge un nuovo prezzo
 export const addNewPrice = (priceData) => {
   return async (dispatch) => {
@@ -624,5 +628,17 @@ export const createAzienda = (aziendaData) => async (dispatch) => {
     });
   } catch (error) {
     console.error("Errore nella creazione dell'azienda:", error);
+  }
+};
+//////////////////
+// NOTIFICHE:
+export const fetchNotifications = () => async (dispatch) => {
+  try {
+    const response = await fetch("/api/notifications");
+    const data = await response.json();
+    console.log("Fetched notifications:", data);
+    dispatch({ type: FETCH_NOTIFICATIONS_SUCCESS, payload: data });
+  } catch (error) {
+    console.error("Failed to fetch notifications:", error);
   }
 };

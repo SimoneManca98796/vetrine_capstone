@@ -1,21 +1,21 @@
 /* ///////////// PREZZI BOVINI:  ////////////// */
 body.prezziBovini {
-    background-color: rgba(56, 176, 0, 0.5); /* Kelly green */
+    background-color: rgba(56, 176, 0, 0.5);
     margin: 0;
     padding: 0;
 }
 
 .prezzi-bovini-container {
     padding-top: 150px !important;
-    background-color: #38B000; /* Kelly green */
+    background-color: #38B000; 
     min-height: 100vh;
     padding: 10px;
     overflow-x: hidden;
 }
 
 .prezzi-bovini .custom-table {
-    background-color: #ffffff; /* White */
-    color: #007200; /* Office green */
+    background-color: #ffffff;
+    color: #007200; 
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -28,26 +28,26 @@ body.prezziBovini {
 }
 
 .prezzi-bovini .custom-table thead th {
-    background-color: #007200; /* Office green */
-    color: #ffffff; /* White */
+    background-color: #007200; 
+    color: #ffffff; 
     font-weight: bold;
     position: sticky;
     top: 0;
     z-index: 2;
-    border-bottom: 2px solid #007200; /* Office green */
+    border-bottom: 2px solid #007200; 
     font-size: 0.9rem;
 }
 
 .prezzi-bovini .custom-table tbody tr:nth-child(even) {
-    background-color: rgba(0, 114, 0, 0.1); /* Office green with transparency */
+    background-color: rgba(0, 114, 0, 0.1); 
 }
 
 .prezzi-bovini .custom-table tbody tr:nth-child(odd) {
-    background-color: rgba(0, 114, 0, 0.3); /* Office green with more transparency */
+    background-color: rgba(0, 114, 0, 0.3); 
 }
 
 .prezzi-bovini .custom-table tbody tr:hover {
-    background-color: rgba(0, 114, 0, 0.5); /* Office green with even more transparency */
+    background-color: rgba(0, 114, 0, 0.5); 
 }
 
 .prezzi-bovini .custom-table td, .prezzi-bovini .custom-table th {
@@ -56,7 +56,7 @@ body.prezziBovini {
 }
 
 .prezzi-bovini .filter-form {
-    background-color: #38B000; /* Kelly green */
+    background-color: #38B000; 
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -66,28 +66,28 @@ body.prezziBovini {
 }
 
 .prezzi-bovini .filter-form .form-label {
-    color: #007200; /* Office green */
+    color: #007200; 
     font-weight: bold;
     font-size: 0.9rem;
 }
 
 .prezzi-bovini .filter-form .form-control,
 .prezzi-bovini .filter-form .select__control {
-    border: 1px solid #007200; /* Office green */
+    border: 1px solid #007200; 
     font-size: 0.8rem;
     padding: 0.25rem 0.5rem;
 }
 
 .prezzi-bovini .filter-form .btn {
-    background-color: #007200; /* Office green */
-    color: #ffffff; /* White */
+    background-color: #007200; 
+    color: #ffffff; 
     transition: background-color 0.3s ease;
     font-size: 0.9rem;
     padding: 0.25rem 0.5rem;
 }
 
 .prezzi-bovini .filter-form .btn:hover {
-    background-color: #70E000; /* SGBUS green */
+    background-color: #70E000; 
 }
 
 .prezzi-bovini .spinner-overlay {
@@ -96,7 +96,7 @@ body.prezziBovini {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(56, 176, 0, 0.7); /* Kelly green with transparency */
+    background-color: rgba(56, 176, 0, 0.7); 
     display: flex;
     justify-content: center;
     align-items: center;

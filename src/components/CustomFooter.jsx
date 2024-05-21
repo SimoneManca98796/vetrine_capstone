@@ -7,13 +7,16 @@ const CustomFooter = () => {
 
   const footerColors = {
     "/": "#0085B5",
-    "/mercati": "rgb(156,139,139)",
-    "/prodotti": "#0044cc",
-    "/PrezziLatte": "#DADDE2",
-    "/PrezziOvini": "#9E2A2B",
-    "/PrezziSuini": "#881B80",
-    "/PrezziBovini": "#007200",
   };
+  {
+    /* 
+  "/mercati": "rgb(156,139,139)",
+  "/prodotti": "#0044cc",
+  "/PrezziLatte": "#DADDE2",
+  "/PrezziOvini": "#9E2A2B",
+  "/PrezziSuini": "#881B80",
+  "/PrezziBovini": "#007200", */
+  }
 
   const footerColor = footerColors[location.pathname] || "#0085B5"; // Colore di default
 
