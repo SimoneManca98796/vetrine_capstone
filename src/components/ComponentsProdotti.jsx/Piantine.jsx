@@ -12,6 +12,7 @@ import { FaShoppingCart, FaInfoCircle } from "react-icons/fa";
 import CartDropdown from "./CartDropdown";
 import SearchBar from "../SearchBar";
 import "../../Piantine.css";
+import "../../CartDropdown.css";
 
 const Piantine = () => {
   const dispatch = useDispatch();
