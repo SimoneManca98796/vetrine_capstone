@@ -1,48 +1,42 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  removeItemFromCart,
-  updateItemQuantity,
-  applyDiscountCode,
-} from "../redux/actions/index";
-import { Button, Form, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { removeItemFromCart } from "../redux/actions/index";
+import { Button, Table } from "react-bootstrap";
+import { FaTrash, FaShoppingCart, FaEuroSign } from "react-icons/fa";
 import "../Carrello.css";
 
 const Carrello = () => {
   const cartItems = useSelector((state) => state.carrello.items);
   const dispatch = useDispatch();
-  const [discountCode, setDiscountCode] = React.useState("");
+  const navigate = useNavigate();
 
   const handleRemove = (itemId) => {
     dispatch(removeItemFromCart(itemId));
   };
 
-  const handleQuantityChange = (itemId, quantity) => {
-    dispatch(updateItemQuantity(itemId, quantity));
-  };
-
-  const handleApplyDiscount = (e) => {
-    e.preventDefault();
-    dispatch(applyDiscountCode(discountCode));
-    setDiscountCode("");
-  };
-
   const calculateTotal = () => {
-    return cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
+    return cartItems.reduce((total, item) => {
+      const itemTotal = item.price * item.quantity + (item.shippingCost || 0);
+      return total + itemTotal;
+    }, 0);
+  };
+
+  const handleCheckout = () => {
+    navigate("/payment");
   };
 
   return (
     <div className="carrello-container">
-      <h3>Carrello</h3>
-      <Table striped bordered hover>
+      <h3>
+        <FaShoppingCart /> Il tuo Carrello
+      </h3>
+      <Table hover responsive>
         <thead>
           <tr>
             <th>Prodotto</th>
             <th>Prezzo</th>
-            <th>Quantità</th>
+            <th>Spese di spedizione</th>
             <th>Totale</th>
             <th>Azione</th>
           </tr>
@@ -51,21 +45,18 @@ const Carrello = () => {
           {cartItems.map((item) => (
             <tr key={item.id}>
               <td>{item.name}</td>
-              <td>€{item.price}</td>
+              <td>€{item.price.toFixed(2)}</td>
+              <td>€{(item.shippingCost || 0).toFixed(2)}</td>
               <td>
-                <Form.Control
-                  type="number"
-                  value={item.quantity}
-                  onChange={(e) =>
-                    handleQuantityChange(item.id, parseInt(e.target.value))
-                  }
-                  min="1"
-                />
+                €
+                {(
+                  item.price * item.quantity +
+                  (item.shippingCost || 0)
+                ).toFixed(2)}
               </td>
-              <td>€{(item.price * item.quantity).toFixed(2)}</td>
               <td>
                 <Button variant="danger" onClick={() => handleRemove(item.id)}>
-                  Rimuovi
+                  <FaTrash /> Rimuovi
                 </Button>
               </td>
             </tr>
@@ -73,23 +64,18 @@ const Carrello = () => {
         </tbody>
       </Table>
       <div className="cart-summary">
-        <Form onSubmit={handleApplyDiscount}>
-          <Form.Group className="discount-form">
-            <Form.Label>Codice Sconto</Form.Label>
-            <Form.Control
-              type="text"
-              value={discountCode}
-              onChange={(e) => setDiscountCode(e.target.value)}
-            />
-            <Button type="submit">Applica</Button>
-          </Form.Group>
-        </Form>
         <div className="cart-total">
           <span>Totale:</span>
-          <span>€{calculateTotal().toFixed(2)}</span>
+          <span>
+            <FaEuroSign /> {calculateTotal().toFixed(2)}
+          </span>
         </div>
-        <Button variant="success" className="checkout-button">
-          Procedi al Checkout
+        <Button
+          variant="success"
+          className="checkout-button"
+          onClick={handleCheckout}
+        >
+          Vai al pagamento!
         </Button>
       </div>
     </div>

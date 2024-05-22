@@ -1,34 +1,47 @@
 body.Prodotti {
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 .prodotti-page-container {
-  margin-top: 140px !important; /* Aumenta la spaziatura superiore per evitare la sovrapposizione con la navbar */
-  padding-top: 20px;
-  padding-bottom: 20px;
+  margin-top: 140px !important;
+  padding: 20px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .prodotti-page-titolo {
-  font-size: 1.8rem; /* Riduci la dimensione del titolo */
+  font-size: 2.5rem;
   font-weight: bold;
   color: #2c3e50;
+  background: linear-gradient(135deg, #6a89cc, #b8e994);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .prodotti-page-descrizione {
-  font-size: 0.9rem; /* Riduci la dimensione del testo */
+  font-size: 1.2rem;
   color: #34495e;
   margin-top: 1rem;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .prodotti-page-immagine {
   border: 2px solid #34495e;
-  width: 100%; /* Assicurati che l'immagine sia reattiva */
+  width: 100%;
   height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .prodotti-page-tabella {
-  background-color: #f8f9fa;
+  background-color: #ffffff;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -40,23 +53,34 @@ body.Prodotti {
   color: white;
 }
 
-.prodotti-page-tabella td {
-  padding: 0.5rem; /* Riduci il padding delle celle */
+.prodotti-page-tabella td,
+.prodotti-page-tabella th {
+  padding: 1.5rem;
   vertical-align: middle;
   border-bottom: 1px solid #ddd;
+  transition: background 0.3s ease;
+}
+
+.prodotti-page-tabella tbody tr:hover {
+  background-color: #f1f1f1;
 }
 
 .prodotti-page-bottone {
-  margin-top: 0.3rem; /* Riduci il margine superiore dei bottoni */
+  margin-top: 0.3rem;
+  transition: transform 0.3s ease;
+}
+
+.prodotti-page-bottone:hover {
+  transform: scale(1.1);
 }
 
 .prodotti-page-icon {
-  font-size: 1rem; /* Riduci la dimensione delle icone */
-  margin-right: 5px;
+  font-size: 1.5rem;
+  margin-right: 10px;
 }
 
 .prodotti-page-descrizione {
-  font-size: 1rem; /* Riduci la dimensione del testo delle descrizioni */
+  font-size: 1.1rem;
   font-weight: bold;
 }
 
@@ -74,12 +98,12 @@ body.Prodotti {
 
 .prodotti-page-text-warning .prodotti-page-icon,
 .prodotti-page-text-warning .prodotti-page-descrizione {
-  color: yellow;
+  color: orange;
 }
 
-.prodotti-page-text-primary .prodotti-page-icon,
-.prodotti-page-text-primary .prodotti-page-descrizione {
-  color: blue;
+.prodotti-page-text-info .prodotti-page-icon,
+.prodotti-page-text-info .prodotti-page-descrizione {
+  color: #17a2b8;
 }
 
 .prodotti-page-text-secondary .prodotti-page-icon,
@@ -87,59 +111,115 @@ body.Prodotti {
   color: grey;
 }
 
+/* Media Queries per la Responsività */
 @media (max-width: 768px) {
   .prodotti-page-container {
-    margin-top: 120px; /* Regola la spaziatura per la versione mobile */
-    padding: 0 10px; /* Aggiungi padding laterale per evitare overflow */
+    margin-top: 120px;
+    padding: 10px;
   }
 
   .prodotti-page-titolo {
-    font-size: 0.8rem; /* Riduci la dimensione del titolo per dispositivi mobili */
+    font-size: 1.8rem;
+    text-align: center;
   }
 
   .prodotti-page-descrizione {
-    font-size: 0.5rem; /* Riduci la dimensione del testo per dispositivi mobili */
+    font-size: 1rem;
+    text-align: center;
   }
 
   .prodotti-page-tabella td {
-    padding: 0.1rem; /* Riduci ulteriormente il padding delle celle */
-  }
-
-  .prodotti-page-bottone {
-    margin-top: 0.1rem; /* Riduci ulteriormente il margine superiore dei bottoni */
+    padding: 0.5rem;
   }
 
   .prodotti-page-icon {
-    font-size: 0.5rem; /* Riduci ulteriormente la dimensione delle icone */
+    font-size: 1.2rem;
   }
 
   .prodotti-page-descrizione {
-    font-size: 0.5rem; /* Riduci ulteriormente la dimensione del testo delle descrizioni */
+    font-size: 1rem;
+  }
+
+  .prodotti-page-bottone {
+    margin-top: 0.2rem;
+  }
+
+  .prodotti-page-tabella,
+  .prodotti-page-tabella thead,
+  .prodotti-page-tabella tbody,
+  .prodotti-page-tabella th,
+  .prodotti-page-tabella td,
+  .prodotti-page-tabella tr {
+    display: block;
+    width: 100%;
+  }
+
+  .prodotti-page-tabella thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .prodotti-page-tabella tr {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  .prodotti-page-tabella td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+  }
+
+  .prodotti-page-tabella td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .prodotti-page-tabella td:before {
+    content: attr(data-label);
+  }
+
+  .prodotti-page-immagine {
+    margin-bottom: 20px;
+  }
+
+  .prodotti-page-bottone {
+    width: 50px;
+    height: 50px;
+    padding: 0;
   }
 }
 
 @media (min-width: 768px) {
   .prodotti-page-tabella {
-    width: 80%; /* Riduci la larghezza della tabella nella versione desktop */
-    margin: 0 auto; /* Centra la tabella */
+    width: 80%;
+    margin: 0 auto;
   }
 
   .prodotti-page-tabella td {
-    padding: 1rem; /* Mantieni il padding delle celle per desktop */
-  }
-
-  .prodotti-page-tabella h4 {
-    font-size: 1.2rem; /* Mantieni la dimensione del testo nelle celle per desktop */
+    padding: 1.5rem;
   }
 
   .prodotti-page-icon {
-    font-size: 1.2rem; /* Mantieni la dimensione delle icone per desktop */
+    font-size: 2rem;
   }
 
   .prodotti-page-descrizione {
-    font-size: 1.2rem; /* Mantieni la dimensione del testo delle descrizioni per desktop */
+    font-size: 1.5rem;
   }
 }
+
+
+
 
 
 

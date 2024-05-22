@@ -21,6 +21,7 @@ import Attrezzature from "./components/ComponentsProdotti.jsx/Attrezzature";
 import ProductForm from "./components/ProductForm";
 import Aziende from "./components/Aziende";
 import Notifiche from "./components/Notifiche";
+import PaymentForm from "./components/PaymentForm";
 //import CheckoutForm from "./components/CheckoutForm";
 // Stripe
 //import { Elements } from "@stripe/react-stripe-js";
@@ -54,6 +55,7 @@ const App = () => (
             <Route element={<Animali />} path="/Animali" />
             <Route element={<Attrezzature />} path="/Attrezzature" />
             <Route element={<ProductForm />} path="/nuovo-prodotto" />
+            <Route element={<PaymentForm />} path="/payment" />
             {/*  <Route element={<CheckoutForm />} path="/checkout" /> */}
             <Route element={<Aziende />} path="/Aziende" />
             <Route element={<Notifiche />} path="/Notifiche" />
