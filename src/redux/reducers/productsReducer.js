@@ -19,28 +19,54 @@ const initialState = {
 
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_PRODUCTS_SUCCESS:
+    case FETCH_PRODUCTS_SUCCESS: {
       console.log("Categoria:", action.category);
       console.log("Prodotti ricevuti:", action.payload);
+      const allProducts = removeDuplicates([
+        ...state.allProducts,
+        ...action.payload,
+      ]);
       return {
         ...state,
+        allProducts,
         [action.category]: action.payload,
+        displayedProducts: allProducts,
       };
+    }
     case CREATE_PRODUCT_SUCCESS: {
       console.log("Prodotto creato:", action.payload);
       const { categoryName } = action.payload;
+      const allProducts = removeDuplicates([
+        ...state.allProducts,
+        action.payload,
+      ]);
       return {
         ...state,
-        allProducts: [...state.allProducts, action.payload],
+        allProducts,
         [categoryName]: [...(state[categoryName] || []), action.payload],
+        displayedProducts: allProducts,
       };
     }
     case SEARCH_PRODUCTS: {
-      const filteredAllProducts = state.allProducts.filter((product) =>
-        product.name.toLowerCase().includes(action.payload.toLowerCase())
-      );
-      console.log("Prodotti filtrati:", filteredAllProducts);
-      return { ...state, displayedProducts: filteredAllProducts };
+      if (Array.isArray(action.payload)) {
+        const filteredProducts = state.allProducts.filter((product) =>
+          action.payload.some(
+            (searchResult) =>
+              searchResult.id === product.id ||
+              product.name
+                .toLowerCase()
+                .includes(searchResult.name.toLowerCase())
+          )
+        );
+        console.log("Prodotti filtrati:", filteredProducts);
+        return { ...state, displayedProducts: filteredProducts };
+      } else {
+        console.error(
+          "SEARCH_PRODUCTS payload is not an array:",
+          action.payload
+        );
+        return state;
+      }
     }
     case FILTER_PIANTINE_PRICES:
       return {
@@ -73,6 +99,20 @@ const filterProducts = (products, criteria) => {
       product[key].includes(value)
     )
   );
+};
+
+const removeDuplicates = (products) => {
+  const uniqueProducts = [];
+  const productIds = new Set();
+
+  for (const product of products) {
+    if (!productIds.has(product.id)) {
+      uniqueProducts.push(product);
+      productIds.add(product.id);
+    }
+  }
+
+  return uniqueProducts;
 };
 
 export default productsReducer;

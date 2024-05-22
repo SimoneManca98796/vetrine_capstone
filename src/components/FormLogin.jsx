@@ -76,7 +76,7 @@ const FormLogin = () => {
               </Button>
             </Form>
             <div className="register-link">
-              Non hai un account? <a href="/register">Registrati</a>
+              Non hai un account? <a href="/FormIscrizione">Registrati</a>
             </div>
           </div>
         </Col>

@@ -5,17 +5,19 @@ import {
   addItemToCart,
   searchProducts,
 } from "../../redux/actions/index";
-import { Card, Button, Alert, Modal, Form } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Assicurati di importare Link
+import { Card, Button, Alert, Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import ProductForm from "../ProductForm";
 import { FaShoppingCart, FaInfoCircle } from "react-icons/fa";
 import CartDropdown from "./CartDropdown";
-import SearchBar from "../SearchBar"; // Assicurati di importare SearchBar
+import SearchBar from "../SearchBar";
 import "../../Piantine.css";
 
 const Piantine = () => {
   const dispatch = useDispatch();
-  const piantine = useSelector((state) => state.products.piantine);
+  const displayedProducts = useSelector(
+    (state) => state.products.displayedProducts
+  );
   const [cartOpen, setCartOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -47,43 +49,52 @@ const Piantine = () => {
   };
 
   return (
-    <div className="main-content container">
+    <div className="piantine-main-content container">
       <SearchBar onSearch={handleSearch} />
-      <h1 className="mb-3">Piantine e Ortaggi</h1>
+      <h1 className="piantine-title">Piantine e Ortaggi</h1>
       <Alert variant="info">
         Nota: Il carrello si trova nella pagina{" "}
         <Link to="/Prodotti">Prodotti</Link>.
       </Alert>
       <ProductForm category="piantine" />
       <div className="row">
-        {Array.isArray(piantine) && piantine.length > 0 ? (
-          piantine.map((product) => (
-            <div className="col-md-4 mb-4" key={product.id}>
-              <Card>
-                <Card.Img
-                  variant="top"
-                  src={product.imageUrl}
-                  alt={product.name}
-                />
-                <Card.Body>
-                  <Card.Title>{product.name}</Card.Title>
-                  <Card.Text>
-                    {product.description}
-                    <br />
-                    Prezzo: €{product.price}
-                  </Card.Text>
-                  <Button
-                    variant="primary"
-                    className="button"
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    Aggiungi al Carrello
-                  </Button>
-                  <FaInfoCircle
-                    className="info-icon"
-                    onClick={() => handleShowModal(product)}
-                  />
-                </Card.Body>
+        {Array.isArray(displayedProducts) && displayedProducts.length > 0 ? (
+          displayedProducts.map((product) => (
+            <div className="col-md-12 mb-4" key={product.id}>
+              <Card className="piantine-product-row">
+                <div className="row no-gutters">
+                  <div className="col-md-4 piantine-product-image-col">
+                    <Card.Img
+                      variant="top"
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="piantine-product-image"
+                    />
+                  </div>
+                  <div className="col-md-8">
+                    <Card.Body className="piantine-product-details">
+                      <Card.Title className="piantine-product-title">
+                        {product.name}
+                      </Card.Title>
+                      <Card.Text className="piantine-product-description">
+                        {product.description}
+                        <br />
+                        Prezzo: €{product.price}
+                      </Card.Text>
+                      <Button
+                        variant="primary"
+                        className="piantine-add-to-cart-button"
+                        onClick={() => handleAddToCart(product)}
+                      >
+                        Aggiungi al Carrello
+                      </Button>
+                      <FaInfoCircle
+                        className="piantine-info-icon"
+                        onClick={() => handleShowModal(product)}
+                      />
+                    </Card.Body>
+                  </div>
+                </div>
               </Card>
             </div>
           ))
@@ -91,10 +102,9 @@ const Piantine = () => {
           <p>Nessun prodotto trovato.</p>
         )}
       </div>
-      <FaShoppingCart className="cart-icon" onClick={toggleCart} />
+      <FaShoppingCart className="piantine-cart-icon" onClick={toggleCart} />
       {cartOpen && <CartDropdown />}
 
-      {/* Modal for product details */}
       {selectedProduct && (
         <Modal show={showModal} onHide={handleCloseModal}>
           <Modal.Header closeButton>

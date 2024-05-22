@@ -478,11 +478,26 @@ export const filterAttrezzaturePrices = (criteria) => ({
 ///////////////////////////////////
 //////// BARRA DI RICERCA ////////////////
 export const searchProducts = (searchTerm) => {
-  return {
-    type: "SEARCH_PRODUCTS",
-    payload: searchTerm,
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/products/search?query=${searchTerm}`
+      );
+      if (response.data && Array.isArray(response.data)) {
+        dispatch({
+          type: SEARCH_PRODUCTS,
+          payload: response.data,
+        });
+      } else {
+        throw new Error("Invalid response data");
+      }
+    } catch (error) {
+      console.error("Errore nella ricerca dei prodotti:", error);
+    }
   };
 };
+//////////////////////
+
 //////////////////////////////////////////
 // Funzione per creare un nuovo prodotto
 export const createProduct = (productData) => {
