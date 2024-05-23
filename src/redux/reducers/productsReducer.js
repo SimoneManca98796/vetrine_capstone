@@ -24,8 +24,6 @@ const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PRODUCTS_SUCCESS: {
       const { category } = action;
-      console.log("Categoria:", category);
-      console.log("Prodotti ricevuti:", action.payload);
       const allProducts = removeDuplicates([
         ...state.allProducts,
         ...action.payload,
@@ -39,7 +37,6 @@ const productsReducer = (state = initialState, action) => {
     }
     case CREATE_PRODUCT_SUCCESS: {
       const { categoryName } = action.payload;
-      console.log("Prodotto creato:", action.payload);
       const allProducts = removeDuplicates([
         ...state.allProducts,
         action.payload,
@@ -55,25 +52,28 @@ const productsReducer = (state = initialState, action) => {
       };
     }
     case SEARCH_PRODUCTS: {
-      if (Array.isArray(action.payload)) {
-        const filteredProducts = state.allProducts.filter((product) =>
-          action.payload.some(
-            (searchResult) =>
-              searchResult.id === product.id ||
-              product.name
-                .toLowerCase()
-                .includes(searchResult.name.toLowerCase())
-          )
+      const searchResults = action.payload;
+      console.log("Risultati della ricerca nel reducer:", searchResults);
+      const categorizeProducts = (products, category) => {
+        const filteredProducts = products.filter(
+          (product) => product.categoryName === category
         );
-        console.log("Prodotti filtrati:", filteredProducts);
-        return { ...state, displayedProducts: filteredProducts };
-      } else {
-        console.error(
-          "SEARCH_PRODUCTS payload is not an array:",
-          action.payload
+        console.log(
+          `Prodotti categorizzati come ${category}:`,
+          filteredProducts
         );
-        return state;
-      }
+        return filteredProducts;
+      };
+      return {
+        ...state,
+        displayedPiantine: categorizeProducts(searchResults, "piantine"),
+        displayedArtigianali: categorizeProducts(searchResults, "artigianali"),
+        displayedAnimali: categorizeProducts(searchResults, "animali"),
+        displayedAttrezzature: categorizeProducts(
+          searchResults,
+          "attrezzature"
+        ),
+      };
     }
     case FILTER_PIANTINE_PRICES:
       return {

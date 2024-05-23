@@ -484,6 +484,7 @@ export const searchProducts = (searchTerm) => {
         `http://localhost:8080/api/products/search?query=${searchTerm}`
       );
       if (response.data && Array.isArray(response.data)) {
+        console.log("Risposta API con categoria:", response.data);
         dispatch({
           type: SEARCH_PRODUCTS,
           payload: response.data,
