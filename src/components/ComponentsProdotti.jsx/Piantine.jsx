@@ -17,7 +17,7 @@ import "../../CartDropdown.css";
 const Piantine = () => {
   const dispatch = useDispatch();
   const displayedProducts = useSelector(
-    (state) => state.products.displayedProducts
+    (state) => state.products.displayedPiantine
   );
   const [cartOpen, setCartOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -54,7 +54,7 @@ const Piantine = () => {
       <SearchBar onSearch={handleSearch} />
       <h1 className="piantine-title">Piantine e Ortaggi</h1>
       <Alert variant="info">
-        Nota: Il carrello si trova nella pagina{" "}
+        Il carrello si trova ANCHE nella pagina{" "}
         <Link to="/Prodotti">Prodotti</Link>.
       </Alert>
       <ProductForm category="piantine" />

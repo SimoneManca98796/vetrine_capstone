@@ -10,7 +10,10 @@ import {
 
 const initialState = {
   allProducts: [],
-  displayedProducts: [],
+  displayedPiantine: [],
+  displayedArtigianali: [],
+  displayedAnimali: [],
+  displayedAttrezzature: [],
   piantine: [],
   artigianali: [],
   animali: [],
@@ -20,7 +23,8 @@ const initialState = {
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PRODUCTS_SUCCESS: {
-      console.log("Categoria:", action.category);
+      const { category } = action;
+      console.log("Categoria:", category);
       console.log("Prodotti ricevuti:", action.payload);
       const allProducts = removeDuplicates([
         ...state.allProducts,
@@ -29,13 +33,13 @@ const productsReducer = (state = initialState, action) => {
       return {
         ...state,
         allProducts,
-        [action.category]: action.payload,
-        displayedProducts: allProducts,
+        [category]: action.payload,
+        [`displayed${capitalizeFirstLetter(category)}`]: action.payload,
       };
     }
     case CREATE_PRODUCT_SUCCESS: {
-      console.log("Prodotto creato:", action.payload);
       const { categoryName } = action.payload;
+      console.log("Prodotto creato:", action.payload);
       const allProducts = removeDuplicates([
         ...state.allProducts,
         action.payload,
@@ -44,7 +48,10 @@ const productsReducer = (state = initialState, action) => {
         ...state,
         allProducts,
         [categoryName]: [...(state[categoryName] || []), action.payload],
-        displayedProducts: allProducts,
+        [`displayed${capitalizeFirstLetter(categoryName)}`]: [
+          ...(state[categoryName] || []),
+          action.payload,
+        ],
       };
     }
     case SEARCH_PRODUCTS: {
@@ -71,22 +78,25 @@ const productsReducer = (state = initialState, action) => {
     case FILTER_PIANTINE_PRICES:
       return {
         ...state,
-        piantine: filterProducts(state.piantine, action.payload),
+        displayedPiantine: filterProducts(state.piantine, action.payload),
       };
     case FILTER_ARTIGIANALI_PRICES:
       return {
         ...state,
-        artigianali: filterProducts(state.artigianali, action.payload),
+        displayedArtigianali: filterProducts(state.artigianali, action.payload),
       };
     case FILTER_ANIMALI_PRICES:
       return {
         ...state,
-        animali: filterProducts(state.animali, action.payload),
+        displayedAnimali: filterProducts(state.animali, action.payload),
       };
     case FILTER_ATTREZZATURE_PRICES:
       return {
         ...state,
-        attrezzature: filterProducts(state.attrezzature, action.payload),
+        displayedAttrezzature: filterProducts(
+          state.attrezzature,
+          action.payload
+        ),
       };
     default:
       return state;
@@ -113,6 +123,10 @@ const removeDuplicates = (products) => {
   }
 
   return uniqueProducts;
+};
+
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 export default productsReducer;

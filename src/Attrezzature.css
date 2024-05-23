@@ -1,0 +1,80 @@
+.attrezzature-main-content {
+    padding: 120px 20px 20px 20px;
+  }
+  
+  .attrezzature-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  .attrezzature-product-row {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .attrezzature-product-image-col {
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  .attrezzature-product-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .attrezzature-product-details {
+    flex: 2;
+    padding: 10px;
+  }
+  
+  .attrezzature-product-title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .attrezzature-product-description {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+  
+  .attrezzature-add-to-cart-button {
+    margin-right: 10px;
+  }
+  
+  .attrezzature-info-icon {
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1.5em;
+  }
+  
+  .attrezzature-cart-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 2em;
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .attrezzature-product-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .attrezzature-product-row {
+      flex-direction: column;
+    }
+  
+    .attrezzature-product-image-col,
+    .attrezzature-product-details {
+      max-width: 100%;
+    }
+  }
+  

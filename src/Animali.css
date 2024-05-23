@@ -1,0 +1,80 @@
+.animali-main-content {
+    padding: 120px 20px 20px 20px;
+  }
+  
+  .animali-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  .animali-product-row {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .animali-product-image-col {
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  .animali-product-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .animali-product-details {
+    flex: 2;
+    padding: 10px;
+  }
+  
+  .animali-product-title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .animali-product-description {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+  
+  .animali-add-to-cart-button {
+    margin-right: 10px;
+  }
+  
+  .animali-info-icon {
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1.5em;
+  }
+  
+  .animali-cart-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 2em;
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .animali-product-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .animali-product-row {
+      flex-direction: column;
+    }
+  
+    .animali-product-image-col,
+    .animali-product-details {
+      max-width: 100%;
+    }
+  }
+  
