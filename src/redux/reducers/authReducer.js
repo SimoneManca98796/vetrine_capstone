@@ -4,6 +4,7 @@ import {
   REGISTER_FAIL,
   LOGIN_FAIL,
   REGISTER_SUCCESS,
+  UPDATE_PROFILE,
 } from "../actions/index";
 
 const initialState = {
@@ -35,6 +36,14 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: false,
         token: null,
         avatarUrl: null,
+      };
+    case UPDATE_PROFILE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
       };
     case LOGIN_FAIL:
     case REGISTER_FAIL:

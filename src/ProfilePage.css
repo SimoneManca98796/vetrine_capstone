@@ -1,0 +1,29 @@
+.profile-page {
+    max-width: 900px;
+    margin: auto;
+  }
+  
+  .profile-page h2,
+  .profile-page h3 {
+    color: #0085b5;
+  }
+  
+  .profile-page .form-label {
+    font-weight: bold;
+  }
+  
+  .profile-page .form-control {
+    border-radius: 10px;
+  }
+  
+  .profile-page .btn-primary {
+    background-color: #0044cc;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+  }
+  
+  .profile-page .btn-primary:hover {
+    background-color: #0033a0;
+  }
+  

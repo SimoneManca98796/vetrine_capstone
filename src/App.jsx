@@ -13,6 +13,7 @@ import PrezziBovini from "./components/ComponentsBacheca/PrezziBovini";
 import PrezziAmericani from "./components/ComponentsBacheca/PrezziAmericani";
 import FormIscrizione from "./components/FormIscrizione";
 import FormLogin from "./components/FormLogin";
+import ProfilePage from "./components/ProfilePage";
 import Prodotti from "./components/Prodotti";
 import Piantine from "./components/ComponentsProdotti.jsx/Piantine";
 import Artigianali from "./components/ComponentsProdotti.jsx/Artigianali";
@@ -49,6 +50,7 @@ const App = () => (
             <Route element={<PrezziAmericani />} path="/PrezziAmericani" />
             <Route element={<FormIscrizione />} path="/FormIscrizione" />
             <Route element={<FormLogin />} path="/FormLogin" />
+            <Route element={<ProfilePage />} path="/ProfilePage" />
             <Route element={<Prodotti />} path="/Prodotti" />
             <Route element={<Piantine />} path="/Piantine" />
             <Route element={<Artigianali />} path="/Artigianali" />

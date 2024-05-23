@@ -23,6 +23,7 @@ export const FETCH_FILTERED_PRICES_SUCCESS = "FETCH_FILTERED_PRICES_SUCCESS"; //
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS"; // LOGIN :)
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT"; // LOGOUT :(
+export const UPDATE_PROFILE = "UPDATE_PROFILE"; /////////////////////////////////////////
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 export const FETCH_OVINI_PRICES_SUCCESS = "FETCH_OVINI_PRICES_SUCCESS"; //PREZZI OVINI
@@ -244,6 +245,13 @@ export const updateAvatarUrl = (avatarUrl) => {
   };
 };
 ///////////////////////////
+export const updateProfile = (profileData) => {
+  return {
+    type: "UPDATE_PROFILE",
+    payload: profileData,
+  };
+};
+
 ///////////////////////////
 // Fetch prices PER OVINI
 export const fetchOviniPrices = () => {

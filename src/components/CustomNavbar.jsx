@@ -197,7 +197,7 @@ const CustomNavbar = () => {
                   )}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="nav-dropdown-menu">
-                  <Dropdown.Item as={Link} to="/profile">
+                  <Dropdown.Item as={Link} to="/ProfilePage">
                     Profilo
                   </Dropdown.Item>
                   <Dropdown.Item
