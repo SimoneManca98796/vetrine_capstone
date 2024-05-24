@@ -15,7 +15,7 @@ import "../ProfilePage.css";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user); // Assicurati che questo sia il percorso corretto per accedere ai dati dell'utente
+  const user = useSelector((state) => state.auth.user);
   const avatarUrl = useSelector((state) => state.auth.avatarUrl);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -28,12 +28,14 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (user) {
+      console.log("User data loaded:", user); // Log di debug
       setName(user.name);
       setSurname(user.surname);
       setEmail(user.email);
       setLoading(false);
     } else {
-      setLoading(false); // Se non c'è utente, smetti di caricare
+      console.log("No user data available"); // Log di debug
+      setLoading(false); // Smetti di caricare se l'utente non è presente
     }
   }, [user]);
 
@@ -48,24 +50,24 @@ const ProfilePage = () => {
         formData
       );
       dispatch(updateAvatarUrl(response.data.uri));
-      setSuccess("Avatar updated successfully.");
+      setSuccess("Avatar aggiornato con successo.");
     } catch (error) {
-      setError("Failed to update avatar. Please try again.");
+      setError("Impossibile aggiornare l'avatar. Per favore riprova.");
     }
   };
 
   const handlePasswordChange = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError("Le password non corrispondono.");
       return;
     }
 
     try {
       await axios.put("http://localhost:8080/api/users/me", { password });
-      setSuccess("Password updated successfully.");
+      setSuccess("Password aggiornata con successo.");
     } catch (error) {
-      setError("Failed to update password. Please try again.");
+      setError("Impossibile aggiornare la password. Per favore riprova.");
     }
   };
 
@@ -78,9 +80,9 @@ const ProfilePage = () => {
         email,
       });
       dispatch(updateProfile({ name, surname, email }));
-      setSuccess("Profile updated successfully.");
+      setSuccess("Profilo aggiornato con successo.");
     } catch (error) {
-      setError("Failed to update profile. Please try again.");
+      setError("Impossibile aggiornare il profilo. Per favore riprova.");
     }
   };
 
@@ -90,6 +92,8 @@ const ProfilePage = () => {
 
   return (
     <Container className="profile-page mt-5">
+      {" "}
+      {/* Aggiungi una classe per il margine superiore */}
       <Row>
         <Col md={4} className="text-center">
           <Image
@@ -103,17 +107,28 @@ const ProfilePage = () => {
             height="150"
           />
           <Form.Group controlId="formFile" className="mt-3">
-            <Form.Label>Change Avatar</Form.Label>
+            <Form.Label>Cambia Avatar</Form.Label>
             <Form.Control type="file" onChange={handleAvatarChange} />
           </Form.Group>
         </Col>
         <Col md={8}>
-          <h2>Profile</h2>
+          <h2>Profilo</h2>
+          <div className="user-details">
+            <p>
+              <strong>Nome:</strong> {name}
+            </p>
+            <p>
+              <strong>Cognome:</strong> {surname}
+            </p>
+            <p>
+              <strong>Email:</strong> {email}
+            </p>
+          </div>
           {error && <Alert variant="danger">{error}</Alert>}
           {success && <Alert variant="success">{success}</Alert>}
           <Form onSubmit={handleProfileUpdate}>
             <Form.Group controlId="formName">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Nome</Form.Label>
               <Form.Control
                 type="text"
                 value={name}
@@ -121,7 +136,7 @@ const ProfilePage = () => {
               />
             </Form.Group>
             <Form.Group controlId="formSurname" className="mt-3">
-              <Form.Label>Surname</Form.Label>
+              <Form.Label>Cognome</Form.Label>
               <Form.Control
                 type="text"
                 value={surname}
@@ -137,13 +152,13 @@ const ProfilePage = () => {
               />
             </Form.Group>
             <Button variant="primary" type="submit" className="mt-3">
-              Update Profile
+              Aggiorna Profilo
             </Button>
           </Form>
-          <h3 className="mt-5">Change Password</h3>
+          <h3 className="mt-5">Cambia Password</h3>
           <Form onSubmit={handlePasswordChange}>
             <Form.Group controlId="formPassword">
-              <Form.Label>New Password</Form.Label>
+              <Form.Label>Nuova Password</Form.Label>
               <Form.Control
                 type="password"
                 value={password}
@@ -151,7 +166,7 @@ const ProfilePage = () => {
               />
             </Form.Group>
             <Form.Group controlId="formConfirmPassword" className="mt-3">
-              <Form.Label>Confirm New Password</Form.Label>
+              <Form.Label>Conferma Nuova Password</Form.Label>
               <Form.Control
                 type="password"
                 value={confirmPassword}
@@ -159,7 +174,7 @@ const ProfilePage = () => {
               />
             </Form.Group>
             <Button variant="primary" type="submit" className="mt-3">
-              Change Password
+              Cambia Password
             </Button>
           </Form>
         </Col>

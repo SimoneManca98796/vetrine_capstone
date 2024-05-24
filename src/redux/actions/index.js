@@ -170,9 +170,9 @@ export const loginUser =
       );
       console.log("Risposta dal server:", response);
       if (response.status === 200) {
-        const { token, avatarUrl } = response.data;
+        const { token, avatarUrl, user } = response.data;
         console.log("Login riuscito, token ricevuto:", token);
-        dispatch({ type: LOGIN_SUCCESS, payload: { token, avatarUrl } });
+        dispatch({ type: LOGIN_SUCCESS, payload: { token, avatarUrl, user } });
         localStorage.setItem("token", token); // Salvataggio del token nel localStorage
         localStorage.setItem("avatarUrl", avatarUrl); // Salva l'URL dell'avatar
         alert("Benvenuto! Accesso effettuato con successo.");

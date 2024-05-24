@@ -22,6 +22,7 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: true,
         token: action.payload.token,
         avatarUrl: action.payload.avatarUrl,
+        user: action.payload.user,
       };
     case REGISTER_SUCCESS:
       return {
@@ -29,6 +30,7 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: true,
         token: action.payload.token,
         avatarUrl: action.payload.avatarUrl,
+        user: action.payload.user,
       };
     case LOGOUT:
       return {
@@ -36,8 +38,10 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: false,
         token: null,
         avatarUrl: null,
+        user: null,
       };
     case UPDATE_PROFILE:
+      console.log("Updating profile with:", action.payload);
       return {
         ...state,
         user: {
@@ -52,6 +56,7 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: false,
         token: null,
         avatarUrl: null,
+        user: null,
       };
     case "UPDATE_AVATAR_URL":
       console.log("URL Avatar aggiornato:", action.payload);

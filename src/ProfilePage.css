@@ -1,6 +1,8 @@
+/* ProfilePage.css */
 .profile-page {
     max-width: 900px;
     margin: auto;
+    margin-top: 150px !important; 
   }
   
   .profile-page h2,
@@ -25,5 +27,9 @@
   
   .profile-page .btn-primary:hover {
     background-color: #0033a0;
+  }
+  
+  .user-details {
+    margin-bottom: 20px;
   }
   
