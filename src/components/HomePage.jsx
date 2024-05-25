@@ -53,7 +53,7 @@ const HomePage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        TIENITI AGGIORNATO SUI PREZZI DEL MERCATO :
+        Tieniti aggiornato sui prezzi del mercato :
       </motion.h4>
       <div className="carousel-container">
         <Carousel className="responsive-carousel">
@@ -183,7 +183,7 @@ const HomePage = () => {
       </div>
       <div className="second-carousel-container">
         <h4 className="text-center mb-4" style={{ color: "#0085B5" }}>
-          METTI IN VENDITA E/O COMPRA I PRODOTTI DELLA TUA TERRA:
+          Metti in vendita e/o compra prodotti della tua terra:
         </h4>
         <div className="carousel-container">
           <Carousel className="responsive-carousel">
