@@ -10,10 +10,10 @@ import {
   Form,
   Button,
 } from "react-bootstrap";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import Select from "react-select";
-import { Line } from "react-chartjs-2"; // Importa il componente grafico
-import "chart.js/auto"; // Importa la libreria del grafico
+import { Line } from "react-chartjs-2";
+import "chart.js/auto";
 import "../../App.css";
 import "../../PrezziLatte.css";
 
@@ -34,18 +34,20 @@ const PrezziLatte = () => {
   );
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({ data: "", luogo: "" });
-  const [lastUpdated, setLastUpdated] = useState(""); // Stato per l'ultima data di aggiornamento
+  const [lastUpdated, setLastUpdated] = useState("");
 
   useEffect(() => {
     dispatch(fetchPrices()).then(() => {
-      setTimeout(() => setLoading(false), 1000); // Imposta un timeout di 1 secondo
+      setLoading(false);
     });
   }, [dispatch]);
 
   useEffect(() => {
     if (prezzilist.length > 0) {
-      const latestDate = prezzilist[0].data; // Assumendo che la lista sia ordinata per data
-      setLastUpdated(format(new Date(latestDate), "dd/MM/yyyy"));
+      const latestDate = prezzilist[0].data;
+      if (latestDate) {
+        setLastUpdated(format(parseISO(latestDate), "dd/MM/yyyy"));
+      }
     }
   }, [prezzilist]);
 
@@ -61,14 +63,17 @@ const PrezziLatte = () => {
   };
 
   const chartData = {
-    labels: filteredList.map((item) => item.data),
+    labels: filteredList.map((item) => {
+      const date = item.data ? parseISO(item.data) : null;
+      return date ? format(date, "dd/MM/yyyy") : "";
+    }),
     datasets: [
       {
         label: "Prezzo",
         data: filteredList.map((item) => item.prezzo),
         fill: false,
-        backgroundColor: "#495057", // Outer space
-        borderColor: "#343A40", // Onyx
+        backgroundColor: "#495057",
+        borderColor: "#343A40",
       },
     ],
   };
@@ -156,10 +161,14 @@ const PrezziLatte = () => {
                       {filteredList && filteredList.length > 0 ? (
                         filteredList.map((item, idx) => (
                           <tr key={idx}>
-                            <td>{item.data}</td>
+                            <td>
+                              {item.data
+                                ? format(parseISO(item.data), "dd/MM/yyyy")
+                                : "N/D"}
+                            </td>
                             <td>{item.luogo}</td>
                             <td>{item.prodotto}</td>
-                            <td>{item.prezzo ? `${item.prezzo} €` : "N/D"}</td>
+                            <td>{item.prezzo ? `${item.prezzo} ` : "N/D"}</td>
                             <td>
                               {item.variazionePerc
                                 ? `${item.variazionePerc}`
