@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAziende, createAzienda } from "../redux/actions/index";
+import {
+  fetchAziende,
+  createAzienda,
+  deleteAzienda,
+} from "../redux/actions/index";
 import { Card, Button, Modal, Form, Alert } from "react-bootstrap";
-import { FaPlus } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { FaPlus, FaTrashAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "../Aziende.css";
 
 const Aziende = () => {
@@ -11,6 +15,10 @@ const Aziende = () => {
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const aziende = useSelector((state) => state.aziende.allAziende);
+  const user = useSelector((state) => state.auth.user);
+
+  console.log("User from Redux:", user);
+
   const [showModal, setShowModal] = useState(false);
   const [newAzienda, setNewAzienda] = useState({
     name: "",
@@ -18,6 +26,8 @@ const Aziende = () => {
     tipo: "",
     contatto: "",
     dettagli: "",
+    categoria: "Richiedente",
+    userId: "",
   });
   const [error, setError] = useState("");
 
@@ -36,6 +46,18 @@ const Aziende = () => {
     }
   }, [isAuthenticated, dispatch, navigate]);
 
+  useEffect(() => {
+    console.log("User from Redux:", user);
+    if (user && user.id) {
+      setNewAzienda((prevState) => ({
+        ...prevState,
+        userId: user.id,
+      }));
+    } else {
+      console.error("ID utente non disponibile.");
+    }
+  }, [user]);
+
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
@@ -53,16 +75,35 @@ const Aziende = () => {
       return;
     }
     setError("");
-    dispatch(createAzienda(newAzienda));
+
+    const aziendaData = { ...newAzienda, userId: user.id };
+
+    console.log("Submitting new azienda with userId:", aziendaData);
+    dispatch(createAzienda(aziendaData));
     setNewAzienda({
       name: "",
       description: "",
       tipo: "",
       contatto: "",
       dettagli: "",
+      categoria: "Richiedente",
+      userId: user.id,
     });
     handleCloseModal();
   };
+
+  const handleDelete = (id, isOwn) => {
+    if (isOwn) {
+      if (window.confirm("Sei sicuro di voler rimuovere il tuo annuncio?")) {
+        dispatch(deleteAzienda(id));
+      }
+    } else {
+      dispatch(deleteAzienda(id));
+    }
+  };
+
+  const myAziende = aziende.filter((azienda) => azienda.userId === user.id);
+  const otherAziende = aziende.filter((azienda) => azienda.userId !== user.id);
 
   return (
     <div className="aziende-container">
@@ -89,36 +130,81 @@ const Aziende = () => {
       >
         <FaPlus /> Aggiungi Annuncio
       </Button>
+
+      <h2>I miei annunci</h2>
       <div className="row">
-        {Array.isArray(aziende) && aziende.length > 0 ? (
-          aziende.map((azienda) => (
-            <div className="col-md-4 mb-4" key={azienda.id}>
-              <Card className="aziende-card">
-                <Card.Body>
-                  <Card.Title className="aziende-card-title">
-                    {azienda.name}
-                  </Card.Title>
-                  <Card.Text className="aziende-card-text">
-                    {azienda.description}
-                    <br />
-                    Tipo: {azienda.tipo}
-                    <br />
-                    Contatto: {azienda.contatto}
-                    <br />
-                    {azienda.dettagli ? (
-                      <>
-                        Dettagli: {azienda.dettagli}
-                        <br />
-                      </>
-                    ) : null}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
-          ))
-        ) : (
-          <Alert variant="info">Nessun annuncio trovato.</Alert>
-        )}
+        {myAziende.map((azienda) => (
+          <div className="col-md-4 mb-4" key={azienda.id}>
+            <Card className="aziende-card">
+              <Card.Body>
+                <Card.Title className="aziende-card-title">
+                  {azienda.name}
+                </Card.Title>
+                <Card.Text className="aziende-card-text">
+                  {azienda.description}
+                  <br />
+                  Tipo: {azienda.tipo}
+                  <br />
+                  Contatto: {azienda.contatto}
+                  <br />
+                  Categoria: {azienda.categoria}
+                  <br />
+                  {azienda.dettagli ? (
+                    <>
+                      Dettagli: {azienda.dettagli}
+                      <br />
+                    </>
+                  ) : null}
+                </Card.Text>
+                <Button
+                  variant="danger"
+                  onClick={() => handleDelete(azienda.id, true)}
+                >
+                  <FaTrashAlt /> Elimina
+                </Button>
+              </Card.Body>
+            </Card>
+          </div>
+        ))}
+      </div>
+
+      <h2>Altri annunci</h2>
+      <div className="row">
+        {otherAziende.map((azienda) => (
+          <div className="col-md-4 mb-4" key={azienda.id}>
+            <Card className="aziende-card">
+              <Card.Body>
+                <Card.Title className="aziende-card-title">
+                  {azienda.name}
+                </Card.Title>
+                <Card.Text className="aziende-card-text">
+                  {azienda.description}
+                  <br />
+                  Tipo: {azienda.tipo}
+                  <br />
+                  Contatto: {azienda.contatto}
+                  <br />
+                  Categoria: {azienda.categoria}
+                  <br />
+                  {azienda.dettagli ? (
+                    <>
+                      Dettagli: {azienda.dettagli}
+                      <br />
+                    </>
+                  ) : null}
+                </Card.Text>
+                {user.role === "ADMIN" && (
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(azienda.id, false)}
+                  >
+                    <FaTrashAlt /> Elimina
+                  </Button>
+                )}
+              </Card.Body>
+            </Card>
+          </div>
+        ))}
       </div>
 
       <Modal show={showModal} onHide={handleCloseModal}>
@@ -171,6 +257,19 @@ const Aziende = () => {
                 onChange={handleChange}
                 required
               />
+            </Form.Group>
+            <Form.Group controlId="formCategoria">
+              <Form.Label className="aziende-form-label">Categoria</Form.Label>
+              <Form.Control
+                as="select"
+                name="categoria"
+                value={newAzienda.categoria}
+                onChange={handleChange}
+                required
+              >
+                <option value="Richiedente">Richiedente</option>
+                <option value="Proponente">Proponente</option>
+              </Form.Control>
             </Form.Group>
             <Form.Group controlId="formDettagli">
               <Form.Label className="aziende-form-label">

@@ -65,6 +65,7 @@ export const APPLY_DISCOUNT_CODE = "APPLY_DISCOUNT_CODE";
 // AZIENDE:
 export const FETCH_AZIENDE_SUCCESS = "FETCH_AZIENDE_SUCCESS";
 export const CREATE_AZIENDA_SUCCESS = "CREATE_AZIENDA_SUCCESS";
+export const DELETE_AZIENDA_SUCCESS = "DELETE_AZIENDA_SUCCESS";
 // NOTIFICHE:
 export const FETCH_NOTIFICATIONS_SUCCESS = "FETCH_NOTIFICATIONS_SUCCESS";
 //////////////////////////////////////////
@@ -378,9 +379,14 @@ export const loginUser =
         "http://localhost:8080/api/auth/login",
         credentials
       );
-      console.log("Risposta dal server:", response);
+      console.log("Risposta dal server:", response.data);
       if (response.status === 200) {
         const { token, avatarUrl, user } = response.data;
+        console.log("Dati utente ricevuti:", user);
+        if (!user.id) {
+          console.error("L'ID utente non è presente nei dati ricevuti.");
+          return;
+        }
         console.log("Login riuscito, token ricevuto:", token);
         dispatch({ type: LOGIN_SUCCESS, payload: { token, avatarUrl, user } });
         localStorage.setItem("token", token); // Salvataggio del token nel localStorage
@@ -862,6 +868,22 @@ export const createAzienda = (aziendaData) => async (dispatch) => {
     });
   } catch (error) {
     console.error("Errore nella creazione dell'azienda:", error);
+  }
+};
+
+export const deleteAzienda = (id) => async (dispatch) => {
+  try {
+    await axios.delete(`http://localhost:8080/api/aziende/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    dispatch({
+      type: DELETE_AZIENDA_SUCCESS,
+      payload: id,
+    });
+  } catch (error) {
+    console.error("Errore nell'eliminazione dell'azienda:", error);
   }
 };
 //////////////////
