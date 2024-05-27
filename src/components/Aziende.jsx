@@ -20,6 +20,8 @@ const Aziende = () => {
   console.log("User from Redux:", user);
 
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteAziendaId, setDeleteAziendaId] = useState(null);
   const [newAzienda, setNewAzienda] = useState({
     name: "",
     description: "",
@@ -61,6 +63,12 @@ const Aziende = () => {
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
+  const handleShowDeleteModal = (id) => {
+    setDeleteAziendaId(id);
+    setShowDeleteModal(true);
+  };
+  const handleCloseDeleteModal = () => setShowDeleteModal(false);
+
   const handleChange = (e) => {
     setNewAzienda({
       ...newAzienda,
@@ -92,14 +100,9 @@ const Aziende = () => {
     handleCloseModal();
   };
 
-  const handleDelete = (id, isOwn) => {
-    if (isOwn) {
-      if (window.confirm("Sei sicuro di voler rimuovere il tuo annuncio?")) {
-        dispatch(deleteAzienda(id));
-      }
-    } else {
-      dispatch(deleteAzienda(id));
-    }
+  const handleConfirmDelete = () => {
+    dispatch(deleteAzienda(deleteAziendaId));
+    handleCloseDeleteModal();
   };
 
   const myAziende = aziende.filter((azienda) => azienda.userId === user.id);
@@ -158,7 +161,7 @@ const Aziende = () => {
                 </Card.Text>
                 <Button
                   variant="danger"
-                  onClick={() => handleDelete(azienda.id, true)}
+                  onClick={() => handleShowDeleteModal(azienda.id)}
                 >
                   <FaTrashAlt /> Elimina
                 </Button>
@@ -196,7 +199,7 @@ const Aziende = () => {
                 {user.role === "ADMIN" && (
                   <Button
                     variant="danger"
-                    onClick={() => handleDelete(azienda.id, false)}
+                    onClick={() => handleShowDeleteModal(azienda.id)}
                   >
                     <FaTrashAlt /> Elimina
                   </Button>
@@ -292,6 +295,23 @@ const Aziende = () => {
             </Button>
           </Modal.Footer>
         </Form>
+      </Modal>
+
+      <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+        <Modal.Header closeButton className="aziende-modal-header">
+          <Modal.Title>Conferma Eliminazione</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="aziende-modal-content">
+          Sei sicuro di voler eliminare questo annuncio?
+        </Modal.Body>
+        <Modal.Footer className="aziende-modal-footer">
+          <Button variant="secondary" onClick={handleCloseDeleteModal}>
+            Annulla
+          </Button>
+          <Button variant="danger" onClick={handleConfirmDelete}>
+            Elimina
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );
