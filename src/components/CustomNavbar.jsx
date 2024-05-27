@@ -6,7 +6,6 @@ import {
   Nav,
   Dropdown,
   Image,
-  Modal,
   Button,
 } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
@@ -22,46 +21,31 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "/Vetrine.png";
 import { loginUser, logoutUser } from "../redux/actions/index";
 import { useNavigate } from "react-router-dom";
-import AvatarUpload from "./AvatarUpload";
 import "../CustomNavbar.css";
 
 const CustomNavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation(); // percorso per cambio navbar
+  const location = useLocation();
   const [mostraDropdown, setMostraDropdown] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
-  const avatarUrl = useSelector((state) => state.auth.avatarUrl, shallowEqual); // l'URL dell'avatar
-
-  const [showAvatarUpload, setShowAvatarUpload] = useState(false);
+  const avatarUrl = useSelector((state) => state.auth.avatarUrl, shallowEqual);
 
   useEffect(() => {
     console.log("L'URL dell'avatar è cambiato:", avatarUrl);
   }, [avatarUrl]);
 
-  // Definisci colori per le diverse pagine
   const navbarColors = {
     "/": "#0085B5",
   };
-  {
-    /* "/mercati": "rgb(156,139,139)",
-  "/prodotti": "#0044cc",
-  "/PrezziLatte": "#DADDE2",
-  "/PrezziOvini": "#9E2A2B",
-  "/PrezziSuini": "#881B80",
-  "/PrezziBovini": "#007200", */
-  }
 
-  // Ottieni il colore in base al percorso attuale
   const navbarColor = navbarColors[location.pathname] || "#0085B5";
 
-  // Handler per il login
   const handleLogin = () => {
     navigate("/FormLogin");
   };
 
-  // Handler per il logout
   const handleLogout = () => {
     dispatch(logoutUser());
     localStorage.removeItem("avatarUrl");
@@ -70,25 +54,30 @@ const CustomNavbar = () => {
 
   const handleToggleDropdown = () => {
     setMostraDropdown(!mostraDropdown);
-    console.log("Dropdown state after click:", !mostraDropdown); // Monitora lo stato del dropdown
+    console.log("Dropdown state after click:", !mostraDropdown);
   };
 
-  // Funzione per ottenere il colore delle icone attive
   const getIconColor = (path) => {
     return location.pathname === path ? "rgba(255, 255, 255, 0.7)" : "white";
   };
+
+  const closeNavbar = () => setExpanded(false);
 
   return (
     <Navbar
       expand="lg"
       className="shadow-sm fixed-top pb-0"
       style={{ backgroundColor: navbarColor }}
+      expanded={expanded}
     >
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/" onClick={closeNavbar}>
           <img src={logo} width="68" height="68" alt="Agri App" />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={() => setExpanded(!expanded)}
+        />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Item>
@@ -98,6 +87,7 @@ const CustomNavbar = () => {
                 className={`text-center ${
                   location.pathname === "/" ? "active" : ""
                 }`}
+                onClick={closeNavbar}
               >
                 <HouseDoorFill size={20} color={getIconColor("/")} />
                 <div className="nav-text">Home</div>
@@ -110,6 +100,7 @@ const CustomNavbar = () => {
                 className={`text-center ${
                   location.pathname === "/mercati" ? "active" : ""
                 }`}
+                onClick={closeNavbar}
               >
                 <GraphUpArrow size={20} color={getIconColor("/mercati")} />
                 <div className="nav-text">Bacheca</div>
@@ -122,6 +113,7 @@ const CustomNavbar = () => {
                 className={`text-center ${
                   location.pathname === "/prodotti" ? "active" : ""
                 }`}
+                onClick={closeNavbar}
               >
                 <Cash size={20} color={getIconColor("/prodotti")} />
                 <div className="nav-text">Prodotti</div>
@@ -134,6 +126,7 @@ const CustomNavbar = () => {
                 className={`text-center ${
                   location.pathname === "/notifiche" ? "active" : ""
                 }`}
+                onClick={closeNavbar}
               >
                 <BellFill size={20} color={getIconColor("/notifiche")} />
                 <div className="nav-text">Notifiche</div>
@@ -146,6 +139,7 @@ const CustomNavbar = () => {
                 className={`text-center ${
                   location.pathname === "/aziende" ? "active" : ""
                 }`}
+                onClick={closeNavbar}
               >
                 <Grid3x3GapFill size={20} color={getIconColor("/aziende")} />
                 <div className="nav-text">Aziende</div>
@@ -156,7 +150,10 @@ const CustomNavbar = () => {
             {!isAuthenticated ? (
               <>
                 <Button
-                  onClick={handleLogin}
+                  onClick={() => {
+                    handleLogin();
+                    closeNavbar();
+                  }}
                   variant="outline-light"
                   className="mx-2"
                 >
@@ -167,57 +164,57 @@ const CustomNavbar = () => {
                   to="/FormIscrizione"
                   variant="warning"
                   className="mx-2"
+                  onClick={closeNavbar}
                 >
                   Registrati
                 </Button>
               </>
             ) : (
-              <Dropdown
-                align="end"
-                show={mostraDropdown}
-                onToggle={() => setMostraDropdown(!mostraDropdown)}
-              >
-                <Dropdown.Toggle
-                  variant="transparent"
-                  style={{
-                    border: "none",
-                    background: "transparent",
-                    cursor: "pointer",
-                  }}
-                  onClick={handleToggleDropdown}
+              <div className="nav-avatar">
+                <Dropdown
+                  align="end"
+                  show={mostraDropdown}
+                  onToggle={() => setMostraDropdown(!mostraDropdown)}
                 >
-                  {avatarUrl ? (
-                    <Image
-                      src={`${avatarUrl}?${new Date().getTime()}`}
-                      roundedCircle
-                      style={{ width: "30px", height: "30px" }}
-                    />
-                  ) : (
-                    <PersonCircle size={24} className="text-white" />
-                  )}
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="nav-dropdown-menu">
-                  <Dropdown.Item as={Link} to="/ProfilePage">
-                    Profilo
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    as="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowAvatarUpload(!showAvatarUpload);
+                  <Dropdown.Toggle
+                    variant="transparent"
+                    style={{
+                      border: "none",
+                      background: "transparent",
+                      cursor: "pointer",
                     }}
+                    onClick={handleToggleDropdown}
                   >
-                    Carica Avatar
-                  </Dropdown.Item>
-                  {showAvatarUpload && <AvatarUpload />}
-                  <Dropdown.Item
-                    onClick={handleLogout}
-                    style={{ color: "gold" }}
-                  >
-                    Logout
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                    {avatarUrl ? (
+                      <Image
+                        src={`${avatarUrl}?${new Date().getTime()}`}
+                        roundedCircle
+                        className="image-round"
+                      />
+                    ) : (
+                      <PersonCircle size={24} className="text-white" />
+                    )}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="nav-dropdown-menu">
+                    <Dropdown.Item
+                      as={Link}
+                      to="/ProfilePage"
+                      onClick={closeNavbar}
+                    >
+                      Profilo
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        handleLogout();
+                        closeNavbar();
+                      }}
+                      style={{ color: "gold" }}
+                    >
+                      Logout
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
             )}
           </Nav>
         </Navbar.Collapse>
