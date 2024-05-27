@@ -372,7 +372,14 @@ export const filterPrices = (criteria) => ({
 // Redux per gestire lo stato dell'interfaccia utente in modo reattivo
 // Azione unificata per effettuare il login
 export const loginUser =
-  (credentials, navigate, setErrorMessage) => async (dispatch) => {
+  (
+    credentials,
+    navigate,
+    setErrorMessage,
+    setShowLoginModal,
+    setModalMessage
+  ) =>
+  async (dispatch) => {
     console.log("Invio dati di login:", credentials);
     try {
       const response = await axios.post(
@@ -391,8 +398,8 @@ export const loginUser =
         dispatch({ type: LOGIN_SUCCESS, payload: { token, avatarUrl, user } });
         localStorage.setItem("token", token); // Salvataggio del token nel localStorage
         localStorage.setItem("avatarUrl", avatarUrl); // Salva l'URL dell'avatar
-        alert("Benvenuto! Accesso effettuato con successo.");
-        navigate("/");
+        setModalMessage("Benvenuto! Accesso effettuato con successo.");
+        setShowLoginModal(true);
       } else {
         console.log("Login fallito, status:", response.status);
         dispatch({ type: LOGIN_FAIL });
@@ -410,7 +417,8 @@ export const loginUser =
 
 // Azione per registrare un nuovo utente
 export const registerUser =
-  (userData, navigate, setErrors) => async (dispatch) => {
+  (userData, navigate, setErrors, setShowRegisterModal, setModalMessage) =>
+  async (dispatch) => {
     try {
       const response = await axios.post(
         "http://localhost:8080/api/auth/register",
@@ -419,8 +427,8 @@ export const registerUser =
       if (response.status === 201) {
         dispatch({ type: REGISTER_SUCCESS, payload: response.data });
         console.log("Registrazione riuscita:", response.data);
-        alert("Registrazione riuscita! Benvenuto.");
-        navigate("/");
+        setModalMessage("Registrazione riuscita! Benvenuto.");
+        setShowRegisterModal(true);
       } else {
         console.log("Registrazione fallita:", response.status);
         dispatch({ type: REGISTER_FAIL });

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/actions";
@@ -13,6 +13,8 @@ const FormLogin = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,7 +28,20 @@ const FormLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser(loginData, navigate, setErrorMessage));
+    dispatch(
+      loginUser(
+        loginData,
+        navigate,
+        setErrorMessage,
+        setShowLoginModal,
+        setModalMessage
+      )
+    );
+  };
+
+  const handleCloseLoginModal = () => {
+    setShowLoginModal(false);
+    navigate("/");
   };
 
   return (
@@ -81,6 +96,18 @@ const FormLogin = () => {
           </div>
         </Col>
       </Row>
+
+      <Modal show={showLoginModal} onHide={handleCloseLoginModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Accesso</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseLoginModal}>
+            Chiudi
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

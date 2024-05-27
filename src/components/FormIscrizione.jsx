@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import logo from "/Vetrine.png";
 import "../FormIscrizione.css";
 
@@ -14,6 +14,8 @@ const FormIscrizione = () => {
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,7 +29,15 @@ const FormIscrizione = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerUser(formData, navigate, setErrors))
+    dispatch(
+      registerUser(
+        formData,
+        navigate,
+        setErrors,
+        setShowRegisterModal,
+        setModalMessage
+      )
+    )
       .then((response) => {
         console.log(response);
         console.log("Registrazione riuscita:", response.data);
@@ -45,6 +55,11 @@ const FormIscrizione = () => {
           setErrors({ general: "Si è verificato un errore di registrazione." });
         }
       });
+  };
+
+  const handleCloseRegisterModal = () => {
+    setShowRegisterModal(false);
+    navigate("/");
   };
 
   return (
@@ -125,6 +140,18 @@ const FormIscrizione = () => {
           </div>
         </Col>
       </Row>
+
+      <Modal show={showRegisterModal} onHide={handleCloseRegisterModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Registrazione</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseRegisterModal}>
+            Chiudi
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };
