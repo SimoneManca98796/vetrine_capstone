@@ -57,20 +57,46 @@ const CustomFooter = () => {
               width="24"
               height="24"
             />
-            <img
-              src="/logo github.png"
-              alt="GitHub"
-              className="social-icon me-2"
-              width="24"
-              height="24"
-            />
-            <img
-              src="/logo linkedin.png"
-              alt="LinkedIn"
-              className="social-icon"
-              width="24"
-              height="24"
-            />
+            <a
+              href="https://github.com/Bimone88"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/logo github.png"
+                alt="GitHub"
+                className="social-icon me-2"
+                width="24"
+                height="24"
+                style={{ cursor: "pointer", transition: "transform 0.3s ease" }}
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.transform = "scale(1.2)")
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.transform = "scale(1)")
+                }
+              />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/simone-manca-2957b3289/?trk=opento_sprofile_pfeditor"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/logo linkedin.png"
+                alt="LinkedIn"
+                className="social-icon"
+                width="24"
+                height="24"
+                style={{ cursor: "pointer", transition: "transform 0.3s ease" }}
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.transform = "scale(1.2)")
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.transform = "scale(1)")
+                }
+              />
+            </a>
           </Col>
         </Row>
         <hr className="my-4" />
