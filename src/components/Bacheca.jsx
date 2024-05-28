@@ -112,6 +112,52 @@ const Bacheca = () => {
             </Link>
           </div>
         </div>
+
+        <div className="sources-section">
+          <h4>Fonti delle Informazioni</h4>
+          <ul>
+            <li>
+              Prezzi del latte:{" "}
+              <a
+                href="https://www.ismea.it/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ISMEA
+              </a>
+            </li>
+            <li>
+              Prezzi degli ovini:{" "}
+              <a
+                href="https://www.ismea.it/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ISMEA
+              </a>
+            </li>
+            <li>
+              Prezzi dei suini:{" "}
+              <a
+                href="http://www.crefis.it/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                CREFIS
+              </a>
+            </li>
+            <li>
+              Prezzi dei bovini:{" "}
+              <a
+                href="https://www.ismea.it/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ISMEA
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

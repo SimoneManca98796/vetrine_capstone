@@ -217,7 +217,38 @@ body.bacheca {
 
 
 
-  
+.sources-section {
+  margin-top: 30px;
+  text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sources-section h4 {
+  margin-bottom: 10px;
+  color: #0085B5;
+  font-weight: bold;
+}
+
+.sources-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sources-section li {
+  margin-bottom: 5px;
+}
+
+.sources-section a {
+  color: #0085B5;
+  text-decoration: none;
+}
+
+.sources-section a:hover {
+  text-decoration: underline;
+}
   
   
   
