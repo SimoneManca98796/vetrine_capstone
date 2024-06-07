@@ -6,7 +6,7 @@ import PrezziBoviniReducer from "../reducers/PrezziBovini";
 import PrezziAmericaniReducer from "../reducers/PrezziAmericaniReducer";
 import authReducer from "../reducers/authReducer";
 import productsReducer from "../reducers/productsReducer";
-//import paymentReducer from "../reducers/paymentReducer";
+import paymentReducer from "../reducers/paymentReducer";
 import carrelloReducer from "../reducers/carrelloReducer";
 import aziendeReducer from "../reducers/aziendeReducer";
 import notificationReducer from "../reducers/notificationReducer";
@@ -20,7 +20,7 @@ const globalReducer = combineReducers({
   auth: authReducer, //  reducer di autenticazione
   products: productsReducer, // reducer dei prodotti per categoria (e-commerce)
   carrello: carrelloReducer, // reducer carrello
-  // payment: paymentReducer, // reducer per i pagamenti stripe
+  payment: paymentReducer, // reducer per i pagamenti stripe
   aziende: aziendeReducer, // annunci
   notifiche: notificationReducer, // notifiche
 });

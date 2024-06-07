@@ -68,6 +68,8 @@ export const CREATE_AZIENDA_SUCCESS = "CREATE_AZIENDA_SUCCESS";
 export const DELETE_AZIENDA_SUCCESS = "DELETE_AZIENDA_SUCCESS";
 // NOTIFICHE:
 export const FETCH_NOTIFICATIONS_SUCCESS = "FETCH_NOTIFICATIONS_SUCCESS";
+export const FETCH_UNREAD_NOTIFICATIONS_SUCCESS =
+  "FETCH_UNREAD_NOTIFICATIONS_SUCCESS";
 //////////////////////////////////////////
 ///////////////// ZONA FETCH://////////////////////////
 // Aggiunge un nuovo prezzo
@@ -757,7 +759,7 @@ export const createProduct = (productData) => {
 };
 //////////////////////////////////////////////////77
 ////////////////////////////////////////////////////
-/*export const createPaymentIntent =
+export const createPaymentIntent =
   (paymentMethodId, amount) => async (dispatch) => {
     try {
       const response = await axios.post(
@@ -777,7 +779,7 @@ export const createProduct = (productData) => {
         payload: error.message,
       });
     }
-  };*/
+  };
 //////////////////////////////
 ////////////////API AMERICANA UDSA //////////////////////////
 // Helper function to filter the relevant data
@@ -896,13 +898,25 @@ export const deleteAzienda = (id) => async (dispatch) => {
 };
 //////////////////
 // NOTIFICHE:
+
 export const fetchNotifications = () => async (dispatch) => {
   try {
-    const response = await fetch("/api/notifications");
-    const data = await response.json();
-    console.log("Fetched notifications:", data);
+    const response = await axios.get("http://localhost:8080/api/notifications");
+    const data = response.data;
     dispatch({ type: FETCH_NOTIFICATIONS_SUCCESS, payload: data });
   } catch (error) {
     console.error("Failed to fetch notifications:", error);
+  }
+};
+
+export const fetchUnreadNotifications = () => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      "http://localhost:8080/api/notifications/unread"
+    );
+    const data = response.data;
+    dispatch({ type: FETCH_UNREAD_NOTIFICATIONS_SUCCESS, payload: data });
+  } catch (error) {
+    console.error("Failed to fetch unread notifications:", error);
   }
 };

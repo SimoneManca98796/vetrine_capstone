@@ -17,6 +17,7 @@ import {
   Grid3x3GapFill,
   PersonCircle,
 } from "react-bootstrap-icons";
+import NotificationIcon from "./NotificationIcon";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "/Vetrine.png";
 import { loginUser, logoutUser } from "../redux/actions/index";
@@ -128,7 +129,7 @@ const CustomNavbar = () => {
                 }`}
                 onClick={closeNavbar}
               >
-                <BellFill size={20} color={getIconColor("/notifiche")} />
+                <NotificationIcon />
                 <div className="nav-text">Notifiche</div>
               </Nav.Link>
             </Nav.Item>

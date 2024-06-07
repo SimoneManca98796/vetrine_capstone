@@ -23,50 +23,50 @@ import ProductForm from "./components/ProductForm";
 import Aziende from "./components/Aziende";
 import Notifiche from "./components/Notifiche";
 import PaymentForm from "./components/PaymentForm";
-//import CheckoutForm from "./components/CheckoutForm";
+import CheckoutForm from "./components/CheckoutForm";
 // Stripe
-//import { Elements } from "@stripe/react-stripe-js";
-//import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 // Chiave pubblicabile di Stripe
-//const stripePromise = loadStripe(
-// "pk_live_51PGRC8EEPe7qppias0V6rJQNngJ6OE24ovrGOxmRt723kBKPH2NFvUYlOIvIEnkC0dSHBwbPz7FTiJBT5Cc8nBUW00mwlajsIq"
-//);
+const stripePromise = loadStripe(
+  "pk_live_51PGRC8EEPe7qppias0V6rJQNngJ6OE24ovrGOxmRt723kBKPH2NFvUYlOIvIEnkC0dSHBwbPz7FTiJBT5Cc8nBUW00mwlajsIq"
+);
 
 const App = () => (
   <>
     <BrowserRouter>
-      {/* <Elements stripe={stripePromise}> */}
-      <div className="d-flex flex-column h-100">
-        <CustomNavbar />
-        <div className="flex-grow-1 d-flex align-items-center justify-content-center">
-          <Routes>
-            <Route element={<HomePage />} path="/" />
-            <Route element={<Bacheca />} path="/mercati" />
-            <Route element={<PrezziLatte />} path="/PrezziLatte" />
-            <Route element={<PrezziOvini />} path="/PrezziOvini" />
-            <Route element={<PrezziBovini />} path="/PrezziBovini" />
-            <Route element={<PrezziSuini />} path="/PrezziSuini" />
-            <Route element={<PrezziAmericani />} path="/PrezziAmericani" />
-            <Route element={<FormIscrizione />} path="/FormIscrizione" />
-            <Route element={<FormLogin />} path="/FormLogin" />
-            <Route element={<ProfilePage />} path="/ProfilePage" />
-            <Route element={<Prodotti />} path="/Prodotti" />
-            <Route element={<Piantine />} path="/Piantine" />
-            <Route element={<Artigianali />} path="/Artigianali" />
-            <Route element={<Animali />} path="/Animali" />
-            <Route element={<Attrezzature />} path="/Attrezzature" />
-            <Route element={<ProductForm />} path="/nuovo-prodotto" />
-            <Route element={<PaymentForm />} path="/payment" />
-            {/*  <Route element={<CheckoutForm />} path="/checkout" /> */}
-            <Route element={<Aziende />} path="/Aziende" />
-            <Route element={<Notifiche />} path="/Notifiche" />
-            <Route element={<NotFound />} path="*" />
-          </Routes>
+      <Elements stripe={stripePromise}>
+        <div className="d-flex flex-column h-100">
+          <CustomNavbar />
+          <div className="flex-grow-1 d-flex align-items-center justify-content-center">
+            <Routes>
+              <Route element={<HomePage />} path="/" />
+              <Route element={<Bacheca />} path="/mercati" />
+              <Route element={<PrezziLatte />} path="/PrezziLatte" />
+              <Route element={<PrezziOvini />} path="/PrezziOvini" />
+              <Route element={<PrezziBovini />} path="/PrezziBovini" />
+              <Route element={<PrezziSuini />} path="/PrezziSuini" />
+              <Route element={<PrezziAmericani />} path="/PrezziAmericani" />
+              <Route element={<FormIscrizione />} path="/FormIscrizione" />
+              <Route element={<FormLogin />} path="/FormLogin" />
+              <Route element={<ProfilePage />} path="/ProfilePage" />
+              <Route element={<Prodotti />} path="/Prodotti" />
+              <Route element={<Piantine />} path="/Piantine" />
+              <Route element={<Artigianali />} path="/Artigianali" />
+              <Route element={<Animali />} path="/Animali" />
+              <Route element={<Attrezzature />} path="/Attrezzature" />
+              <Route element={<ProductForm />} path="/nuovo-prodotto" />
+              <Route element={<PaymentForm />} path="/payment" />
+              <Route element={<CheckoutForm />} path="/checkout" />
+              <Route element={<Aziende />} path="/Aziende" />
+              <Route element={<Notifiche />} path="/Notifiche" />
+              <Route element={<NotFound />} path="*" />
+            </Routes>
+          </div>
+          <CustomFooter />
         </div>
-        <CustomFooter />
-      </div>
-      {/* </Elements> */}
+      </Elements>
     </BrowserRouter>
   </>
 );

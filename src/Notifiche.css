@@ -1,7 +1,32 @@
+.notification-icon {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+  font-size: 12px;
+}
+
 .notifiche-container {
-    margin-top: 80px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
+  margin-top: 20px;
+}
+
+.notifiche-header {
+  margin-bottom: 20px;
+}
+
+.notifiche-table {
+  width: 100%;
+}

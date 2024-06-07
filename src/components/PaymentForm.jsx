@@ -1,59 +1,112 @@
-import React, { useState } from "react";
-import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
-import { FaCreditCard, FaLock } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import { createPaymentIntent } from "../redux/actions";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import "../PaymentForm.css";
 
 const PaymentForm = () => {
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const stripe = useStripe();
+  const elements = useElements();
+  const dispatch = useDispatch();
+  const [succeeded, setSucceeded] = useState(false);
+  const [error, setError] = useState(null);
+  const [processing, setProcessing] = useState("");
+  const [disabled, setDisabled] = useState(true);
+  const [captchaToken, setCaptchaToken] = useState(null);
 
-  const handlePayment = (e) => {
-    e.preventDefault();
-    setPaymentSuccess(true);
+  const cartItems = useSelector((state) => state.carrello.items);
+  const clientSecret = useSelector((state) => state.payment.clientSecret);
+
+  useEffect(() => {
+    const calculateTotal = () => {
+      return cartItems.reduce((total, item) => {
+        const itemTotal = item.price * item.quantity + (item.shippingCost || 0);
+        return total + itemTotal;
+      }, 0);
+    };
+
+    const amount = calculateTotal() * 100; // convert to cents
+    if (amount > 0) {
+      dispatch(createPaymentIntent(null, amount));
+    }
+  }, [cartItems, dispatch]);
+
+  const handleChange = async (event) => {
+    setDisabled(event.empty);
+    setError(event.error ? event.error.message : "");
+  };
+
+  const handleCaptchaVerify = (token) => {
+    setCaptchaToken(token);
+  };
+
+  const handleCaptchaExpire = () => {
+    setCaptchaToken(null);
+  };
+
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    setProcessing(true);
+
+    try {
+      const captchaResponse = await axios.post(
+        "http://localhost:8080/api/verify-captcha",
+        { token: captchaToken }
+      );
+
+      if (captchaResponse.data.success) {
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: elements.getElement(CardElement),
+          },
+        });
+
+        if (payload.error) {
+          setError(`Payment failed ${payload.error.message}`);
+          setProcessing(false);
+        } else {
+          setError(null);
+          setProcessing(false);
+          setSucceeded(true);
+        }
+      } else {
+        setError("Captcha verification failed");
+        setProcessing(false);
+      }
+    } catch (error) {
+      setError(`Captcha verification failed: ${error.message}`);
+      setProcessing(false);
+    }
   };
 
   return (
-    <Container className="payment-form-container">
-      <h3>
-        Pagamento Sicuro <FaLock />
-      </h3>
-      {paymentSuccess && (
-        <Alert variant="success">Pagamento effettuato con successo!</Alert>
-      )}
-      <Form onSubmit={handlePayment}>
-        <Form.Group controlId="formCardNumber">
-          <Form.Label>Numero di Carta</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="1234 5678 9012 3456"
-            required
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formCardHolder">
-          <Form.Label>Nome Intestatario Carta</Form.Label>
-          <Form.Control type="text" placeholder="Nome e Cognome" required />
-        </Form.Group>
-
-        <Row>
-          <Col md={6}>
-            <Form.Group controlId="formExpirationDate">
-              <Form.Label>Data di Scadenza</Form.Label>
-              <Form.Control type="text" placeholder="MM/YY" required />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId="formCVV">
-              <Form.Label>CVV</Form.Label>
-              <Form.Control type="text" placeholder="123" required />
-            </Form.Group>
-          </Col>
-        </Row>
-
-        <Button variant="success" type="submit" className="payment-button">
-          Paga Ora
-        </Button>
-      </Form>
-    </Container>
+    <div className="payment-form-container">
+      <form id="payment-form" onSubmit={handleSubmit}>
+        <CardElement id="card-element" onChange={handleChange} />
+        <HCaptcha
+          sitekey="5228c81c-30a2-494c-8a0e-061054386a82"
+          onVerify={handleCaptchaVerify}
+          onExpire={handleCaptchaExpire}
+        />
+        <button disabled={processing || disabled || succeeded} id="submit">
+          <span id="button-text">
+            {processing ? (
+              <div className="spinner" id="spinner"></div>
+            ) : (
+              "Pay now"
+            )}
+          </span>
+        </button>
+        {error && (
+          <div className="card-error" role="alert">
+            {error}
+          </div>
+        )}
+        {succeeded && <p className="result-message">Payment succeeded!</p>}
+      </form>
+    </div>
   );
 };
 
