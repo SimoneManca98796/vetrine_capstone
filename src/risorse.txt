@@ -478,3 +478,248 @@ const ProductForm = () => {
 };
 
 export default ProductForm;
+/////////////77
+PER FONTI SUI PREMI: package simonemanca.vetrineCapstone.services;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import simonemanca.vetrineCapstone.entities.Notifica;
+import simonemanca.vetrineCapstone.repositories.NotificaRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.ssl.*;
+import java.io.InputStream;
+import java.net.URL;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class NewsService {
+
+    @Autowired
+    private NotificaRepository notificaRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(NewsService.class);
+
+    private final String[] newsUrls = {
+            "https://sardegnaagricoltura.it/finanziamenti/",
+            "https://ec.europa.eu/info/departments/agriculture-and-rural-development_it",
+            "https://www.politicheagricole.it",
+            "https://www.agenziaentrate.gov.it",
+            "https://www.coldiretti.it",
+            "https://www.confagricoltura.it"
+    };
+
+    public void fetchAndSaveNews() {
+        logger.info("Starting fetchAndSaveNews method");
+
+        for (String url : newsUrls) {
+            try {
+                logger.info("Fetching news from URL: {}", url);
+                List<Notifica> newsList = new ArrayList<>();
+                Document doc = getDocumentFromUrl(url);
+
+                // Aggiungere logica di parsing specifica per ciascun sito
+                if (url.contains("sardegnaagricoltura.it")) {
+                    parseSardegnaAgricoltura(doc, newsList);
+                } else if (url.contains("ec.europa.eu")) {
+                    parseEcEuropa(doc, newsList);
+                } else if (url.contains("politicheagricole.it")) {
+                    parsePoliticheAgricole(doc, newsList);
+                } else if (url.contains("agenziaentrate.gov.it")) {
+                    parseAgenziaEntrate(doc, newsList);
+                } else if (url.contains("coldiretti.it")) {
+                    parseColdiretti(doc, newsList);
+                } else if (url.contains("confagricoltura.it")) {
+                    parseConfagricoltura(doc, newsList);
+                }
+
+                if (!newsList.isEmpty()) {
+                    logger.info("Saving {} news items to the database from URL: {}", newsList.size(), url);
+                    newsList.forEach(notifica -> logger.info("Notifica: {}", notifica));
+                    notificaRepository.saveAll(newsList);
+                } else {
+                    logger.warn("No news items found for URL: {}", url);
+                }
+            } catch (Exception e) {
+                logger.error("Error fetching news from URL: {}", url, e);
+            }
+        }
+    }
+
+    private Document getDocumentFromUrl(String urlString) throws Exception {
+        logger.info("Getting document from URL: {}", urlString);
+        URL url = new URL(urlString);
+
+        // Disabling SSL certificate validation
+        disableSslVerification();
+
+        try (InputStream inputStream = url.openStream()) {
+            return Jsoup.parse(inputStream, "UTF-8", urlString);
+        }
+    }
+
+    private void disableSslVerification() throws Exception {
+        TrustManager[] trustAllCerts = new TrustManager[]{
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return null;
+                    }
+
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                    }
+
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                    }
+                }
+        };
+
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, trustAllCerts, new SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+        HostnameVerifier allHostsValid = (hostname, session) -> true;
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+    }
+
+    private void parseSardegnaAgricoltura(Document doc, List<Notifica> newsList) {
+        Elements newsItems = doc.select("li");
+        logger.debug("Number of news items found: {}", newsItems.size());
+        for (Element item : newsItems) {
+            Element anchor = item.selectFirst("a");
+            if (anchor != null) {
+                String title = anchor.text().trim();
+                String link = anchor.attr("href").trim();
+                String message = item.text().trim();
+
+                if (!title.isEmpty() && !link.isEmpty() && !message.isEmpty()) {
+                    newsList.add(new Notifica(title, message, "news", link));
+                    logger.info("News fetched: Title - {}, Link - {}", title, link);
+                } else {
+                    logger.warn("Invalid news item: Title - {}, Link - {}, Message - {}", title, link, message);
+                }
+            } else {
+                logger.warn("No anchor found in item");
+            }
+        }
+    }
+
+    private void parseEcEuropa(Document doc, List<Notifica> newsList) {
+        Elements newsItems = doc.select(".news-item");
+        for (Element item : newsItems) {
+            String title = item.select(".news-title").text().trim();
+            String link = item.select(".news-title a").attr("href").trim();
+            String message = item.select(".news-summary").text().trim();
+
+            if (!title.isEmpty() && !link.isEmpty() && !message.isEmpty()) {
+                newsList.add(new Notifica(title, message, "news", link));
+                logger.info("News fetched: Title - {}, Link - {}", title, link);
+            }
+        }
+    }
+
+    private void parsePoliticheAgricole(Document doc, List<Notifica> newsList) {
+        Elements newsItems = doc.select(".news-item");
+        for (Element item : newsItems) {
+            String title = item.select(".news-title").text().trim();
+            String link = item.select(".news-title a").attr("href").trim();
+            String message = item.select(".news-summary").text().trim();
+
+            if (!title.isEmpty() && !link.isEmpty() && !message.isEmpty()) {
+                newsList.add(new Notifica(title, message, "news", link));
+                logger.info("News fetched: Title - {}, Link - {}", title, link);
+            }
+        }
+    }
+
+    private void parseAgenziaEntrate(Document doc, List<Notifica> newsList) {
+        Elements newsItems = doc.select(".news-item");
+        for (Element item : newsItems) {
+            String title = item.select(".news-title").text().trim();
+            String link = item.select(".news-title a").attr("href").trim();
+            String message = item.select(".news-summary").text().trim();
+
+            if (!title.isEmpty() && !link.isEmpty() && !message.isEmpty()) {
+                newsList.add(new Notifica(title, message, "news", link));
+                logger.info("News fetched: Title - {}, Link - {}", title, link);
+            }
+        }
+    }
+
+    private void parseColdiretti(Document doc, List<Notifica> newsList) {
+        Elements newsItems = doc.select(".news-item");
+        for (Element item : newsItems) {
+            String title = item.select(".news-title").text().trim();
+            String link = item.select(".news-title a").attr("href").trim();
+            String message = item.select(".news-summary").text().trim();
+
+            if (!title.isEmpty() && !link.isEmpty() && !message.isEmpty()) {
+                newsList.add(new Notifica(title, message, "news", link));
+                logger.info("News fetched: Title - {}, Link - {}", title, link);
+            }
+        }
+    }
+
+    private void parseConfagricoltura(Document doc, List<Notifica> newsList) {
+        Elements newsItems = doc.select(".news-item");
+        for (Element item : newsItems) {
+            String title = item.select(".news-title").text().trim();
+            String link = item.select(".news-title a").attr("href").trim();
+            String message = item.select(".news-summary").text().trim();
+
+            if (!title.isEmpty() && !link.isEmpty() && !message.isEmpty()) {
+                newsList.add(new Notifica(title, message, "news", link));
+                logger.info("News fetched: Title - {}, Link - {}", title, link);
+            }
+        }
+    }
+
+    public List<Notifica> fetchNewsNotifications() {
+        logger.info("Fetching news notifications from the database");
+        return notificaRepository.findByTipo("news");
+    }
+}
+
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+
+
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+
+
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+
+////////////////////////
+
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+////////////////////////
+
+
