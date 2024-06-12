@@ -400,6 +400,19 @@ export const loginUser =
         dispatch({ type: LOGIN_SUCCESS, payload: { token, avatarUrl, user } });
         localStorage.setItem("token", token); // Salvataggio del token nel localStorage
         localStorage.setItem("avatarUrl", avatarUrl); // Salva l'URL dell'avatar
+        localStorage.setItem("user", JSON.stringify(user)); // Salva i dettagli dell'utente
+        console.log(
+          "Token salvato nel Local Storage:",
+          localStorage.getItem("token")
+        );
+        console.log(
+          "Avatar URL salvato nel Local Storage:",
+          localStorage.getItem("avatarUrl")
+        );
+        console.log(
+          "User salvato nel Local Storage:",
+          localStorage.getItem("user")
+        );
         setModalMessage("Benvenuto! Accesso effettuato con successo.");
         setShowLoginModal(true);
       } else {

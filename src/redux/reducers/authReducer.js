@@ -8,10 +8,10 @@ import {
 } from "../actions/index";
 
 const initialState = {
-  isAuthenticated: false,
-  user: null,
-  token: null,
-  avatarUrl: null,
+  isAuthenticated: !!localStorage.getItem("token"),
+  user: JSON.parse(localStorage.getItem("user")),
+  token: localStorage.getItem("token"),
+  avatarUrl: localStorage.getItem("avatarUrl"),
 };
 
 const authReducer = (state = initialState, action) => {
