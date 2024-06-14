@@ -73,6 +73,8 @@ export const DELETE_AZIENDA_SUCCESS = "DELETE_AZIENDA_SUCCESS";
 export const FETCH_NOTIFICATIONS_SUCCESS = "FETCH_NOTIFICATIONS_SUCCESS";
 export const FETCH_UNREAD_NOTIFICATIONS_SUCCESS =
   "FETCH_UNREAD_NOTIFICATIONS_SUCCESS";
+export const MARK_NOTIFICATIONS_AS_READ_SUCCESS =
+  "MARK_NOTIFICATIONS_AS_READ_SUCCESS";
 //////////////////////////////////////////
 ///////////////// ZONA FETCH://////////////////////////
 // Aggiunge un nuovo prezzo
@@ -916,9 +918,11 @@ export const deleteAzienda = (id) => async (dispatch) => {
 //////////////////
 // NOTIFICHE:
 
-export const fetchNotifications = () => async (dispatch) => {
+export const fetchNotifications = (userId) => async (dispatch) => {
   try {
-    const response = await axios.get("http://localhost:8080/api/notifications");
+    const response = await axios.get(
+      `http://localhost:8080/api/notifications?userId=${userId}`
+    );
     const data = response.data;
     dispatch({ type: FETCH_NOTIFICATIONS_SUCCESS, payload: data });
   } catch (error) {
@@ -926,14 +930,26 @@ export const fetchNotifications = () => async (dispatch) => {
   }
 };
 
-export const fetchUnreadNotifications = () => async (dispatch) => {
+export const fetchUnreadNotifications = (userId) => async (dispatch) => {
   try {
     const response = await axios.get(
-      "http://localhost:8080/api/notifications/unread"
+      `http://localhost:8080/api/notifications/unread?userId=${userId}`
     );
     const data = response.data;
     dispatch({ type: FETCH_UNREAD_NOTIFICATIONS_SUCCESS, payload: data });
   } catch (error) {
     console.error("Failed to fetch unread notifications:", error);
+  }
+};
+
+export const markNotificationsAsRead = (userId) => async (dispatch) => {
+  try {
+    await axios.post(
+      `http://localhost:8080/api/notifications/markAsRead/${userId}`
+    );
+    dispatch({ type: MARK_NOTIFICATIONS_AS_READ_SUCCESS });
+    dispatch(fetchUnreadNotifications(userId)); // Refresh unread notifications
+  } catch (error) {
+    console.error("Failed to mark notifications as read:", error);
   }
 };

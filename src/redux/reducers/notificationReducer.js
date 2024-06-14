@@ -1,6 +1,7 @@
 import {
   FETCH_NOTIFICATIONS_SUCCESS,
   FETCH_UNREAD_NOTIFICATIONS_SUCCESS,
+  MARK_NOTIFICATIONS_AS_READ_SUCCESS,
 } from "../actions";
 
 const initialState = {
@@ -20,6 +21,11 @@ const notificationReducer = (state = initialState, action) => {
       return {
         ...state,
         unreadNotifications: action.payload,
+      };
+    case MARK_NOTIFICATIONS_AS_READ_SUCCESS:
+      return {
+        ...state,
+        unreadNotifications: [],
       };
     default:
       return state;

@@ -1,19 +1,29 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchNotifications } from "../redux/actions";
+import { fetchNotifications, markNotificationsAsRead } from "../redux/actions";
+import { useNavigate } from "react-router-dom";
 import "../Notifiche.css";
 
 const Notifiche = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const notifiche = useSelector((state) => state.notifiche.allNotifications);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const userId = useSelector((state) => state.auth.user?.id);
 
   useEffect(() => {
-    dispatch(fetchNotifications());
-  }, [dispatch]);
+    if (isAuthenticated) {
+      dispatch(fetchNotifications(userId));
+    } else {
+      navigate("/FormLogin");
+    }
+  }, [dispatch, isAuthenticated, navigate, userId]);
 
   useEffect(() => {
-    console.log("Notifications:", notifiche);
-  }, [notifiche]);
+    if (isAuthenticated && notifiche.length > 0) {
+      dispatch(markNotificationsAsRead(userId));
+    }
+  }, [dispatch, isAuthenticated, notifiche.length, userId]);
 
   return (
     <div className="notifiche-container container">
