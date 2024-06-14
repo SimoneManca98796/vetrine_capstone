@@ -11,6 +11,7 @@ const initialState = {
 const notificationReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_NOTIFICATIONS_SUCCESS:
+      console.log("Reducer - Notifications payload:", action.payload);
       return {
         ...state,
         allNotifications: action.payload,

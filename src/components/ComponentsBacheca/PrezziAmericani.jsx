@@ -15,6 +15,8 @@ import {
 } from "react-bootstrap";
 import { format } from "date-fns";
 import Select from "react-select";
+import { Line } from "react-chartjs-2"; // Importa il componente Line per il grafico
+import "chart.js/auto"; // Importa la libreria chart.js
 import "../../App.css";
 import "../../PrezziAmericani.css";
 
@@ -34,8 +36,9 @@ const PrezziAmericani = () => {
   const [filters, setFilters] = useState({ data: "", luogo: "" });
 
   useEffect(() => {
-    dispatch(fetchAmericanPrices());
-    setTimeout(() => setLoading(false), 2000);
+    dispatch(fetchAmericanPrices()).then(() => {
+      setTimeout(() => setLoading(false), 2000);
+    });
   }, [dispatch]);
 
   const handleFilterChange = (key, value) => {
@@ -47,6 +50,24 @@ const PrezziAmericani = () => {
       ? format(new Date(filters.data), "yyyy-MM-dd")
       : "";
     dispatch(fetchFilteredAmericanPrices({ ...filters, data: formattedDate }));
+  };
+
+  const chartData = {
+    labels: filteredList.map((item) => item.publishedDate),
+    datasets: [
+      {
+        label: "Prezzo",
+        data: filteredList.map(
+          (item) =>
+            item.foodNutrients.find(
+              (nutrient) => nutrient.nutrientName === "Energy"
+            )?.value || 0
+        ),
+        fill: false,
+        backgroundColor: "#495057", // Outer space
+        borderColor: "#343A40", // Onyx
+      },
+    ],
   };
 
   return (
@@ -90,50 +111,67 @@ const PrezziAmericani = () => {
                 <Spinner animation="border" />
               </div>
             ) : (
-              <div className="table-responsive">
-                <Table
-                  striped
-                  bordered
-                  hover
-                  className="table-responsive custom-table"
-                >
-                  <thead>
-                    <tr>
-                      <th>Data</th>
-                      <th>Luogo</th>
-                      <th>Prodotto</th>
-                      <th>Prezzo</th>
-                      <th>Variazione</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredList && filteredList.length > 0 ? (
-                      filteredList.map((item, idx) => (
-                        <tr key={idx}>
-                          <td>{item.publishedDate}</td>
-                          <td>{item.marketCountry || "USA"}</td>
-                          <td>{item.description}</td>
-                          <td>
-                            {item.foodNutrients.find(
-                              (nutrient) => nutrient.nutrientName === "Energy"
-                            )?.value || "N/D"}{" "}
-                            $
-                          </td>
-                          <td>
-                            {item.percentDailyValue
-                              ? `${item.percentDailyValue}%`
-                              : "N/A"}
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
+              <>
+                <div className="table-responsive">
+                  <Table
+                    striped
+                    bordered
+                    hover
+                    className="table-responsive custom-table"
+                  >
+                    <thead>
                       <tr>
-                        <td colSpan="5">Nessun dato disponibile</td>
+                        <th>Data</th>
+                        <th>Luogo</th>
+                        <th>Prodotto</th>
+                        <th>Prezzo</th>
+                        <th>Variazione</th>
                       </tr>
-                    )}
-                  </tbody>
-                </Table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {filteredList && filteredList.length > 0 ? (
+                        filteredList.map((item, idx) => (
+                          <tr key={idx}>
+                            <td>{item.publishedDate}</td>
+                            <td>{item.marketCountry || "USA"}</td>
+                            <td>{item.description}</td>
+                            <td>
+                              {item.foodNutrients.find(
+                                (nutrient) => nutrient.nutrientName === "Energy"
+                              )?.value || "N/D"}{" "}
+                              $
+                            </td>
+                            <td>
+                              {item.percentDailyValue
+                                ? `${item.percentDailyValue}%`
+                                : "N/A"}
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="5">Nessun dato disponibile</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </Table>
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    maxWidth: "100%",
+                    margin: "20px auto",
+                  }}
+                >
+                  <h3 style={{ fontSize: "1rem" }}>Andamento Prezzi</h3>
+                  <div style={{ height: "300px" }}>
+                    <Line
+                      data={chartData}
+                      options={{ responsive: true, maintainAspectRatio: false }}
+                    />
+                  </div>
+                </div>
+              </>
             )}
           </Col>
         </Row>

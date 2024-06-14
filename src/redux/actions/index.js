@@ -46,6 +46,9 @@ export const FETCH_FILTERED_BOVINI_PRICES_SUCCESS =
   "FETCH_FILTERED_BOVINI_PRICES_SUCCESS"; //PREZZI BOVINI
 export const ADD_BOVINI_PRICE = "ADD_BOVINI_PRICE"; // Action type per aggiungere un prezzo ai bovini
 export const FILTER_BOVINI_PRICES = "FILTER_BOVINI_PRICES";
+export const FETCH_AMERICAN_PRICES_SUCCESS = "FETCH_AMERICAN_PRICES_SUCCESS"; // PREZZI AMERICANI
+export const FETCH_FILTERED_AMERICAN_PRICES_SUCCESS =
+  "FETCH_FILTERED_AMERICAN_PRICES_SUCCESS";
 // COSTANTI PER E-COMMERCE:
 export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
 export const FILTER_PIANTINE_PRICES = "FILTER_PIANTINE_PRICES";
@@ -804,7 +807,6 @@ const filterRelevantData = (foods) => {
   });
 };
 
-// Fetch American prices
 export const fetchAmericanPrices = () => {
   return async (dispatch) => {
     try {
@@ -813,16 +815,15 @@ export const fetchAmericanPrices = () => {
       );
       const filteredData = filterRelevantData(response.data.foods);
       dispatch({
-        type: FETCH_PRICES_SUCCESS,
+        type: FETCH_AMERICAN_PRICES_SUCCESS,
         payload: filteredData,
       });
     } catch (error) {
-      console.error("Failed to fetch American prices:", error);
+      console.error("Errore nel recupero dei prezzi americani:", error);
     }
   };
 };
 
-// Fetch filtered American prices
 export const fetchFilteredAmericanPrices = (filterCriteria) => {
   return async (dispatch) => {
     try {
@@ -831,11 +832,14 @@ export const fetchFilteredAmericanPrices = (filterCriteria) => {
       );
       const filteredData = filterRelevantData(response.data.foods);
       dispatch({
-        type: FETCH_FILTERED_PRICES_SUCCESS,
+        type: FETCH_FILTERED_AMERICAN_PRICES_SUCCESS,
         payload: filteredData,
       });
     } catch (error) {
-      console.error("Failed to fetch filtered American prices:", error);
+      console.error(
+        "Errore nel recupero dei prezzi americani filtrati:",
+        error
+      );
     }
   };
 };

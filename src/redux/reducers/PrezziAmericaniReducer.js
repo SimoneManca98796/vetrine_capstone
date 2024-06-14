@@ -1,8 +1,6 @@
 import {
-  FETCH_PRICES_SUCCESS,
-  FETCH_FILTERED_PRICES_SUCCESS,
-  ADD_PRICE,
-  FILTER_PRICES,
+  FETCH_AMERICAN_PRICES_SUCCESS,
+  FETCH_FILTERED_AMERICAN_PRICES_SUCCESS,
 } from "../actions";
 
 const initialState = {
@@ -12,31 +10,16 @@ const initialState = {
 
 const PrezziAmericaniReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_PRICES_SUCCESS:
+    case FETCH_AMERICAN_PRICES_SUCCESS:
       return {
         ...state,
         prezzilist: Array.isArray(action.payload) ? action.payload : [],
         filteredList: Array.isArray(action.payload) ? action.payload : [],
       };
-    case FETCH_FILTERED_PRICES_SUCCESS:
+    case FETCH_FILTERED_AMERICAN_PRICES_SUCCESS:
       return {
         ...state,
         filteredList: Array.isArray(action.payload) ? action.payload : [],
-      };
-    case ADD_PRICE:
-      return {
-        ...state,
-        prezzilist: [...state.prezzilist, action.payload],
-        filteredList: [...state.prezzilist, action.payload],
-      };
-    case FILTER_PRICES:
-      return {
-        ...state,
-        filteredList: state.prezzilist.filter((item) =>
-          Object.entries(action.payload).every(([key, value]) =>
-            item[key].includes(value)
-          )
-        ),
       };
     default:
       return state;
