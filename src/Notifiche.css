@@ -1,11 +1,27 @@
 .notifiche-container {
-  margin-top: 20px;
+  margin-top: 40px; /* Aggiunge più spazio sopra la sezione notifiche */
+  margin-bottom:150px;
 }
 
 .notifiche-header {
   margin-bottom: 20px;
   font-size: 24px;
   font-weight: bold;
+  text-align: center;
+}
+
+.notifiche-didascalia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 40px; /* Aggiunge più spazio tra la navbar e la didascalia */
+}
+
+.notifiche-logo {
+  width: 40px; /* Regola la dimensione del logo */
+  height: 40px; /* Regola la dimensione del logo */
+  margin-right: 10px;
 }
 
 .notifiche-list {
@@ -57,6 +73,25 @@
   color: #888;
 }
 
+.no-notifications {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.no-notifications img {
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+
+.no-notifications p {
+  font-size: 1.2em;
+  color: #555;
+}
+
 @media (max-width: 768px) {
   .notifica-item {
     flex-direction: column;
@@ -68,6 +103,13 @@
     margin-top: 10px; /* Aggiunge un margine per separare la data dal contenuto */
   }
 }
+
+.cartoon-font {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+  font-size: 1.2em;
+  color: #3b873e; 
+}
+
 
 
 
