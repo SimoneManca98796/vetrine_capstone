@@ -176,3 +176,14 @@ body.homepage {
     height: 300px;
   }
 }
+
+.second-carousel-container  {
+  height: 450px;
+}
+
+@media (max-width: 768px)
+{
+  .second-carousel-container {
+    height: 300px;
+  }
+}

@@ -75,7 +75,9 @@ const HomePage = () => {
               transition={{ duration: 0.3 }}
             />
             <Carousel.Caption className="carousel-caption">
-              <h3>Prezzi del Latte</h3>
+              <h3 onClick={() => handleNavigation("/PrezziLatte")}>
+                Prezzi del Latte
+              </h3>
               <p>Informazioni aggiornate sui prezzi del latte</p>
             </Carousel.Caption>
           </Carousel.Item>
@@ -98,7 +100,9 @@ const HomePage = () => {
               transition={{ duration: 0.3 }}
             />
             <Carousel.Caption className="carousel-caption">
-              <h3>Prezzi degli Ovini</h3>
+              <h3 onClick={() => handleNavigation("/PrezziOvini")}>
+                Prezzi degli Ovini
+              </h3>
               <p>Novità e tendenze riguardanti allevamento degli ovini</p>
             </Carousel.Caption>
           </Carousel.Item>
@@ -121,7 +125,9 @@ const HomePage = () => {
               transition={{ duration: 0.3 }}
             />
             <Carousel.Caption className="carousel-caption">
-              <h3>Prezzi dei Suini</h3>
+              <h3 onClick={() => handleNavigation("/PrezziSuini")}>
+                Prezzi dei Suini
+              </h3>
               <p>Ultime notizie dal mercato suino</p>
             </Carousel.Caption>
           </Carousel.Item>
@@ -139,12 +145,14 @@ const HomePage = () => {
                 height: "auto",
                 cursor: "pointer",
               }}
-              onClick={() => handleNavigation("/PrezziAmericani")}
+              onClick={() => handleNavigation("/PrezziBovini")}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             />
             <Carousel.Caption className="carousel-caption">
-              <h3>Prezzi dei Bovini</h3>
+              <h3 onClick={() => handleNavigation("/PrezziBovini")}>
+                Prezzi dei Bovini
+              </h3>
               <p>Aggiornamenti e prezzi del settore bovino</p>
             </Carousel.Caption>
           </Carousel.Item>
@@ -202,7 +210,9 @@ const HomePage = () => {
                 transition={{ duration: 0.3 }}
               />
               <Carousel.Caption className="carousel-caption">
-                <h3>Vendita di prodotti caserecci</h3>
+                <h3 onClick={() => handleNavigation("/Artigianali")}>
+                  Vendita di prodotti caserecci
+                </h3>
                 <p>
                   Trova e vendi prodotti fatti in casa direttamente dalla tua
                   terra
@@ -225,7 +235,9 @@ const HomePage = () => {
                 transition={{ duration: 0.3 }}
               />
               <Carousel.Caption className="carousel-caption">
-                <h3>Vendita di piantine</h3>
+                <h3 onClick={() => handleNavigation("/Piantine")}>
+                  Vendita di piantine
+                </h3>
                 <p>
                   Scopri una vasta selezione di piantine per il tuo giardino o
                   orto
@@ -248,7 +260,9 @@ const HomePage = () => {
                 transition={{ duration: 0.3 }}
               />
               <Carousel.Caption className="carousel-caption">
-                <h3>Vendita di animali</h3>
+                <h3 onClick={() => handleNavigation("/Animali")}>
+                  Vendita di animali
+                </h3>
                 <p>
                   Trova il tuo nuovo compagno nella nostra selezione di animali
                 </p>
@@ -316,8 +330,14 @@ const HomePage = () => {
                 transition={{ duration: 0.3 }}
               />
               <Carousel.Caption className="carousel-caption">
-                <h3>Coldiretti</h3>
-                <p>Scopri i servizi e le iniziative di Coldiretti</p>
+                <h3
+                  onClick={() =>
+                    window.open("https://www.coldiretti.it", "_blank")
+                  }
+                >
+                  Coldiretti
+                </h3>
+                <p>Iniziative di Coldiretti</p>
               </Carousel.Caption>
             </Carousel.Item>
 
@@ -336,7 +356,9 @@ const HomePage = () => {
                 transition={{ duration: 0.3 }}
               />
               <Carousel.Caption className="carousel-caption">
-                <h3>CIA</h3>
+                <h3 onClick={() => window.open("https://www.cia.it", "_blank")}>
+                  CIA
+                </h3>
                 <p>Informazioni dalla Confederazione Italiana Agricoltori</p>
               </Carousel.Caption>
             </Carousel.Item>
@@ -358,8 +380,14 @@ const HomePage = () => {
                 transition={{ duration: 0.3 }}
               />
               <Carousel.Caption className="carousel-caption">
-                <h3>Confagricoltura</h3>
-                <p>Scopri le iniziative di Confagricoltura</p>
+                <h3
+                  onClick={() =>
+                    window.open("https://www.confagricoltura.it", "_blank")
+                  }
+                >
+                  Confagricoltura
+                </h3>
+                <p>Sito di Confagricoltura</p>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
