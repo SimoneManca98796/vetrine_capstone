@@ -351,7 +351,7 @@ export const fetchFilteredPrices = (filterCriteria) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/prezzi?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
+        `http://localhost:8080/api/prezzi?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}` // https://vetrine-agricole-6d661b03a449.herokuapp.com || http://localhost:8080
       );
       if (response.status === 200) {
         dispatch({
@@ -390,7 +390,7 @@ export const loginUser =
     console.log("Invio dati di login:", credentials);
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/auth/login",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/auth/login",
         credentials
       );
       console.log("Risposta dal server:", response.data);
@@ -441,7 +441,7 @@ export const registerUser =
   async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/auth/register",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/auth/register",
         userData
       );
       if (response.status === 201) {
