@@ -46,7 +46,7 @@ const ProfilePage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/users/upload-avatar",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/users/upload-avatar",
         formData
       );
       dispatch(updateAvatarUrl(response.data.uri));
@@ -64,7 +64,10 @@ const ProfilePage = () => {
     }
 
     try {
-      await axios.put("http://localhost:8080/api/users/me", { password });
+      await axios.put(
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/users/me",
+        { password }
+      );
       setSuccess("Password aggiornata con successo.");
     } catch (error) {
       setError("Impossibile aggiornare la password. Per favore riprova.");

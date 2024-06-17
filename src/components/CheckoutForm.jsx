@@ -25,7 +25,7 @@ const CheckoutForm = () => {
       console.log("[PaymentMethod]", paymentMethod);
 
       const response = await fetch(
-        "http://localhost:8080/api/payment/create-payment-intent",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/payment/create-payment-intent",
         {
           method: "POST",
           headers: {

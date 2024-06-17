@@ -22,7 +22,7 @@ function AvatarUpload() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/users/upload-avatar",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/users/upload-avatar",
         formData,
         {
           headers: {

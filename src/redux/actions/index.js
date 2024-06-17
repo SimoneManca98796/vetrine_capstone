@@ -82,7 +82,7 @@ export const addNewPrice = (priceData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/prezzi",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezzi", // https://vetrine-agricole-6d661b03a449.herokuapp.com/api/auth/login
         priceData,
         {
           headers: {
@@ -351,7 +351,7 @@ export const fetchFilteredPrices = (filterCriteria) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/prezzi?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}` // https://vetrine-agricole-6d661b03a449.herokuapp.com || http://localhost:8080
+        `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezzi?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}` // https://vetrine-agricole-6d661b03a449.herokuapp.com || http://localhost:8080
       );
       if (response.status === 200) {
         dispatch({
@@ -501,7 +501,9 @@ export const updateProfile = (profileData) => {
 export const fetchOviniPrices = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get("http://localhost:8080/api/prezziOvini");
+      const response = await axios.get(
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziOvini"
+      );
       dispatch({
         type: FETCH_OVINI_PRICES_SUCCESS,
         payload: response.data,
@@ -517,7 +519,7 @@ export const fetchFilteredOviniPrices = (filterCriteria) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/prezziOvini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
+        `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziOvini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
       );
       dispatch({
         type: FETCH_FILTERED_OVINI_PRICES_SUCCESS,
@@ -534,7 +536,7 @@ export const addOviniPrice = (priceData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/prezziOvini",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziOvini",
         priceData,
         {
           headers: {
@@ -564,7 +566,9 @@ export const filterOviniPrices = (criteria) => ({
 export const fetchSuiniPrices = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get("http://localhost:8080/api/prezziSuini");
+      const response = await axios.get(
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziSuini"
+      );
       dispatch({
         type: FETCH_SUINI_PRICES_SUCCESS,
         payload: response.data,
@@ -580,7 +584,7 @@ export const fetchFilteredSuiniPrices = (filterCriteria) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/prezziSuini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
+        `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziSuini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
       );
       dispatch({
         type: FETCH_FILTERED_SUINI_PRICES_SUCCESS,
@@ -597,7 +601,7 @@ export const addSuiniPrice = (priceData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/prezziSuini",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziSuini",
         priceData,
         {
           headers: {
@@ -628,7 +632,7 @@ export const fetchBoviniPrices = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/prezziBovini"
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziBovini"
       );
       dispatch({
         type: FETCH_BOVINI_PRICES_SUCCESS,
@@ -645,7 +649,7 @@ export const fetchFilteredBoviniPrices = (filterCriteria) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/prezziBovini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
+        `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziBovini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
       );
       dispatch({
         type: FETCH_FILTERED_BOVINI_PRICES_SUCCESS,
@@ -662,7 +666,7 @@ export const addBoviniPrice = (priceData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/prezziBovini",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziBovini",
         priceData,
         {
           headers: {
@@ -691,7 +695,7 @@ export const filterBoviniPrices = (criteria) => ({
 export const fetchProductsByCategory = (category) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/products/categoryName/${category}`
+      `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/products/categoryName/${category}`
     );
     console.log("Risposta API:", response.data);
     dispatch({
@@ -733,7 +737,7 @@ export const searchProducts = (searchTerm) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/products/search?query=${searchTerm}`
+        `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/products/search?query=${searchTerm}`
       );
       if (response.data && Array.isArray(response.data)) {
         console.log("Risposta API con categoria:", response.data);
@@ -757,7 +761,7 @@ export const createProduct = (productData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/products",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/products",
         productData,
         {
           headers: {
@@ -781,7 +785,7 @@ export const createPaymentIntent =
   (paymentMethodId, amount) => async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/payment/create-payment-intent",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/payment/create-payment-intent",
         {
           paymentMethodId,
           amount,
@@ -870,7 +874,9 @@ export const applyDiscountCode = (code) => ({
 /////// AZIENDE ///////////////7
 export const fetchAziende = () => async (dispatch) => {
   try {
-    const response = await axios.get("http://localhost:8080/api/aziende");
+    const response = await axios.get(
+      "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/aziende"
+    );
     dispatch({
       type: FETCH_AZIENDE_SUCCESS,
       payload: response.data,
@@ -883,7 +889,7 @@ export const fetchAziende = () => async (dispatch) => {
 export const createAzienda = (aziendaData) => async (dispatch) => {
   try {
     const response = await axios.post(
-      "http://localhost:8080/api/aziende",
+      "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/aziende",
       aziendaData,
       {
         headers: {
@@ -902,11 +908,14 @@ export const createAzienda = (aziendaData) => async (dispatch) => {
 
 export const deleteAzienda = (id) => async (dispatch) => {
   try {
-    await axios.delete(`http://localhost:8080/api/aziende/${id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    await axios.delete(
+      `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/aziende/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     dispatch({
       type: DELETE_AZIENDA_SUCCESS,
       payload: id,
@@ -921,7 +930,7 @@ export const deleteAzienda = (id) => async (dispatch) => {
 export const fetchNotifications = (userId) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/notifications?userId=${userId}`
+      `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/notifications?userId=${userId}`
     );
     const data = response.data;
     dispatch({ type: FETCH_NOTIFICATIONS_SUCCESS, payload: data });
@@ -933,7 +942,7 @@ export const fetchNotifications = (userId) => async (dispatch) => {
 export const fetchUnreadNotifications = (userId) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/notifications/unread?userId=${userId}`
+      `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/notifications/unread?userId=${userId}`
     );
     const data = response.data;
     dispatch({ type: FETCH_UNREAD_NOTIFICATIONS_SUCCESS, payload: data });
@@ -945,7 +954,7 @@ export const fetchUnreadNotifications = (userId) => async (dispatch) => {
 export const markNotificationsAsRead = (userId) => async (dispatch) => {
   try {
     await axios.post(
-      `http://localhost:8080/api/notifications/markAsRead/${userId}`
+      `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/notifications/markAsRead/${userId}`
     );
     dispatch({ type: MARK_NOTIFICATIONS_AS_READ_SUCCESS });
     dispatch(fetchUnreadNotifications(userId)); // Refresh unread notifications
