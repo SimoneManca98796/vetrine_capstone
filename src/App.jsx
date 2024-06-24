@@ -24,6 +24,7 @@ import Aziende from "./components/Aziende";
 import Notifiche from "./components/Notifiche";
 import PaymentForm from "./components/PaymentForm";
 import CheckoutForm from "./components/CheckoutForm";
+import ResetPasswordForm from "./components/ResetPasswordForm";
 // Stripe
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -61,6 +62,7 @@ const App = () => (
               <Route element={<CheckoutForm />} path="/checkout" />
               <Route element={<Aziende />} path="/Aziende" />
               <Route element={<Notifiche />} path="/Notifiche" />
+              <Route element={<ResetPasswordForm />} path="/reset-password" />
               <Route element={<NotFound />} path="*" />
             </Routes>
           </div>

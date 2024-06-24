@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 import { loginUser } from "../redux/actions";
 import logo from "/Vetrine.png";
 import "../LoginForm.css";
@@ -15,6 +16,8 @@ const FormLogin = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -37,6 +40,26 @@ const FormLogin = () => {
         setModalMessage
       )
     );
+  };
+
+  const handleForgotPassword = async () => {
+    try {
+      // Invia richiesta per recuperare la password
+      await axios.post("http://localhost:8080/api/users/forgot-password", {
+        email: forgotPasswordEmail,
+      });
+      setModalMessage(
+        "Le istruzioni per il recupero della password sono state inviate alla tua email."
+      );
+      setShowForgotPasswordModal(false);
+      setShowLoginModal(true);
+    } catch (error) {
+      setModalMessage(
+        "Impossibile inviare le istruzioni per il recupero della password. Per favore riprova."
+      );
+      setShowForgotPasswordModal(false);
+      setShowLoginModal(true);
+    }
   };
 
   const handleCloseLoginModal = () => {
@@ -90,6 +113,11 @@ const FormLogin = () => {
                 Accedi
               </Button>
             </Form>
+            <div className="forgot-password-link">
+              <a href="#" onClick={() => setShowForgotPasswordModal(true)}>
+                Hai dimenticato la password?
+              </a>
+            </div>
             <div className="register-link">
               Non hai un account? <a href="/FormIscrizione">Registrati</a>
             </div>
@@ -105,6 +133,37 @@ const FormLogin = () => {
         <Modal.Footer>
           <Button variant="primary" onClick={handleCloseLoginModal}>
             Chiudi
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={showForgotPasswordModal}
+        onHide={() => setShowForgotPasswordModal(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Recupero Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group controlId="formForgotPasswordEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Inserisci la tua email..."
+              value={forgotPasswordEmail}
+              onChange={(e) => setForgotPasswordEmail(e.target.value)}
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowForgotPasswordModal(false)}
+          >
+            Annulla
+          </Button>
+          <Button variant="primary" onClick={handleForgotPassword}>
+            Recupera Password
           </Button>
         </Modal.Footer>
       </Modal>

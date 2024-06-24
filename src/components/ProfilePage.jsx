@@ -19,6 +19,7 @@ const ProfilePage = () => {
   const avatarUrl = useSelector((state) => state.auth.avatarUrl);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // Aggiunto stato per la visibilità della password
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(true);
@@ -38,7 +39,7 @@ const ProfilePage = () => {
 
     try {
       const response = await axios.post(
-        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/users/upload-avatar",
+        "http://localhost:8080/api/users/upload-avatar",
         formData
       );
       dispatch(updateAvatarUrl(response.data.uri));
@@ -108,7 +109,7 @@ const ProfilePage = () => {
             <Form.Group controlId="formPassword">
               <Form.Label>Nuova Password</Form.Label>
               <Form.Control
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -116,9 +117,17 @@ const ProfilePage = () => {
             <Form.Group controlId="formConfirmPassword" className="mt-3">
               <Form.Label>Conferma Nuova Password</Form.Label>
               <Form.Control
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formShowPassword" className="mt-3">
+              <Form.Check
+                type="checkbox"
+                label="Mostra Password"
+                checked={showPassword}
+                onChange={(e) => setShowPassword(e.target.checked)}
               />
             </Form.Group>
             <Button variant="primary" type="submit" className="mt-3">
