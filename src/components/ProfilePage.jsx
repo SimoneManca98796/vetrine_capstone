@@ -56,10 +56,9 @@ const ProfilePage = () => {
     }
 
     try {
-      await axios.post(
-        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/users/update-password",
-        { password }
-      );
+      await axios.post("http://localhost:8080/api/users/update-password", {
+        password,
+      });
       setSuccess("Password aggiornata con successo.");
     } catch (error) {
       setError("Impossibile aggiornare la password. Per favore riprova.");
