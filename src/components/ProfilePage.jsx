@@ -25,11 +25,9 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (user) {
-      console.log("User data loaded:", user); // Log di debug
       setLoading(false);
     } else {
-      console.log("No user data available"); // Log di debug
-      setLoading(false); // Smetti di caricare se l'utente non è presente
+      setLoading(false);
     }
   }, [user]);
 
@@ -58,8 +56,8 @@ const ProfilePage = () => {
     }
 
     try {
-      await axios.put(
-        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/users/me",
+      await axios.post(
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/users/update-password",
         { password }
       );
       setSuccess("Password aggiornata con successo.");
@@ -74,8 +72,6 @@ const ProfilePage = () => {
 
   return (
     <Container className="profile-page mt-5">
-      {" "}
-      {/* Aggiungi una classe per il margine superiore */}
       <Row>
         <Col md={4} className="text-center">
           <Image
