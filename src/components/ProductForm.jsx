@@ -33,7 +33,7 @@ const ProductForm = () => {
 
     try {
       const uploadResponse = await axios.post(
-        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/products/upload",
+        "http://localhost:8080/api/products/upload",
         formData,
         {
           headers: {

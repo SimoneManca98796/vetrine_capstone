@@ -52,7 +52,7 @@ const PaymentForm = () => {
 
     try {
       const captchaResponse = await axios.post(
-        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/verify-captcha",
+        "http://localhost:8080/api/verify-captcha",
         { token: captchaToken }
       );
 

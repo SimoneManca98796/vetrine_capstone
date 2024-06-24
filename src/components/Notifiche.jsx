@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchNotifications, markNotificationsAsRead } from "../redux/actions";
+import { fetchNotifications, markNotificationAsRead } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
 import "../Notifiche.css";
 
@@ -19,11 +19,9 @@ const Notifiche = () => {
     }
   }, [dispatch, isAuthenticated, navigate, userId]);
 
-  useEffect(() => {
-    if (isAuthenticated && notifiche.length > 0) {
-      dispatch(markNotificationsAsRead(userId));
-    }
-  }, [dispatch, isAuthenticated, notifiche.length, userId]);
+  const handleMarkAsRead = (notificaId) => {
+    dispatch(markNotificationAsRead(userId, notificaId));
+  };
 
   return (
     <div className="notifiche-container container">
@@ -49,7 +47,11 @@ const Notifiche = () => {
               ? new Date(notifica.timestamp).toLocaleString()
               : "Data non disponibile";
             return (
-              <div key={notifica.id} className="notifica-item">
+              <div
+                key={notifica.id}
+                className="notifica-item"
+                onClick={() => handleMarkAsRead(notifica.id)}
+              >
                 <img
                   src={notifica.avatarURL || "/path/to/default/avatar.png"}
                   alt="User Avatar"

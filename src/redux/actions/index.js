@@ -73,7 +73,7 @@ export const DELETE_AZIENDA_SUCCESS = "DELETE_AZIENDA_SUCCESS";
 export const FETCH_NOTIFICATIONS_SUCCESS = "FETCH_NOTIFICATIONS_SUCCESS";
 export const FETCH_UNREAD_NOTIFICATIONS_SUCCESS =
   "FETCH_UNREAD_NOTIFICATIONS_SUCCESS";
-export const MARK_NOTIFICATIONS_AS_READ_SUCCESS =
+export const MARK_NOTIFICATION_AS_READ_SUCCESS =
   "MARK_NOTIFICATIONS_AS_READ_SUCCESS";
 //////////////////////////////////////////
 ///////////////// ZONA FETCH://////////////////////////
@@ -775,7 +775,7 @@ export const fetchFilteredBoviniPrices = (filterCriteria) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziBovini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
+        `http://localhost:8080/api/prezziBovini?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}`
       );
       dispatch({
         type: FETCH_FILTERED_BOVINI_PRICES_SUCCESS,
@@ -792,7 +792,7 @@ export const addBoviniPrice = (priceData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezziBovini",
+        "http://localhost:8080/api/prezziBovini",
         priceData,
         {
           headers: {
@@ -821,7 +821,7 @@ export const filterBoviniPrices = (criteria) => ({
 export const fetchProductsByCategory = (category) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/products/categoryName/${category}`
+      `http://localhost:8080/api/products/categoryName/${category}`
     );
     console.log("Risposta API:", response.data);
     dispatch({
@@ -863,7 +863,7 @@ export const searchProducts = (searchTerm) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/products/search?query=${searchTerm}`
+        `http://localhost:8080/api/products/search?query=${searchTerm}`
       );
       if (response.data && Array.isArray(response.data)) {
         console.log("Risposta API con categoria:", response.data);
@@ -887,7 +887,7 @@ export const createProduct = (productData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/products",
+        "http://localhost:8080/api/products",
         productData,
         {
           headers: {
@@ -911,7 +911,7 @@ export const createPaymentIntent =
   (paymentMethodId, amount) => async (dispatch) => {
     try {
       const response = await axios.post(
-        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/payment/create-payment-intent",
+        "http://localhost:8080/api/payment/create-payment-intent",
         {
           paymentMethodId,
           amount,
@@ -1072,14 +1072,18 @@ export const fetchUnreadNotifications = (userId) => async (dispatch) => {
   }
 };
 
-export const markNotificationsAsRead = (userId) => async (dispatch) => {
-  try {
-    await axios.post(
-      `http://localhost:8080/api/notifications/markAsRead/${userId}`
-    );
-    dispatch({ type: MARK_NOTIFICATIONS_AS_READ_SUCCESS });
-    dispatch(fetchUnreadNotifications(userId)); // Refresh unread notifications
-  } catch (error) {
-    console.error("Failed to mark notifications as read:", error);
-  }
-};
+// Azione per marcare una notifica come letta
+export const markNotificationAsRead =
+  (userId, notificaId) => async (dispatch) => {
+    try {
+      await axios.post(
+        `http://localhost:8080/api/notifications/markAsRead/${userId}/${notificaId}`
+      );
+      dispatch({
+        type: MARK_NOTIFICATION_AS_READ_SUCCESS,
+        payload: notificaId,
+      });
+    } catch (error) {
+      console.error("Failed to mark notification as read:", error);
+    }
+  };
