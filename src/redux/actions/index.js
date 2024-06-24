@@ -477,7 +477,7 @@ export const fetchFilteredPrices = (filterCriteria) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/prezzi?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}` // https://vetrine-agricole-6d661b03a449.herokuapp.com || http://localhost:8080
+        `http://localhost:8080/api/prezzi?data=${filterCriteria.data}&luogo=${filterCriteria.luogo}` // https://vetrine-agricole-6d661b03a449.herokuapp.com || http://localhost:8080
       );
       if (response.status === 200) {
         dispatch({
@@ -516,7 +516,7 @@ export const loginUser =
     console.log("Invio dati di login:", credentials);
     try {
       const response = await axios.post(
-        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/auth/login",
+        "http://localhost:8080/api/auth/login",
         credentials
       );
       console.log("Risposta dal server:", response.data);
@@ -567,7 +567,7 @@ export const registerUser =
   async (dispatch) => {
     try {
       const response = await axios.post(
-        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/auth/register",
+        "http://localhost:8080/api/auth/register",
         userData
       );
       if (response.status === 201) {
@@ -1000,9 +1000,7 @@ export const applyDiscountCode = (code) => ({
 /////// AZIENDE ///////////////7
 export const fetchAziende = () => async (dispatch) => {
   try {
-    const response = await axios.get(
-      "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/aziende"
-    );
+    const response = await axios.get("http://localhost:8080/api/aziende");
     dispatch({
       type: FETCH_AZIENDE_SUCCESS,
       payload: response.data,
@@ -1015,7 +1013,7 @@ export const fetchAziende = () => async (dispatch) => {
 export const createAzienda = (aziendaData) => async (dispatch) => {
   try {
     const response = await axios.post(
-      "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/aziende",
+      "http://localhost:8080/api/aziende",
       aziendaData,
       {
         headers: {
@@ -1034,14 +1032,11 @@ export const createAzienda = (aziendaData) => async (dispatch) => {
 
 export const deleteAzienda = (id) => async (dispatch) => {
   try {
-    await axios.delete(
-      `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/aziende/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    await axios.delete(`http://localhost:8080/api/aziende/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     dispatch({
       type: DELETE_AZIENDA_SUCCESS,
       payload: id,
@@ -1056,7 +1051,7 @@ export const deleteAzienda = (id) => async (dispatch) => {
 export const fetchNotifications = (userId) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/notifications?userId=${userId}`
+      `http://localhost:8080/api/notifications?userId=${userId}`
     );
     const data = response.data;
     dispatch({ type: FETCH_NOTIFICATIONS_SUCCESS, payload: data });
@@ -1068,7 +1063,7 @@ export const fetchNotifications = (userId) => async (dispatch) => {
 export const fetchUnreadNotifications = (userId) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/notifications/unread?userId=${userId}`
+      `http://localhost:8080/api/notifications/unread?userId=${userId}`
     );
     const data = response.data;
     dispatch({ type: FETCH_UNREAD_NOTIFICATIONS_SUCCESS, payload: data });
@@ -1080,7 +1075,7 @@ export const fetchUnreadNotifications = (userId) => async (dispatch) => {
 export const markNotificationsAsRead = (userId) => async (dispatch) => {
   try {
     await axios.post(
-      `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/notifications/markAsRead/${userId}`
+      `http://localhost:8080/api/notifications/markAsRead/${userId}`
     );
     dispatch({ type: MARK_NOTIFICATIONS_AS_READ_SUCCESS });
     dispatch(fetchUnreadNotifications(userId)); // Refresh unread notifications
