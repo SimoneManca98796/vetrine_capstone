@@ -4,6 +4,7 @@ import {
   fetchNotifications,
   fetchUnreadNotifications,
   markNotificationAsRead,
+  markAllNotificationsAsRead,
 } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
 import "../Notifiche.css";
@@ -36,6 +37,13 @@ const Notifiche = () => {
     });
   };
 
+  const handleMarkAllAsRead = () => {
+    console.log(`Marking all notifications as read for user ${userId}`);
+    dispatch(markAllNotificationsAsRead(userId)).then(() => {
+      dispatch(fetchUnreadNotifications(userId));
+    });
+  };
+
   const filteredUnreadNotifiche = unreadNotifiche.filter(
     (notifica) => notifica.userId !== userId
   );
@@ -50,6 +58,9 @@ const Notifiche = () => {
           className="notifiche-logo"
         />
         <span className="cartoon-font">Notifiche da visualizzare</span>
+        <button className="mark-all-as-read-btn" onClick={handleMarkAllAsRead}>
+          Segna tutto come letto
+        </button>
       </div>
       <div className="notifiche-list">
         {filteredUnreadNotifiche.length === 0 ? (

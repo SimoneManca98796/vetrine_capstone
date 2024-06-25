@@ -75,6 +75,9 @@ export const FETCH_UNREAD_NOTIFICATIONS_SUCCESS =
   "FETCH_UNREAD_NOTIFICATIONS_SUCCESS";
 export const MARK_NOTIFICATION_AS_READ_SUCCESS =
   "MARK_NOTIFICATIONS_AS_READ_SUCCESS";
+export const MARK_ALL_NOTIFICATIONS_AS_READ_SUCCESS =
+  "MARK_ALL_NOTIFICATIONS_AS_READ_SUCCESS";
+
 //////////////////////////////////////////
 ///////////////// ZONA FETCH://////////////////////////
 // Aggiunge un nuovo prezzo
@@ -1088,3 +1091,18 @@ export const markNotificationAsRead =
       console.error("Failed to mark notification as read:", error);
     }
   };
+
+export const markAllNotificationsAsRead = (userId) => async (dispatch) => {
+  try {
+    await axios.post(
+      `http://localhost:8080/api/notifications/markAllAsRead/${userId}`
+    );
+    dispatch({
+      type: MARK_ALL_NOTIFICATIONS_AS_READ_SUCCESS,
+      payload: { userId },
+    });
+    dispatch(fetchUnreadNotifications(userId));
+  } catch (error) {
+    console.error("Failed to mark all notifications as read:", error);
+  }
+};

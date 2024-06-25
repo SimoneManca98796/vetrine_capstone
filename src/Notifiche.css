@@ -110,6 +110,19 @@
   color: #3b873e; 
 }
 
+.mark-all-as-read-btn {
+  margin-left: 20px;
+  padding: 5px 10px;
+  background-color: #3b873e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.mark-all-as-read-btn:hover {
+  background-color: #2e6d2e;
+}
 
 
 
