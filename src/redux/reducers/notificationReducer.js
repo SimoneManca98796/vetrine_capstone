@@ -21,16 +21,20 @@ const notificationReducer = (state = initialState, action) => {
         ...state,
         unreadNotifications: action.payload,
       };
-    case MARK_NOTIFICATION_AS_READ_SUCCESS:
+    case MARK_NOTIFICATION_AS_READ_SUCCESS: {
+      const { userId, notificaId } = action.payload;
       return {
         ...state,
-        allNotifications: state.allNotifications.filter(
-          (notifica) => notifica.id !== action.payload
+        allNotifications: state.allNotifications.map((notifica) =>
+          notifica.id === notificaId
+            ? { ...notifica, readers: [...notifica.readers, userId] }
+            : notifica
         ),
         unreadNotifications: state.unreadNotifications.filter(
-          (notifica) => notifica.id !== action.payload
+          (notifica) => notifica.id !== notificaId
         ),
       };
+    }
     default:
       return state;
   }

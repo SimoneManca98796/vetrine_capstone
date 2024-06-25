@@ -1072,7 +1072,6 @@ export const fetchUnreadNotifications = (userId) => async (dispatch) => {
   }
 };
 
-// Azione per marcare una notifica come letta
 export const markNotificationAsRead =
   (userId, notificaId) => async (dispatch) => {
     try {
@@ -1081,8 +1080,10 @@ export const markNotificationAsRead =
       );
       dispatch({
         type: MARK_NOTIFICATION_AS_READ_SUCCESS,
-        payload: notificaId,
+        payload: { userId, notificaId },
       });
+      // Ricarica le notifiche per assicurarsi che lo stato sia aggiornato
+      dispatch(fetchNotifications(userId));
     } catch (error) {
       console.error("Failed to mark notification as read:", error);
     }
