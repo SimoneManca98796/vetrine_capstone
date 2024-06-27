@@ -5,7 +5,7 @@ import {
   addItemToCart,
   searchProducts,
 } from "../../redux/actions/index";
-import { Card, Button, Alert, Modal } from "react-bootstrap";
+import { Card, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProductForm from "../ProductForm";
 import { FaShoppingCart, FaInfoCircle } from "react-icons/fa";
@@ -20,8 +20,6 @@ const Piantine = () => {
     (state) => state.products.displayedPiantine
   );
   const [cartOpen, setCartOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     dispatch(fetchProductsByCategory("piantine"));
@@ -33,16 +31,6 @@ const Piantine = () => {
 
   const toggleCart = () => {
     setCartOpen(!cartOpen);
-  };
-
-  const handleShowModal = (product) => {
-    setSelectedProduct(product);
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedProduct(null);
   };
 
   const handleSearch = (searchTerm) => {
@@ -89,10 +77,9 @@ const Piantine = () => {
                       >
                         Aggiungi al Carrello
                       </Button>
-                      <FaInfoCircle
-                        className="piantine-info-icon"
-                        onClick={() => handleShowModal(product)}
-                      />
+                      <Link to={`/product/${product.id}`}>
+                        <FaInfoCircle className="piantine-info-icon" />
+                      </Link>
                     </Card.Body>
                   </div>
                 </div>
@@ -105,33 +92,6 @@ const Piantine = () => {
       </div>
       <FaShoppingCart className="piantine-cart-icon" onClick={toggleCart} />
       {cartOpen && <CartDropdown />}
-
-      {selectedProduct && (
-        <Modal show={showModal} onHide={handleCloseModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>{selectedProduct.name}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <img
-              src={selectedProduct.imageUrl}
-              alt={selectedProduct.name}
-              className="img-fluid"
-            />
-            <p>{selectedProduct.description}</p>
-            <p>
-              <strong>Prezzo:</strong> €{selectedProduct.price}
-            </p>
-            <p>
-              <strong>Venduto da:</strong> {selectedProduct.vendor}
-            </p>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
-              Chiudi
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
     </div>
   );
 };

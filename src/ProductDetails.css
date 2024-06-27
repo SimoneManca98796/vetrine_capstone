@@ -1,0 +1,120 @@
+.product-details-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  margin-top: 80px; /* Aggiungere spazio sopra */
+}
+
+.product-info {
+  text-align: center;
+}
+
+.product-info h2 {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 300px; /* Uniformare la dimensione delle immagini */
+  height: 300px; /* Uniformare la dimensione delle immagini */
+  object-fit: cover; /* Mantenere il rapporto d'aspetto */
+}
+
+.product-info p {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.product-reviews {
+  margin-top: 20px;
+}
+
+.product-reviews h3 {
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.product-review {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.product-review p {
+  margin: 5px 0;
+}
+
+.submit-review {
+  margin-top: 20px;
+}
+
+.submit-review input,
+.submit-review button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.submit-review button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.submit-review button:hover {
+  background-color: #0056b3;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center; /* Centrare le stelle */
+  margin-bottom: 20px;
+}
+
+.star-rating .fa-star {
+  font-size: 30px; /* Aumentare la dimensione delle stelle */
+  cursor: pointer;
+}
+
+.star-rating .fa-star:hover,
+.star-rating .fa-star.selected {
+  color: #7011F4; /* Cambiare il colore delle stelle */
+}
+
+@media (max-width: 768px) {
+  .product-details-container {
+    padding: 10px;
+  }
+
+  .product-info h2 {
+    font-size: 1.5em;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .submit-review input,
+  .submit-review button {
+    padding: 8px;
+  }
+
+  .star-rating .fa-star {
+    font-size: 24px; /* Ridurre la dimensione delle stelle per dispositivi mobili */
+  }
+}
+
+
+
+  

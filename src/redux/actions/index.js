@@ -77,6 +77,14 @@ export const MARK_NOTIFICATION_AS_READ_SUCCESS =
   "MARK_NOTIFICATIONS_AS_READ_SUCCESS";
 export const MARK_ALL_NOTIFICATIONS_AS_READ_SUCCESS =
   "MARK_ALL_NOTIFICATIONS_AS_READ_SUCCESS";
+// AZIONI PER DOCUMENTI E RECENSIONI:
+export const UPLOAD_DOCUMENT_SUCCESS = "UPLOAD_DOCUMENT_SUCCESS";
+export const UPLOAD_DOCUMENT_FAILURE = "UPLOAD_DOCUMENT_FAILURE";
+////////////////////////////////77
+export const FETCH_REVIEWS_SUCCESS = "FETCH_REVIEWS_SUCCESS";
+export const FETCH_REVIEWS_FAILURE = "FETCH_REVIEWS_FAILURE";
+export const CREATE_REVIEW_SUCCESS = "CREATE_REVIEW_SUCCESS";
+export const CREATE_REVIEW_FAILURE = "CREATE_REVIEW_FAILURE";
 
 //////////////////////////////////////////
 ///////////////// ZONA FETCH://////////////////////////
@@ -1104,5 +1112,58 @@ export const markAllNotificationsAsRead = (userId) => async (dispatch) => {
     dispatch(fetchUnreadNotifications(userId));
   } catch (error) {
     console.error("Failed to mark all notifications as read:", error);
+  }
+};
+
+// Azione per caricare un documento
+export const uploadDocument = (file) => async (dispatch) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.post(
+      "http://localhost:8080/api/users/upload-document",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dispatch({ type: UPLOAD_DOCUMENT_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: UPLOAD_DOCUMENT_FAILURE, payload: error.message });
+  }
+};
+
+// Azioni per gestire le recensioni
+export const fetchReviews = (productId) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8080/api/reviews/product/${productId}`
+    );
+    dispatch({ type: FETCH_REVIEWS_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: FETCH_REVIEWS_FAILURE, payload: error.message });
+  }
+};
+
+export const createReview = (review) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.post(
+      "http://localhost:8080/api/reviews",
+      review,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dispatch({ type: CREATE_REVIEW_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: CREATE_REVIEW_FAILURE, payload: error.message });
   }
 };

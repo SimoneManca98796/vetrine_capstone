@@ -1,0 +1,52 @@
+.product-reviews {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+  .product-reviews h2 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .review {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+  }
+  
+  .review p {
+    margin: 5px 0;
+  }
+  
+  .submit-review {
+    margin-top: 20px;
+  }
+  
+  .submit-review input,
+  .submit-review button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .submit-review button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+  }
+  
+  .submit-review button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  
+  

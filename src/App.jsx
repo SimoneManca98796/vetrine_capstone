@@ -25,6 +25,8 @@ import Notifiche from "./components/Notifiche";
 import PaymentForm from "./components/PaymentForm";
 import CheckoutForm from "./components/CheckoutForm";
 import ResetPasswordForm from "./components/ResetPasswordForm";
+import UploadDocument from "./components/UploadDocument";
+import ProductDetails from "./components/ProductDetails";
 // Stripe
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -66,6 +68,9 @@ const App = () => (
               <Route element={<Aziende />} path="/Aziende" />
               <Route element={<Notifiche />} path="/Notifiche" />
               <Route element={<ResetPasswordForm />} path="/reset-password" />
+              <Route element={<UploadDocument />} path="/upload-document" />
+              <Route element={<ProductDetails />} path="/product/:productId" />
+
               <Route element={<NotFound />} path="*" />
             </Routes>
           </div>
