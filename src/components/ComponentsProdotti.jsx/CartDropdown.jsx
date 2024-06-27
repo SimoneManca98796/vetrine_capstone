@@ -52,9 +52,15 @@ const CartDropdown = () => {
         <span>Totale:</span>
         <span>€{total.toFixed(2)}</span>
       </div>
-      <Link to="/payment" className="cart-checkout-button">
-        Vai al pagamento!
-      </Link>
+      {cartItems.length > 0 ? (
+        <Link to="/payment" className="cart-checkout-button">
+          Vai al pagamento!
+        </Link>
+      ) : (
+        <button className="cart-checkout-button" disabled>
+          Il carrello è vuoto!
+        </button>
+      )}
     </div>
   );
 };

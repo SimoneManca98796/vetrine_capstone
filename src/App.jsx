@@ -57,7 +57,10 @@ const App = () => (
               <Route element={<Artigianali />} path="/Artigianali" />
               <Route element={<Animali />} path="/Animali" />
               <Route element={<Attrezzature />} path="/Attrezzature" />
-              <Route element={<ProductForm />} path="/nuovo-prodotto" />
+              <Route
+                element={<ProductForm category="generale" />}
+                path="/nuovo-prodotto"
+              />
               <Route element={<PaymentForm />} path="/payment" />
               <Route element={<CheckoutForm />} path="/checkout" />
               <Route element={<Aziende />} path="/Aziende" />

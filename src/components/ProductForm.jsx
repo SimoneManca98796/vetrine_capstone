@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 import { createProduct } from "../redux/actions/index";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "../ProductForm.css";
 
-const ProductForm = () => {
+const ProductForm = ({ category }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [file, setFile] = useState(null);
-  const [category, setCategory] = useState("");
   const dispatch = useDispatch();
 
   const handleFileChange = (e) => {
@@ -83,13 +83,7 @@ const ProductForm = () => {
           <Col>
             <Form.Group controlId="formCategory">
               <Form.Label>Categoria</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Categoria"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                required
-              />
+              <Form.Control type="text" value={category} readOnly required />
             </Form.Group>
           </Col>
         </Row>
@@ -130,6 +124,10 @@ const ProductForm = () => {
       </Form>
     </Container>
   );
+};
+
+ProductForm.propTypes = {
+  category: PropTypes.string.isRequired,
 };
 
 export default ProductForm;
