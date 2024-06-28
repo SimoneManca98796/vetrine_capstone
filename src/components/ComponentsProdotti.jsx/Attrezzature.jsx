@@ -5,7 +5,7 @@ import {
   addItemToCart,
   searchProducts,
 } from "../../redux/actions/index";
-import { Card, Button, Alert, Modal } from "react-bootstrap";
+import { Card, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProductForm from "../ProductForm";
 import { FaShoppingCart, FaInfoCircle } from "react-icons/fa";
@@ -20,8 +20,6 @@ const Attrezzature = () => {
     (state) => state.products.displayedAttrezzature
   );
   const [cartOpen, setCartOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     dispatch(fetchProductsByCategory("attrezzature"));
@@ -33,16 +31,6 @@ const Attrezzature = () => {
 
   const toggleCart = () => {
     setCartOpen(!cartOpen);
-  };
-
-  const handleShowModal = (product) => {
-    setSelectedProduct(product);
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedProduct(null);
   };
 
   const handleSearch = (searchTerm) => {
@@ -62,41 +50,52 @@ const Attrezzature = () => {
         {Array.isArray(displayedProducts) && displayedProducts.length > 0 ? (
           displayedProducts.map((product) => (
             <div className="col-md-12 mb-4" key={product.id}>
-              <Card className="attrezzature-product-row">
-                <div className="row no-gutters">
-                  <div className="col-md-4 attrezzature-product-image-col">
-                    <Card.Img
-                      variant="top"
-                      src={product.imageUrl}
-                      alt={product.name}
-                      className="attrezzature-product-image"
-                    />
-                  </div>
-                  <div className="col-md-8">
-                    <Card.Body className="attrezzature-product-details">
-                      <Card.Title className="attrezzature-product-title">
-                        {product.name}
-                      </Card.Title>
-                      <Card.Text className="attrezzature-product-description">
-                        {product.description}
-                        <br />
-                        Prezzo: €{product.price}
-                      </Card.Text>
-                      <Button
-                        variant="primary"
-                        className="attrezzature-add-to-cart-button"
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        Aggiungi al Carrello
-                      </Button>
-                      <FaInfoCircle
-                        className="attrezzature-info-icon"
-                        onClick={() => handleShowModal(product)}
+              <Link
+                to={`/product/${product.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Card className="attrezzature-product-row">
+                  <div className="row no-gutters">
+                    <div className="col-md-4 attrezzature-product-image-col">
+                      <Card.Img
+                        variant="top"
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="attrezzature-product-image"
                       />
-                    </Card.Body>
+                    </div>
+                    <div className="col-md-8">
+                      <Card.Body className="attrezzature-product-details">
+                        <Card.Title className="attrezzature-product-title">
+                          {product.name}
+                        </Card.Title>
+                        <Card.Text className="attrezzature-product-description">
+                          {product.description}
+                          <br />
+                          Prezzo: €{product.price}
+                          <br />
+                          Venditore: {product.vendorName ||
+                            "Non specificato"}{" "}
+                          {product.vendorSurname || ""}
+                        </Card.Text>
+                        <Button
+                          variant="primary"
+                          className="attrezzature-add-to-cart-button"
+                          onClick={(e) => {
+                            e.preventDefault(); // Prevent default link behavior
+                            handleAddToCart(product);
+                          }}
+                        >
+                          Aggiungi al Carrello
+                        </Button>
+                        <Link to={`/product/${product.id}`}>
+                          <FaInfoCircle className="attrezzature-info-icon" />
+                        </Link>
+                      </Card.Body>
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
+              </Link>
             </div>
           ))
         ) : (
@@ -105,33 +104,6 @@ const Attrezzature = () => {
       </div>
       <FaShoppingCart className="attrezzature-cart-icon" onClick={toggleCart} />
       {cartOpen && <CartDropdown />}
-
-      {selectedProduct && (
-        <Modal show={showModal} onHide={handleCloseModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>{selectedProduct.name}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <img
-              src={selectedProduct.imageUrl}
-              alt={selectedProduct.name}
-              className="img-fluid"
-            />
-            <p>{selectedProduct.description}</p>
-            <p>
-              <strong>Prezzo:</strong> €{selectedProduct.price}
-            </p>
-            <p>
-              <strong>Venduto da:</strong> {selectedProduct.vendor}
-            </p>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
-              Chiudi
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
     </div>
   );
 };

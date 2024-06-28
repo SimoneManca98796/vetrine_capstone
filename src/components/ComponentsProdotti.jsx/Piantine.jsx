@@ -50,40 +50,52 @@ const Piantine = () => {
         {Array.isArray(displayedProducts) && displayedProducts.length > 0 ? (
           displayedProducts.map((product) => (
             <div className="col-md-12 mb-4" key={product.id}>
-              <Card className="piantine-product-row">
-                <div className="row no-gutters">
-                  <div className="col-md-4 piantine-product-image-col">
-                    <Card.Img
-                      variant="top"
-                      src={product.imageUrl}
-                      alt={product.name}
-                      className="piantine-product-image"
-                    />
+              <Link
+                to={`/product/${product.id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Card className="piantine-product-row">
+                  <div className="row no-gutters">
+                    <div className="col-md-4 piantine-product-image-col">
+                      <Card.Img
+                        variant="top"
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="piantine-product-image"
+                      />
+                    </div>
+                    <div className="col-md-8">
+                      <Card.Body className="piantine-product-details">
+                        <Card.Title className="piantine-product-title">
+                          {product.name}
+                        </Card.Title>
+                        <Card.Text className="piantine-product-description">
+                          {product.description}
+                          <br />
+                          Prezzo: €{product.price}
+                          <br />
+                          Venditore: {product.vendorName ||
+                            "Non specificato"}{" "}
+                          {product.vendorSurname || ""}
+                        </Card.Text>
+                        <Button
+                          variant="primary"
+                          className="piantine-add-to-cart-button"
+                          onClick={(e) => {
+                            e.preventDefault(); // Prevent default link behavior
+                            handleAddToCart(product);
+                          }}
+                        >
+                          Aggiungi al Carrello
+                        </Button>
+                        <Link to={`/product/${product.id}`}>
+                          <FaInfoCircle className="piantine-info-icon" />
+                        </Link>
+                      </Card.Body>
+                    </div>
                   </div>
-                  <div className="col-md-8">
-                    <Card.Body className="piantine-product-details">
-                      <Card.Title className="piantine-product-title">
-                        {product.name}
-                      </Card.Title>
-                      <Card.Text className="piantine-product-description">
-                        {product.description}
-                        <br />
-                        Prezzo: €{product.price}
-                      </Card.Text>
-                      <Button
-                        variant="primary"
-                        className="piantine-add-to-cart-button"
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        Aggiungi al Carrello
-                      </Button>
-                      <Link to={`/product/${product.id}`}>
-                        <FaInfoCircle className="piantine-info-icon" />
-                      </Link>
-                    </Card.Body>
-                  </div>
-                </div>
-              </Card>
+                </Card>
+              </Link>
             </div>
           ))
         ) : (

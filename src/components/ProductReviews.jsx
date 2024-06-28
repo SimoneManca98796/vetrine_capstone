@@ -56,7 +56,7 @@ const ProductReviews = ({ productId }) => {
 
   return (
     <div className="product-reviews">
-      <h2>Product Reviews</h2>
+      <h2>Recensione Prodotto</h2>
       {message && <p>{message}</p>}
       {reviews.map((review) => (
         <div key={review.id} className="product-review">
@@ -72,13 +72,13 @@ const ProductReviews = ({ productId }) => {
         </div>
       ))}
       <div className="submit-review">
-        <h3>Submit a Review</h3>
+        <h3>Invia Recensione</h3>
         <input
           type="text"
           name="comment"
           value={newReview.comment}
           onChange={handleInputChange}
-          placeholder="Il tuo commento..."
+          placeholder="Lascia un commento..."
         />
         <StarRating
           count={5}

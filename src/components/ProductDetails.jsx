@@ -39,7 +39,9 @@ const ProductDetails = () => {
           </p>
           <p>
             <strong>Venditore:</strong>{" "}
-            {product.vendor ? product.vendor.name : "Non specificato"}
+            {product.vendorName
+              ? `${product.vendorName} ${product.vendorSurname}`
+              : "Non specificato"}
           </p>
           <ProductReviews productId={productId} />
         </div>
