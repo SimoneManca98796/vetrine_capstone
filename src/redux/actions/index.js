@@ -479,7 +479,7 @@ export const fetchPrices = () => {
       type: FETCH_PRICES_SUCCESS,
       payload: prices,
     });
-  };
+  }; // dwewewe
 };
 
 // Fetches filtered prices based on criteria

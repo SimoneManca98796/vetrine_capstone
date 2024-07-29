@@ -16,6 +16,7 @@ import { Line } from "react-chartjs-2"; // Importa il componente grafico
 import "chart.js/auto"; // Importa la libreria del grafico
 import "../../App.css";
 import "../../PrezziSuini.css";
+// eedede
 
 const cityOptions = [
   { value: "Sardegna", label: "Sardegna" },
