@@ -28,10 +28,13 @@ const ResetPasswordForm = () => {
     }
 
     try {
-      await axios.post("http://localhost:8080/api/users/reset-password", {
-        token,
-        newPassword: password,
-      });
+      await axios.post(
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/users/reset-password",
+        {
+          token,
+          newPassword: password,
+        }
+      );
       setModalMessage("Password aggiornata con successo.");
       setShowModal(true);
     } catch (error) {

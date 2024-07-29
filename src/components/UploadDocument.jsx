@@ -21,7 +21,7 @@ const UploadDocument = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:8080/api/users/upload-document",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/users/upload-document",
         formData,
         {
           headers: {

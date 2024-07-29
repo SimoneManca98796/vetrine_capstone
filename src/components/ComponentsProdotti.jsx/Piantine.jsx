@@ -88,9 +88,9 @@ const Piantine = () => {
                         >
                           Aggiungi al Carrello
                         </Button>
-                        <Link to={`/product/${product.id}`}>
+                        <div onClick={(e) => e.stopPropagation()}>
                           <FaInfoCircle className="piantine-info-icon" />
-                        </Link>
+                        </div>
                       </Card.Body>
                     </div>
                   </div>

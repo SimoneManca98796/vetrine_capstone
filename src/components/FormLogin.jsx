@@ -45,9 +45,12 @@ const FormLogin = () => {
   const handleForgotPassword = async () => {
     try {
       // Invia richiesta per recuperare la password
-      await axios.post("http://localhost:8080/api/users/forgot-password", {
-        email: forgotPasswordEmail,
-      });
+      await axios.post(
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/users/forgot-password",
+        {
+          email: forgotPasswordEmail,
+        }
+      );
       setModalMessage(
         "Le istruzioni per il recupero della password sono state inviate alla tua email."
       );

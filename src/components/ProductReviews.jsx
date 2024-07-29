@@ -13,11 +13,11 @@ const ProductReviews = ({ productId }) => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/reviews/product/${productId}`
+          `https://vetrine-agricole-6d661b03a449.herokuapp.com/api/reviews/product/${productId}`
         );
         setReviews(response.data);
       } catch (error) {
-        console.error("Error fetching reviews:", error);
+        console.error("Errore nel recupero delle recensioni:", error);
       }
     };
 
@@ -37,7 +37,7 @@ const ProductReviews = ({ productId }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:8080/api/reviews",
+        "https://vetrine-agricole-6d661b03a449.herokuapp.com/api/reviews",
         { ...newReview, product: { id: productId } },
         {
           headers: {
@@ -46,13 +46,18 @@ const ProductReviews = ({ productId }) => {
         }
       );
       setReviews([...reviews, response.data]);
-      setMessage("Review submitted successfully");
+      setMessage("Recensione inviata con successo");
       setNewReview({ comment: "", rating: 0 });
     } catch (error) {
-      console.error("Error submitting review:", error);
-      setMessage("Failed to submit review");
+      console.error("Errore nell'invio della recensione:", error);
+      setMessage("Invio della recensione fallito");
     }
   };
+
+  // Aggiungi questo per il debug
+  useEffect(() => {
+    console.log(reviews);
+  }, [reviews]);
 
   return (
     <div className="product-reviews">
@@ -62,12 +67,12 @@ const ProductReviews = ({ productId }) => {
         <div key={review.id} className="product-review">
           <StarRating
             count={5}
-            rating={review.rating}
+            rating={review.rating || 0}
             onChangeRating={() => {}}
           />
           <p>{review.comment}</p>
           <p>
-            <strong>By:</strong> {review.user.name}
+            <strong>By:</strong> {review.user?.name || "Anonimo"}
           </p>
         </div>
       ))}
