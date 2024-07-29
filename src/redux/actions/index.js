@@ -474,7 +474,7 @@ export const fetchPrices = () => {
         luogo: "Sassari",
       },
     ];
-
+    /////////////////////
     dispatch({
       type: FETCH_PRICES_SUCCESS,
       payload: prices,
