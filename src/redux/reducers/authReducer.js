@@ -55,7 +55,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: false,
-        token: null,
+        token: null, // prova
         avatarUrl: null,
         user: null,
       };
